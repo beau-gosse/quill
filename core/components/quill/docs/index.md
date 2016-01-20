@@ -48,10 +48,6 @@ Quill installs the following extras to get things running:
 ![Image of a sample blog post themed by Quill](http://cdn.kleverr.com/pjx/quill/img/demo/quill-shot-9.png)
 
 - Easily Customizable within the manager
-- Dedicated content layouts (Home, Post, Author, Topic, Search, Sections, Fluid)
-- Optional dedicated pages (Archives, Sections, Topics, search, RSS, Sitemap, 404 Error page, Unavailable page)
-- Faster page load times (via efficient caching, minification, fewer HTTP Requests, image/Disqus lazy loading, CDN usage, etc.)
-- Read time info
 - Pattern library for style references
 - Clean, intuitive well-structured and well-commented markup
 - Fully commented Sass source files
@@ -63,32 +59,7 @@ Quill installs the following extras to get things running:
 - SEO-optimized
 - Cross-Browser Compatibility: Chrome, FF, Safari, Edge, Opera, IE9+
 - 100% Responsive
-
-## Credits
-
-Quill wouldn't be possible without these very useful assets:
-
-- [JQuery](http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js)
-- [Bootstrap](http://v4-alpha.getbootstrap.com/)
-- [Unveil.js](http://luis-almeida.github.io/unveil/)
-- [Prism.js](http://prismjs.com/)
-- Reading Time by [Michael Lynch](http://michaelynch.com/)
-- [Disqus](http://c0028.paas2.tx.modxcloud.com/disqus.com)
-- [SVG Icons](http://c0028.paas2.tx.modxcloud.com/svgicons.sparkk.fr)
-
-Special thanks to MODX's John Peca (@theboxer) and Wayne Roddy (@dubROD) for the for the groundwork. Flatso theme and Git Package Management were invaluable when developing Quill.
-
-- Pattern library for style references
-- Clean, intuitive well-structured and well-commented markup
-- Fully commented Sass source files
-- Syntax highlighting (Prism.js)
-- Built with Bootstrap V4 (alpha)
-- Suggested posts
-- Widgets: Newsletter signup form, Social share links, side notes, etc.
-- Optional featured images
-- SEO-optimized
-- Cross-Browser Compatibility: Chrome, FF, Safari, Edge, Opera, IE9+
-- 100% Responsive
+- And more!
 
 ## Credits
 
