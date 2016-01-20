@@ -1,6 +1,6 @@
 <a href="[[~[[+id]]? &src=`featured`]]">
-    <figure class="figure">
-      <img src="[[+tv.qllFeaturedImage]]" width="[[+width:default=`1280`]]" class="img-fluid" alt="[[+pagetitle]]">
+    <figure class="figure center-block">
+      <img src="[[+tv.qllFeaturedImage]]" width="[[+width:default=`1280`]]" class="img-fluid center-block" alt="[[+pagetitle]]">
       <figcaption class="figure-caption post-photo-credit">[[+tv.qllImageCaption]]
         <span class="pull-md-right">[[+tv.qllImageCredits]]</span>
       </figcaption>
