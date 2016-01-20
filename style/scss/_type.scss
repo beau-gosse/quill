@@ -255,7 +255,9 @@ ul{
 // -------
 
 figure {
-  display: block !important;// Ensures hero images enclosed in <figure> stay within the .container
+  // Force hero images enclosed in <figure> to stay within the .container
+  // when the page is scrolled on larger screens.
+  display: block !important;
 }
 // Force center alignment of featured images
 .featured-img {
