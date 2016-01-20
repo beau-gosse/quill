@@ -254,6 +254,9 @@ ul{
 // Figures
 // -------
 
+figure {
+  display: block !important;// Ensures hero images enclosed in <figure> stay within the .container
+}
 // Force center alignment of featured images
 .featured-img {
   margin-left: auto !important;
