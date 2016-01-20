@@ -1,5 +1,6 @@
 [[!pdoPage?
   &element=`getArchives`
+  &grSnippet=`pdoResources`
   &tpl=`qllArchiveTpl`
   &hideContainers=`1`
   &pageVarKey=`page`
