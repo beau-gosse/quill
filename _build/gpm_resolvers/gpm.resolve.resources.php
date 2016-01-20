@@ -459,8 +459,9 @@ from all authors. See $qllAuthorLayout for more info]]
     'pagetitle' => 'Archives',
     'alias' => 'archives',
     'parent' => 'Quill',
-    'content' => '[[!pdoPage:default=`There are currently no articles in the Archives. Please check back soon.`?
+    'content' => '[[!pdoPage?
   &element=`getArchives`
+  &grSnippet=`pdoResources`
   &tpl=`qllArchiveTpl`
   &hideContainers=`1`
   &pageVarKey=`page`
@@ -476,7 +477,7 @@ from all authors. See $qllAuthorLayout for more info]]
   &tplPagePrevEmpty=``
   &tplPageNextEmpty=``
 ]]
-[[+archives]]
+[[+archives:default=`<p class="text-sm-center">There are currently no articles in the Archives. Please check back soon.</p>`]]
 ',
     'context_key' => 'web',
     'class_key' => 'modDocument',
