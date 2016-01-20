@@ -1,4 +1,4 @@
-[[!pdoPage:default=`There are currently no articles in the Archives. Please check back soon.`?
+[[!pdoPage?
   &element=`getArchives`
   &tpl=`qllArchiveTpl`
   &hideContainers=`1`
@@ -15,4 +15,4 @@
   &tplPagePrevEmpty=``
   &tplPageNextEmpty=``
 ]]
-[[+archives]]
+[[+archives:default=`<p class="text-sm-center">There are currently no articles in the Archives. Please check back soon.</p>`]]
