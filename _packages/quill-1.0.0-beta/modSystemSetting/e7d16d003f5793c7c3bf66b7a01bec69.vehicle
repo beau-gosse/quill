@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'quill',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => 'cb6585d2c5f0dfdecce2c1e918960b8b',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => 'e7d16d003f5793c7c3bf66b7a01bec69',
+  'native_key' => 'quill.sections_page',
+  'object' => '{"key":"quill.sections_page","value":"","xtype":"textfield","namespace":"quill","area":"default","editedon":null}',
+);

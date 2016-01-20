@@ -1,0 +1,17 @@
+[[!pdoPage?
+  &select=`{"modResource":"id,pagetitle,introtext,publishedon,createdby"}`
+  &parents=`[[++quill.blog_container]]`
+  &tpl=`qllPostTpl`
+  &scheme=`full`
+  &sortby=`publishedon`
+  &limit=`10`
+  &sortdir=`DESC`
+  &includeTVs=`qllFeaturedImage`
+  &tplPageWrapper=`qllPageWrapperTpl`
+  &tplPage=`qllPageTpl`
+  &tplPageActive=`qllPageActiveTpl`
+  &tplPagePrev=`qllPagePrevTpl`
+  &tplPageNext=`qllPageNextTpl`
+  &tplPagePrevEmpty=``
+  &tplPageNextEmpty=``
+]]

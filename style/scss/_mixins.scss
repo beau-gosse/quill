@@ -1,0 +1,53 @@
+// # Mixins
+// Quill's' additional mixins
+//
+
+// SVG Icons
+// Credits: svgicons.sparkk.fr
+// ---------------------------
+
+@mixin svg-icon($width: 1.25rem, $height: 1.25rem, $fill: $gray-light, $stroke: $gray-light) {
+
+  width: $width;
+  height: $height;
+
+  path,
+  polygon,
+  rect {
+    fill: $fill;
+    @include transition($transition);
+  }
+  circle {
+    stroke: $fill;
+    stroke-width: 1;
+    @include transition($transition);
+  }
+}
+
+@mixin blockquote {
+  blockquote {
+    padding: ($spacer / 2) $spacer;
+    margin-bottom: $spacer;
+    font-size: $blockquote-font-size;
+    border-left: $border-width solid $blockquote-border-color;
+
+    p,
+    ul,
+    ol {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    footer {
+      display: block;
+      font-size: 80%; // back to default font-size
+      line-height: $line-height;
+      color: $blockquote-small-color;
+
+      &:before {
+        content: "\2014 \00A0"; // em dash, nbsp
+      }
+    }
+  }
+}

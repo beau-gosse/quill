@@ -1,0 +1,322 @@
+// # Type
+// Custom styles for typographic elements that
+// extend or override Bootstrap defaults
+
+// Headings, titles, etc.
+// ----------------------
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  letter-spacing: $headings-letter-spacing;
+}
+
+h1,
+.h1 {
+  font-weight: 900;
+}
+
+// Add extra top margin on all headings within .main-content
+// to visually indicate section separation.
+.main-content {
+  h2:not(.m-t-0),
+  h3:not(.section-title),
+  h4:not(.media-heading) {
+    margin-top: $section-spacer !important;
+    // Increase top margin for larger screens
+    @include media-breakpoint-up(sm) {
+      margin-top: 3rem !important;
+    }
+  }
+}
+
+// Headline -- similar to h1
+.headline {
+  font-weight: 900;
+  margin-bottom: $section-spacer;
+}
+
+// Make a title thin
+.subtitle {
+  font-weight: 300;
+  font-family: $font-family-sans-serif;
+}
+
+// Title groups
+.hgroup {
+  .hgroup-title {
+    margin: 0;
+    padding: 0;
+  }
+  .hgroup-subtitle {
+    font-weight: 300;
+  }
+}
+
+// Similar to combining .small .text-muted .meta
+// (!You can use @extend, but mind the output file size)
+// If the same selector(s) are extended multiple times.
+.section-title {
+  font-weight: normal;
+  color: $text-muted;
+  font-family: $font-family-meta;
+  font-size: .75rem;
+  letter-spacing: normal !important;
+  // Use border-bottom to emulate <hr>
+  &.has-hr {
+    padding-bottom: $spacer-y;
+    margin-bottom: $section-spacer;
+    border-bottom: $hr-border-width solid $hr-border-color;
+  }
+  // Decorate with double dagger, except in readtime sections
+  &:not(.readtime)::before {
+    content: "\2021 \00A0"; // &Dagger &nbsp;
+  }
+  // Decorate with a clock face in readtime sections
+  &.readtime::before {
+    content: "\1F553 \00A0"
+  }
+}
+
+// Adequately separate body text from section titles placed below it
+.body-text + .section-title {
+  margin-top: 3rem;
+}
+
+// Visually indicate section breaks.
+// Usage: <h2 class="section-break">Section title</h2>
+.section-break {
+  // Hide self-referencing section anchor by default
+  .ref-anchor {
+    display: none;
+    font-size: .75rem;
+    line-height: .75rem;
+    padding-left: .3125rem;
+    vertical-align: middle;
+  }
+}
+
+.section-break:hover {
+  // Add a section mark to the left of the heading
+  // when the section heading is hovered.
+  &::before {
+    content: "\00A7"; //&sect;
+    position: absolute;
+    left: -($spacer-x/2);
+  }
+  // Show when the section heading is hovered
+  // Usage: <h2 class="section-break">My Heading <a href="#section-1">section 1</a></h2>
+  .ref-anchor {
+    display: inline-block;
+  }
+}
+
+// Visually indicate section breaks with an asterism (Dinkus - 3 asterisks)
+// (!When using an asterism , ensure the section title is omitted
+// so as to call attention to the omission)
+// Usagae output: <p>...</p> *** <p>...</p>
+.section-break-asterism {
+  &::before {
+    content: "***"; //&sect;
+    margin-left: -($spacer-x);
+    display: block;
+    margin-bottom: $section-spacer;
+    margin-top: 1rem;
+  }
+}
+
+// Highlight a heading/title with an accent color
+.pretty-title {
+  color: darken($brand-danger, 5%);
+}
+
+// Section separators
+// ------------------
+
+// Heading with down-pointing arrow
+.read-next {
+  display: block;
+  text-align: center;
+  margin-bottom: $section-spacer;
+
+  &.has-top-spacer {
+    margin-top: $section-spacer;
+  }
+
+  // Down-pointing arrow
+  &::after {
+    content: "\2193"; // &darr;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .heading {
+    margin-bottom: .625rem;
+    color: $brand-danger;
+  }
+}
+
+// Meta
+// Style for meta/descriptive elements such as signatures,
+// captions, credits, etc.
+// -------------------------------------------------------
+
+.meta {
+  font-family: $font-family-meta;
+  font-size: .75rem;
+}
+
+.meta-title {
+  font-size: .875rem;
+}
+
+// Emphasis
+// --------
+
+// Override Bootstrap's default background color for the <mark> element
+// with a light grayish blue that blends well with the theme
+mark,
+.mark {
+  background-color: lighten($grayish-blue-light, 2%);
+}
+
+// Paragraphs
+// ----------
+
+// Slightly increase the ligne-height on all non-leading <p>'s
+// within <main id="content">
+.main-content p:not(.lead),
+.main-content p:not(.section-title) {
+  line-height: $content-line-height;
+}
+
+// Apply .lead styles to the first paragraph within <main id="content">,
+// except in search results
+.article-body:not(.search-results) > p:first-of-type,
+.body-text:not(.search-results) > p:first-of-type {
+  @extend .lead;
+  // Reset line-height
+  line-height: $line-height !important;
+}
+
+// Lists
+// -----
+
+ol,
+ul{
+  // Pull the list to the left on tablets and larger devices
+  // To align it with the Blockquote's left margin
+  @include media-breakpoint-up(sm) {
+    margin-left: 0;
+    padding-left: 0;
+    // Remove the circle from any top-level list-item in a nested list
+    .list-nested-item{
+      list-style-type: none;
+    }
+    ol,
+    ul {
+      padding-left: 1rem;
+    }
+  }
+
+}
+
+ // Add extra breathing room below list items in the content section
+ .main-content ul > li,
+ .main-content ol > li {
+   margin-bottom: $spacer-y;
+ }
+
+// Blockquotes
+// -----------
+
+.blockquote {
+  border-left-width: $border-width !important;
+  // Pull the quote to the left on tablets and larger devices
+  @include media-breakpoint-up(sm) {
+    margin-left: -1rem;
+  }
+
+  footer {
+    font-family: $font-family-meta;
+    font-size: 0.875rem;
+  }
+}
+
+// Right-aligned blockquote
+.blockquote-reverse {
+  border-right-width: $border-width;
+  // Pull the quote to the right on tablets and larger devices
+  @include media-breakpoint-up(sm) {
+    margin-right: -1rem;
+  }
+}
+
+// Figures
+// -------
+
+// Force center alignment of featured images
+.featured-img {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.figure-caption,
+.post-photo-credit {
+  font-family: $font-family-meta;
+  color: $text-muted;
+  font-size: .6875rem;
+  padding: $spacer-y 0 0;
+}
+
+// Misc.
+// -----
+
+// Center-align group of block elements
+.center-content {
+  text-align: center;
+
+  h1,h2,h3,h4,h5,h6,
+  p,figure {
+    text-align: center;
+  }
+}
+
+// Read-more link with right-pointing arrow.
+// Similar to: "Read more &rarr;"
+.read-more {
+  display: inline-block;
+  &::after {
+    content: " \2192"; // &rarr;
+  }
+}
+
+.text-error {
+  @extend .text-danger;
+}
+
+.text-sans {
+  font-family: $font-family-sans-serif;
+}
+
+.text-mono {
+  font-family: $font-family-monospace;
+}
+
+.text-thick {
+  font-weight: 900;
+}
+
+.text-thin {
+  font-weight: 300;
+}
+
+.author-bio {
+  font-family: $font-family-meta;
+  font-size: .875rem;
+}
+
+// Emulate text-decoration-color
+.underline-primary {
+  display: inline-block;
+  border-bottom: 2px solid $brand-primary;
+}

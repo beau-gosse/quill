@@ -1,0 +1,41 @@
+// # Buttons
+// Custom styles for buttons and similar elements
+//
+
+.btn {
+  font-family: $font-family-sans-serif;
+  @include border-radius(0);
+}
+
+.btn-flat {
+  border-radius: 0;
+}
+
+// Remove background, border and state styles
+// Similar to btn-link, except no padding, no link-color
+// Useful when you only need button functions, not their style
+.btn-chromeless {
+  @include border-radius(0);
+  border-width: 0;
+  height: auto;
+  padding: 0;
+  background-color: transparent;
+
+  // Remove the blue outline when the button is focused or active
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      outline: none;
+    }
+  }
+}
+
+// Button sizes
+// ------------
+
+.btn-jumbo {
+  // line-height: ensure even-numbered height of button next to large input
+  @include button-size(1.5rem, 3.75rem, $font-size-lg, 2, 4rem);
+}

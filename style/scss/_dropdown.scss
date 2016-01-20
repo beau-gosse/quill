@@ -1,0 +1,63 @@
+// # Dropdown
+// Override and extend Bootstrap defaults
+//
+
+// The dropdown menu <div>
+// -----------------------
+
+.dropdown-menu {
+  font-size: .8125rem;
+}
+
+// Dark theme -- light text on dark background
+// -------------------------------------------
+
+.dropdown-menu-dark {
+  background-color: $dropdown-dark-bg;
+  border: 1px solid $dropdown-dark-border;
+
+    // Up-pointing triangle (removed in Bootstrap 3)
+    &::before,
+    &::after {
+      position: absolute;
+      display: inline-block;
+      border-right: 7px solid transparent;
+      border-bottom: 7px solid $dropdown-dark-border;
+      border-left: 7px solid transparent;
+    }
+
+    &::before {
+      top: -7px;
+      left: 9px;
+      border-bottom-color: rgba(0, 0, 0, 0.2);
+      content: '';
+    }
+
+    &::after {
+      top: -6px;
+      left: 10px;
+      border-right-width: 6px;
+      border-bottom-width: 6px;
+      border-bottom-color: $dropdown-dark-bg;
+      border-left-width: 6px;
+      content: '';
+  }
+}
+// Menu items
+.dropdown-menu-dark .dropdown-item {
+  color: #fff;
+  @include transition($transition);
+  // Hover state
+  &:hover {
+    color: $gray-light;
+    background-color: transparent;
+  }
+  // Active hover state
+  &.active:hover {
+    background-color: darken($dropdown-link-active-bg, 5%);
+    color: #fff;
+  }
+
+}
+
+.dropdown-menu-dark .dropdown-divider { @include nav-divider($dropdown-dark-divider-bg) }

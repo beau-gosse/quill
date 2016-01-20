@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'quill',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => 'a1c94c19f0cbbcd6ab56d2808c0cbf63',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '5ee94ec044df3d9d879a8ee36615a395',
+  'native_key' => 'quill.rss_page',
+  'object' => '{"key":"quill.rss_page","value":"","xtype":"textfield","namespace":"quill","area":"default","editedon":null}',
+);

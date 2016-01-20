@@ -1,0 +1,12 @@
+[[!SimpleSearch?
+  &ids=`[[++quill.blog_container]]`
+  &depth=`2`
+  &tpl=`qllSearchResult`
+  &containerTpl=`qllSearchResults`
+  &noResultsTpl=`qllSearchNoResults`
+  &pageTpl=`qllSearchPageLink`
+  &currentPageTpl=`qllSearchCurrentPageLink`
+  &highlightTag=`mark`
+  &urlScheme=`full`
+  &searchIndex=`term`
+]]

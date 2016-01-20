@@ -1,0 +1,27 @@
+// # Mgr
+// Optimzed Styles used by the RTE (MODX manager)
+//
+
+// Theme's custom variables
+// Place on top to override Bootstrap's defaults
+@import "variables";
+
+// Bootstrap
+@import "vendor/bootstrap/v4-alpha-2/bootstrap";
+
+// Core CSS
+@import "mixins";
+@import "basics";
+@import "type";
+@import "images";
+@import "buttons";
+@import "grid";
+@import "forms";
+//@import "nav";
+//@import "dropdown";
+@import "layout";
+
+// Extended styles
+@import "prism";
+@import "extra";
+@import "rte";

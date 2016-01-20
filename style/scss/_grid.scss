@@ -1,0 +1,70 @@
+// # Grid
+// Custom grid settings (Used mostly for convenience)
+//
+
+// Custom content columns
+// ----------------------
+
+.content-col,
+.content-col-big,
+.content-col-half,
+.content-col-off,
+.side-col {
+  // Make the element grid-ready (applying everything but the width)
+  @include make-col();
+  // Collpsed on phones
+  @include media-breakpoint-down(sm) {
+    @include make-col-span(12);
+  }
+}
+
+// Make a column similar to col-sm-8 col-sm-offset-2
+// Used on one-column layouts with side floatbars
+.content-col {
+  // Horizontal on tablets and up
+  @include media-breakpoint-up(md) {
+    @include make-col-span(8);
+    @include make-col-offset(2);
+  }
+}
+
+// Make a column similar to col-md-6 col-md-offset-3
+// Used on page headers with centered content, such as
+// the authors bio header
+.content-col-half {
+  // Horizontal on tablets and up
+  @include media-breakpoint-up(md) {
+    @include make-col-span(6);
+    @include make-col-offset(3);
+  }
+}
+
+// Make a column similar to col-md-7 col-md-offset-1
+// Used on two-column layouts with content on the left
+// and a sidebar on the right
+.content-col-off {
+  // Horizontal on tablets and up
+  @include media-breakpoint-up(md) {
+    @include make-col-span(7);
+    @include make-col-offset(1);
+  }
+}
+
+// Make a column similar to col-md-10 col-md-offset-1
+// Used for newsletter signup forms below the content
+.content-col-big {
+  // Horizontal on tablets and up
+  @include media-breakpoint-up(md) {
+    @include make-col-span(10);
+    @include make-col-offset(1);
+  }
+}
+
+// Make a sidebar column similar to col-md-3 col-md-offset-1
+.side-col {
+  // Horizontal on tablets and up
+  @include media-breakpoint-up(md) {
+      @include make-col-span(3);
+      @include make-col-offset(1);
+  }
+}

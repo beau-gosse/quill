@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'quill',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '0e23f23aae383cb1b04d763d4733f1f8',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '197422b20b9fc6b1ef68fdeccdb80fb8',
+  'native_key' => 'quill.doc_container',
+  'object' => '{"key":"quill.doc_container","value":"","xtype":"textfield","namespace":"quill","area":"default","editedon":null}',
+);

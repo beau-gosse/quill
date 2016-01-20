@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'quill',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '28e6722635fe5e123b455624a7034ecf',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '424f82d1766351affa70c6c84fbcd713',
+  'native_key' => 'quill.search_page',
+  'object' => '{"key":"quill.search_page","value":"","xtype":"textfield","namespace":"quill","area":"default","editedon":null}',
+);

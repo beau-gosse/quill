@@ -1,0 +1,81 @@
+// # Forms
+// Overrides and extends Bootstrap's default form controls
+//
+
+// Global form element styles
+// --------------------------
+
+.form-control {
+  // Use sans-serif fonts for form elements for a friendlier look
+  font-family: $font-family-sans-serif;
+  // Fade in the border color on hover + fade it out on mouseout
+  @include transition($transition);
+
+  &:hover {
+    border-color: $input-border-hover;
+  }
+}
+
+// Input fields
+// ------------
+
+// pronounced border-radius
+.input-rounded {
+  @include border-radius($input-border-radius-xl);
+}
+
+.input-flat {
+  @include border-radius(0);
+}
+
+.search-field-nav {
+  vertical-align: middle;
+  font-size: .875rem;
+  margin-top: .1875rem;// vertically align the search field other menu items
+}
+
+// Float the navbar search form to the left on phones.
+// Float to the right on larger screen sizes
+.search-form-nav {
+  float: left;
+  margin-left: 1rem;
+  display: none;
+  @include media-breakpoint-up(sm) {
+    display: block;
+  }
+  @include media-breakpoint-up(md) {
+    float: right;
+  }
+}
+
+.input-group-search {
+  position: relative;
+  display: block;
+
+  .search-field-nav {
+    padding-left: 2.375rem;
+  }
+
+  .search-btn {
+    position: absolute;
+    top: .59375rem;
+    left: .59375rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+  }
+}
+
+// Newsletter signup forms
+// -----------------------
+
+.nletter-signup {
+  padding-top: $section-spacer !important;
+  padding-bottom: $section-spacer !important;
+
+  // Vertically align form label/text with field
+  .signup-text {
+    padding-top: .4375rem;
+    margin-bottom: .4375rem;
+  }
+}

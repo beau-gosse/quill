@@ -1,0 +1,165 @@
+// # Layout
+// Styles for page sections and structural elements
+//
+
+// Section containers
+// ------------------
+
+.container-wrapper {
+  width: 100%;
+  display: block;
+  position: relative;
+  border-top: $section-border-thin;
+
+  // Add a bottom border to visually separate between sections
+  &.last {
+    border-bottom: $section-border-thin;
+  }
+
+  &.masthead {
+    border-top: none;
+    border-bottom: $section-border-thin;
+  }
+}
+
+// Properly space out and align image captions/credits
+// for full-width images
+.section-full {
+  position: relative;
+  margin-bottom: $section-spacer;
+  display: block;
+  .figure-caption,
+  .post-photo-credit {
+    padding: $spacer-y ($spacer-x * 3) 0;
+  }
+
+  .section-caption {
+    @extend .carousel-caption;
+    bottom: $section-spacer;
+  }
+}
+
+// Content sections
+// ----------------
+
+.sidebar,
+.block-content{
+  padding-top: $section-spacer;
+  padding-bottom: $section-spacer;
+
+  img {
+    margin: 0 auto $section-spacer;
+  }
+
+  // This fix ensures .img-fluid works in FF.
+  // Known bug. See: https://github.com/twbs/bootstrap/issues/10690
+  .img-fluid,
+  .img-responsive {
+    width: 100%;
+  }
+}
+
+// Visually separate the article header from the rest of the content
+.article-header {
+  margin-bottom: $section-spacer;
+  // Add extra breathing room below the header for tablets and larger devices
+  @include media-breakpoint-up(sm) {
+    margin-bottom: 2.5rem;
+  }
+
+  figure img {
+    margin-bottom: 1rem;
+  }
+}
+
+// Center non-hero page headers on large devices
+.page-header {
+  width: 100%;
+  @include media-breakpoint-up(sm) {
+    width: 66.66667%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// Adjust margins and font sizes of the .featured-post
+// for proper display on phones
+.featured-post {
+  @include media-breakpoint-down(md) {
+    margin-top: 2rem;
+    // Bring out captions and credits with a dark background
+    background-color: $midnight-blue;
+    // Adapt title font-size for smaller screen sizes
+    h1,
+    .h1{
+      font-size: 150%;
+    }
+  }
+}
+
+// Adequately space out individual blog posts on post listing pages.
+// Smaller margins on portrait phones, bigger on landscape phones and up
+.block-post {
+  margin-bottom: $section-spacer;
+  @include media-breakpoint-up(sm) {
+    margin-bottom: 2.5rem;
+  }
+}
+
+// Section borders
+// Optional column borders (visible on landscape phones and up)
+// ------------------------------------------------------------
+
+.has-border-left {
+  @include media-breakpoint-up(md) {
+    border-left: $section-border-thin;
+  }
+}
+
+.has-border-right {
+  @include media-breakpoint-up(md) {
+    border-right: $section-border-thin;
+  }
+}
+
+// Footer
+// ------
+
+// Vertically center the footer content area within the footer
+.footer-content {
+  padding-top: 1.84375rem;
+  padding-bottom: 1.84375rem;
+  margin-bottom: 0;
+  font-size: .875rem;
+  font-family: $font-family-meta;
+  color: $text-muted;
+
+  a {
+    color: $text-muted;
+    &:hover {
+      color: $pagination-hover-color;
+    }
+  }
+}
+
+// Misc.
+// ----
+
+// Add extra breathing room around the content area
+.body-spacer {
+  padding-top: 5rem;
+  padding-bottom: 2.5rem;
+}
+
+.top-spacer {
+  margin-top: 1.5rem;
+}
+
+.off-spacer-y {
+  margin-bottom: -1.5rem;
+}
+
+// Add space between the demo carousel indicators and the call to action button.
+.demo-carousel .carousel-indicators{
+  bottom: -2rem;
+}

@@ -1,0 +1,490 @@
+// # Widgets
+// Styles used for manager dashboard widgets
+//
+
+// Imports
+// -------
+
+@import "variables";
+
+// Mixins
+// ------
+
+// Clearfix
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+// Grid
+@mixin make-container($gutter: $grid-gutter-width) {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+  @include clearfix();
+}
+
+@mixin make-row($gutter: $grid-gutter-width) {
+  @if $enable-flex {
+    display: flex;
+    flex-wrap: wrap;
+  } @else {
+    @include clearfix();
+  }
+  margin-left:  ($gutter / -2);
+  margin-right: ($gutter / -2);
+}
+
+@mixin make-col($gutter: $grid-gutter-width) {
+  position: relative;
+  @if $enable-flex {
+    // Do nothing
+  } @else {
+    float: left;
+  }
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+}
+@mixin make-col-span($size, $columns: $grid-columns) {
+  width: percentage($size / $columns);
+}
+
+@mixin make-col-offset($size, $columns: $grid-columns) {
+  margin-left: percentage($size / $columns);
+}
+
+// Buttons
+@mixin button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+  &:hover {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 12%);
+  }
+}
+@mixin button-outline-variant($color) {
+  color: $color;
+  background-image: none;
+  background-color: transparent;
+  border-color: $color;
+}
+@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: 0;
+}
+
+// Grid + Columns
+// --------------
+
+.container {
+  @include make-container;
+}
+
+.row {
+  @include make-row;
+}
+
+.col-4,
+.col-6,
+.col-7,
+.col-8,
+.col-11,
+.col-full {
+  // Make the element grid-ready (applying everything but the width)
+  @include make-col();
+  // Collpsed on smaller screen sizes
+  @media (max-width: 33.9em) {
+    @include make-col-span(12);
+  }
+}
+
+// Make a column similar to col-sm-4
+// Used on one-column layouts with side floatbars
+.col-4 {
+  @media (min-width: 34em) {
+    @include make-col-span(4);
+  }
+}
+// Make a column similar to col-sm-6
+.col-6 {
+  @media (min-width: 34em) {
+    @include make-col-span(6);
+  }
+}
+// Make a column similar to col-sm-7
+.col-7 {
+  @media (min-width: 34em) {
+    @include make-col-span(7);
+  }
+}
+// Make a column similar to col-sm-8
+.col-8 {
+  @media (min-width: 34em) {
+    @include make-col-span(8);
+  }
+}
+// Make a column similar to col-sm-11
+.col-11 {
+  @media (min-width: 34em) {
+    @include make-col-span(11);
+  }
+}
+// Make a column similar to col-sm-12
+.col-full {
+  @media (min-width: 34em) {
+    @include make-col-span(12);
+  }
+}
+
+// Type
+// ----
+
+.qll-body {
+  font-size: $font-size-root;
+  font-family: $font-family-sans-serif;
+  line-height: $line-height;
+  color: $body-color;
+  p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  a:not(.qll-wgt-btn) {
+    color: $link-color;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: $link-hover-color;
+      text-decoration: $link-hover-decoration;
+    }
+  }
+}
+.qll-wgt-h3,
+.qll-wgt-h4,
+.qll-wgt-h5 { font-family: $font-family-sans-serif; }
+.qll-wgt-h3 { font-size: $font-size-h3; }
+.qll-wgt-h4 { font-size: $font-size-h4; }
+.qll-wgt-h5 { font-size: $font-size-h5; }
+
+.text-small {
+  font-size: 80%;
+  font-weight: normal;
+  color: $text-muted;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+  display: inline-block;
+  margin-right: 1rem;
+
+  &:last-of-type{
+    margin-right: 0;
+  }
+}
+
+// Buttons
+// ------
+
+// Base style
+.qll-wgt-btn,
+a.qll-wgt-btn {
+  display: inline-block;
+  text-align: center;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  font-weight: $btn-font-weight;
+  line-height: $line-height;
+  white-space: nowrap;
+  vertical-align: middle;
+  padding: $btn-padding-y, $btn-padding-x;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  border: $border-width solid transparent;
+  border-radius: 0;
+  transition: all .15s ease-in-out;
+  text-decoration: none;
+
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      outline: thin dotted;
+      // WebKit
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    background-image: none;
+    outline: 0;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+  }
+
+  &.disabled,
+  &:disabled,
+  fieldset[disabled] & {
+    cursor: $cursor-disabled;
+    opacity: .65;
+    box-shadow: none;
+  }
+}
+
+// Button variants
+.qll-wgt-btn-primary {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+}
+.qll-wgt-btn-secondary {
+  @include button-variant($btn-secondary-color, $btn-secondary-bg, $btn-secondary-border);
+}
+.qll-wgt-btn-info {
+  @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+}
+.qll-wgt-btn-success {
+  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+}
+// Button outlines
+.qll-wgt-btn-primary-outline {
+  @include button-outline-variant($btn-primary-bg);
+}
+.qll-wgt-btn-secondary-outline {
+  @include button-outline-variant($btn-secondary-border);
+}
+.qll-wgt-btn-info-outline {
+  @include button-outline-variant($btn-info-bg);
+}
+.qll-wgt-btn-success-outline {
+  @include button-outline-variant($btn-success-bg);
+}
+// Button sizes
+.qll-wgt-btn-lg {
+@include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $line-height-lg, $btn-border-radius-lg);
+}
+
+// tables
+// ------
+
+//
+// Basic Bootstrap table
+//
+
+.qll-wgt-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: $spacer;
+
+  th,
+  td {
+    padding: $table-cell-padding;
+    line-height: $line-height;
+    vertical-align: top;
+    border-top: 1px solid $table-border-color;
+  }
+
+  thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid $table-border-color;
+  }
+
+  tbody + tbody {
+    border-top: 2px solid $table-border-color;
+  }
+
+  .qll-wgt-table {
+    background-color: $body-bg;
+  }
+}
+
+
+//
+// Condensed table w/ half padding
+//
+
+.qll-wgt-table-sm {
+  th,
+  td {
+    padding: $table-sm-cell-padding;
+  }
+}
+
+
+// Bordered version
+//
+// Add borders all around the table and between all the columns.
+
+.qll-wgt-table-bordered {
+  border: 1px solid $table-border-color;
+
+  th,
+  td {
+    border: 1px solid $table-border-color;
+  }
+
+  thead {
+    th,
+    td {
+      border-bottom-width: 2px;
+    }
+  }
+}
+
+
+// Zebra-striping
+//
+// Default zebra-stripe styles (alternating gray and transparent backgrounds)
+
+.qll-wgt-table-striped {
+  tbody tr:nth-of-type(odd) {
+    background-color: $table-bg-accent;
+  }
+}
+
+
+// Hover effect
+//
+// Placed here since it has to come after the potential zebra striping
+
+.qll-wgt-table-hover {
+  tbody tr {
+    &:hover {
+      background-color: $table-bg-hover;
+    }
+  }
+}
+
+
+// Table backgrounds
+//
+// Exact selectors below required to override `.qll-wgt-table-striped` and prevent
+// inheritance to nested tables.
+
+// Generate the contextual variants
+// @include table-row-variant(active, $table-bg-active);
+// @include table-row-variant(success, $state-success-bg);
+// @include table-row-variant(info, $state-info-bg);
+// @include table-row-variant(warning, $state-warning-bg);
+// @include table-row-variant(danger, $state-danger-bg);
+
+
+// Responsive tables
+//
+// Wrap your tables in `.qll-wgt-table-responsive` and we'll make them mobile friendly
+// by enabling horizontal scrolling. Only applies <768px. Everything above that
+// will display normally.
+
+.qll-wgt-table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+
+  // Todo: find out if we need this still.
+  //
+  // border: 1px solid $table-border-color;
+  // -ms-overflow-style: -ms-autohiding-scrollbar;
+  // min-height: 0.01%; // Workaround for IE9 bug (see https://github.com/twbs/bootstrap/issues/14837)
+}
+
+
+.thead-inverse {
+  th {
+    color: #fff;
+    background-color: $gray-dark;
+  }
+}
+.thead-default {
+  th {
+    color: $gray;
+    background-color: $gray-lighter;
+  }
+}
+
+.qll-wgt-table-inverse {
+  color: $gray-lighter;
+  background-color: $gray-dark;
+
+  &.qll-wgt-table-bordered {
+    border: 0;
+  }
+
+  th,
+  td,
+  thead th {
+    border-color: $gray;
+  }
+}
+
+
+.qll-wgt-table-reflow {
+  thead {
+    float: left;
+  }
+
+  tbody {
+    display: block;
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    border-top: 1px solid $table-border-color;
+    border-left: 1px solid $table-border-color;
+
+    &:last-child {
+      border-right: 1px solid $table-border-color;
+    }
+  }
+
+  thead,
+  tbody,
+  tfoot {
+    &:last-child {
+      tr:last-child {
+        th,
+        td {
+          border-bottom: 1px solid $table-border-color;
+        }
+      }
+    }
+  }
+
+  tr {
+    float: left;
+
+    th,
+    td {
+      display: block !important;
+      border: 1px solid $table-border-color;
+    }
+  }
+}
+
+
+// Utilities
+// ---------
+
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}

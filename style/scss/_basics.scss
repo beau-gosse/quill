@@ -1,0 +1,49 @@
+// # Basics
+// Mostly document level adjustments.
+// Override and extend basic styles for common HTML styles.
+//
+
+// Sticky footer
+// Credits: http://v4-alpha.getbootstrap.com/examples/sticky-footer
+// ----------------------------------------------------------------
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  // Margin bottom by footer height
+  margin-bottom: 5rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  // Set the fixed height of the footer here
+  height: 5rem;
+  background-color: $code-bg;
+	font-family: $font-family-sans-serif;
+}
+
+// Syntax Highlighting
+// -------------------
+
+pre {
+  margin-top: 2.5rem !important;
+  margin-bottom: 2.5rem !important;
+}
+
+// Overrides prism's default style
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: $code-bg !important;
+}
+
+// Remove vertical margins + lighten bg color when <pre> is wrapped by note block.
+.block-note pre {
+  margin-top: 0 !important;
+  margin-bottom: 1rem !important;
+	background-color: lighten($code-bg, 3%) !important;
+}

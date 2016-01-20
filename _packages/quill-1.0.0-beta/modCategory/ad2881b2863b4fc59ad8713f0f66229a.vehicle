@@ -1,0 +1,958 @@
+<?php return array (
+  'unique_key' => 'category',
+  'preserve_keys' => false,
+  'update_object' => true,
+  'related_objects' => 
+  array (
+    'Snippets' => 
+    array (
+      'b73881352f8bea5e9d0b455ab59fbd2b' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modSnippet',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllAuthorUrl","description":"This snippet generates a URL to the author\'s bio page.","editor_type":0,"category":0,"cache_type":0,"snippet":"\\/**\\n * qllAuthorUrl\\n *\\n * This snippet generates a URL to the author\'s bio page.\\n *\\n * @author Treigh P. M. <treigh(at)kleverr.com>\\n * @version 1.0.0 - December 7, 2015\\n *\\n * USAGE:\\n *\\n * [[qllAuhorUrl? &author=`[[+createdby]]`]]\\n *\\n *\\/\\n\\n \\/* Default properties *\\/\\n$createdby = $modx->getOption(\'author\', $scriptProperties, $modx->resource->get(\'createdby\'));\\n$authors   = $modx->getOption(\'quill.authors_page\');\\n$blogName  = $modx->getOption(\'quill_blog_name\');\\n$output    = \'\';\\n\\n\\/* build query *\\/\\n$c = $modx->newQuery(\'modResource\');\\n$c->innerJoin(\'modTemplateVarResource\', \'TemplateVarResources\');\\n$c->where(array(\\n    \'modResource.parent\' => $authors,\\n    \'modResource.published\' => true,\\n    \'modResource.deleted\' => false,\\n    \'TemplateVarResources.value\' => $createdby\\n));\\n\\n\\/* get the auhor\'s URL and full name, if they exist *\\/\\n$author   = $modx->getObject(\'modResource\', $c);\\n$url      = ($author) ? $modx->makeUrl($author->get(\'id\')) : $modx->makeUrl($authors);\\n$fullname = ($author) ? $author->get(\'pagetitle\') : $modx->getOption($blogName);\\n\\nreturn $modx->getChunk(\'qllPostAuthorTpl\', array(\\n  \'url\' => $url,\\n  \'author\' => $fullname\\n));","locked":0,"properties":"a:0:{}","moduleguid":"","static":0,"static_file":"","content":"\\/**\\n * qllAuthorUrl\\n *\\n * This snippet generates a URL to the author\'s bio page.\\n *\\n * @author Treigh P. M. <treigh(at)kleverr.com>\\n * @version 1.0.0 - December 7, 2015\\n *\\n * USAGE:\\n *\\n * [[qllAuhorUrl? &author=`[[+createdby]]`]]\\n *\\n *\\/\\n\\n \\/* Default properties *\\/\\n$createdby = $modx->getOption(\'author\', $scriptProperties, $modx->resource->get(\'createdby\'));\\n$authors   = $modx->getOption(\'quill.authors_page\');\\n$blogName  = $modx->getOption(\'quill_blog_name\');\\n$output    = \'\';\\n\\n\\/* build query *\\/\\n$c = $modx->newQuery(\'modResource\');\\n$c->innerJoin(\'modTemplateVarResource\', \'TemplateVarResources\');\\n$c->where(array(\\n    \'modResource.parent\' => $authors,\\n    \'modResource.published\' => true,\\n    \'modResource.deleted\' => false,\\n    \'TemplateVarResources.value\' => $createdby\\n));\\n\\n\\/* get the auhor\'s URL and full name, if they exist *\\/\\n$author   = $modx->getObject(\'modResource\', $c);\\n$url      = ($author) ? $modx->makeUrl($author->get(\'id\')) : $modx->makeUrl($authors);\\n$fullname = ($author) ? $author->get(\'pagetitle\') : $modx->getOption($blogName);\\n\\nreturn $modx->getChunk(\'qllPostAuthorTpl\', array(\\n  \'url\' => $url,\\n  \'author\' => $fullname\\n));"}',
+        'guid' => 'e1c0b4adeecc2e6d56b700e398ae47a3',
+        'native_key' => NULL,
+        'signature' => 'fa98540aa113bddf892dedddd985d37d',
+      ),
+      'ced36367e92b7be741e2240a71243b68' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modSnippet',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllFeaturedImage","description":"When used inside a resource tpl, this helper snippet displays the post\'s featured image if it exists.","editor_type":0,"category":0,"cache_type":0,"snippet":"\\/**\\n * qllFeaturedImage\\n *\\n * When used inside a getResources tpl, this helper snippet\\n * displays the post\'s featured image if it exists.\\n *\\n * @author Treigh P. M. <treigh(at)kleverr.com>\\n * @version 1.0.0 - December 7, 2015\\n *\\n * USAGE:\\n * [[qllFeaturedImage? &id=`[[+id]]` &image=`qllFeaturedImage` &credits=`[[+tv.qllFeaturedCredits]]` &tpl=`qllFigure`]]\\n *\\/\\n\\n \\/* Default properties *\\/\\n$output          = \'\';\\n$snippet         = \'qllFeaturedImage\';\\n$id              = $modx->getOption(\'id\', $scriptProperties, \'\');\\n$featured        = $modx->getOption(\'image\', $scriptProperties, \'qllFeaturedImage\');\\n$featuredCredits = $modx->getOption(\'credits\', $scriptProperties, \'qllFeaturedCredits\');\\n$featuredCaption = $modx->getOption(\'caption\', $scriptProperties, \'qllFeaturedCaption\');\\n$tpl             = $modx->getOption(\'tpl\', $scriptProperties, \'qllFigure\');\\n\\n\\/* Verify inputs *\\/\\nif (!isset($scriptProperties[\'id\'])) {\\n    $modx->log(modX::LOG_LEVEL_ERROR, \'[\' . $snippet . \'] missing required properties &id!\');\\n    return;\\n}\\n\\n\\/* Get the resource with the featured image *\\/\\n$doc = (isset($id)) ? $modx->getObject(\'modResource\', $id) : \'\';\\nif ($doc) {\\n    if (!empty($doc->getTVValue($featured))) {\\n        $image   = $doc->getTVValue($featured);\\n        $credits = $doc->getTVValue($featuredCredits);\\n        $caption = $doc->getTVValue($featuredCaption);\\n\\n        $output = $modx->getChunk($tpl, array(\\n            \'img\' => $image,\\n            \'caption\' => $caption,\\n            \'credits\' => $credits\\n        ));\\n    }\\n}\\n\\nreturn $output;","locked":0,"properties":"a:0:{}","moduleguid":"","static":0,"static_file":"","content":"\\/**\\n * qllFeaturedImage\\n *\\n * When used inside a getResources tpl, this helper snippet\\n * displays the post\'s featured image if it exists.\\n *\\n * @author Treigh P. M. <treigh(at)kleverr.com>\\n * @version 1.0.0 - December 7, 2015\\n *\\n * USAGE:\\n * [[qllFeaturedImage? &id=`[[+id]]` &image=`qllFeaturedImage` &credits=`[[+tv.qllFeaturedCredits]]` &tpl=`qllFigure`]]\\n *\\/\\n\\n \\/* Default properties *\\/\\n$output          = \'\';\\n$snippet         = \'qllFeaturedImage\';\\n$id              = $modx->getOption(\'id\', $scriptProperties, \'\');\\n$featured        = $modx->getOption(\'image\', $scriptProperties, \'qllFeaturedImage\');\\n$featuredCredits = $modx->getOption(\'credits\', $scriptProperties, \'qllFeaturedCredits\');\\n$featuredCaption = $modx->getOption(\'caption\', $scriptProperties, \'qllFeaturedCaption\');\\n$tpl             = $modx->getOption(\'tpl\', $scriptProperties, \'qllFigure\');\\n\\n\\/* Verify inputs *\\/\\nif (!isset($scriptProperties[\'id\'])) {\\n    $modx->log(modX::LOG_LEVEL_ERROR, \'[\' . $snippet . \'] missing required properties &id!\');\\n    return;\\n}\\n\\n\\/* Get the resource with the featured image *\\/\\n$doc = (isset($id)) ? $modx->getObject(\'modResource\', $id) : \'\';\\nif ($doc) {\\n    if (!empty($doc->getTVValue($featured))) {\\n        $image   = $doc->getTVValue($featured);\\n        $credits = $doc->getTVValue($featuredCredits);\\n        $caption = $doc->getTVValue($featuredCaption);\\n\\n        $output = $modx->getChunk($tpl, array(\\n            \'img\' => $image,\\n            \'caption\' => $caption,\\n            \'credits\' => $credits\\n        ));\\n    }\\n}\\n\\nreturn $output;"}',
+        'guid' => '306fab55d90a3c7fa0350537de9b8574',
+        'native_key' => NULL,
+        'signature' => '6149ed5bc948caf41e9c2482a9f843ab',
+      ),
+      '3a3722c6655c8632d20c55b5775017a7' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modSnippet',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllGetDefaultAuthor","description":"This snippet returns the Default Author\'s user id.","editor_type":0,"category":0,"cache_type":0,"snippet":"\\/**\\n *\\n * qllGetDefaultAuthor\\n *\\n * @author Treigh PM <treigh@kleverr.com>\\n *\\n * This file is part of Quill, a modern and clutter-free blogging theme for MODX.\\n *\\n * This snippet returns the Default Author\'s user id.\\n *\\n * @package quill\\n *\\/\\n\\n$authorPageObj = $modx->getObject(\'modResource\', $modx->getOption(\'quill.default_author_page\'));\\n\\nif ($authorPageObj) {\\n    return ($modx->user->hasSessionContext(\'mgr\')) ? $modx->user->get(\'id\') : 1;\\n} else {\\n    $modx->log(modX::LOG_LEVEL_ERROR, \'[qllGetDefaultAuthor] Default Author page not found.\');\\n    return;\\n}","locked":0,"properties":"a:0:{}","moduleguid":"","static":0,"static_file":"","content":"\\/**\\n *\\n * qllGetDefaultAuthor\\n *\\n * @author Treigh PM <treigh@kleverr.com>\\n *\\n * This file is part of Quill, a modern and clutter-free blogging theme for MODX.\\n *\\n * This snippet returns the Default Author\'s user id.\\n *\\n * @package quill\\n *\\/\\n\\n$authorPageObj = $modx->getObject(\'modResource\', $modx->getOption(\'quill.default_author_page\'));\\n\\nif ($authorPageObj) {\\n    return ($modx->user->hasSessionContext(\'mgr\')) ? $modx->user->get(\'id\') : 1;\\n} else {\\n    $modx->log(modX::LOG_LEVEL_ERROR, \'[qllGetDefaultAuthor] Default Author page not found.\');\\n    return;\\n}"}',
+        'guid' => 'e35217ea02ff24befcebff1b6dec51fe',
+        'native_key' => NULL,
+        'signature' => '08e3f8962a925dcaa9a96e7026f7400b',
+      ),
+      '94d13161fa0d6a4fdc27807cec39759f' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modSnippet',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllGetTime","description":"This utility snippet returns the current UTC time according to the given format.","editor_type":0,"category":0,"cache_type":0,"snippet":"\\/* Return the current UTC time according to the given format*\\/\\ndate_default_timezone_set(\'UTC\');\\n$format = $modx->getOption(\'format\', $scriptProperties, \'e B Y\'); \\/\\/ e.g. 18 April 2015\\n$time   = $modx->getOption(\'time\', $scriptProperties, time());\\n$output = date(\\"$format\\", $time);\\nreturn $output;","locked":0,"properties":"a:0:{}","moduleguid":"","static":0,"static_file":"","content":"\\/* Return the current UTC time according to the given format*\\/\\ndate_default_timezone_set(\'UTC\');\\n$format = $modx->getOption(\'format\', $scriptProperties, \'e B Y\'); \\/\\/ e.g. 18 April 2015\\n$time   = $modx->getOption(\'time\', $scriptProperties, time());\\n$output = date(\\"$format\\", $time);\\nreturn $output;"}',
+        'guid' => 'a1b5f811bbfe768e66b9d5ae328fd0a0',
+        'native_key' => NULL,
+        'signature' => 'b1cb9fb54d87745b848e5c487a90c40c',
+      ),
+      'e0d685417c52f8cfbd2bd8b8c3765dcc' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modSnippet',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPostScripts","description":"This snippet loads appropriate page scripts for Quill-themed blogs.","editor_type":0,"category":0,"cache_type":0,"snippet":"\\/**\\n * qllPostScripts\\n *\\n * This snippet loads relevant page scripts.\\n * @author Treigh P. M. <treigh(at)kleverr.com>\\n * @version 1.0.0 - December 7, 2015\\n *\\n * USAGE:\\n *\\n * [[qllPostScripts? &start=`1` &startScripts=`myBlogScriptChunk` &postScripts=`myPostScriptChunk`]]\\n *\\n *\\/\\n\\n$output  = \'\';\\n$snippet = \'qllPostScripts\';\\n\\n\\/* Default properties *\\/\\n$blogStart = $modx->getOption(\'start\', $scriptProperties, $modx->getOption(\'quill.blog_container\'));\\n$startScpt = $modx->getOption(\'startScripts\', $scriptProperties, \'qllContainerScripts\');\\n$postScpt  = $modx->getOption(\'postScripts\', $scriptProperties, \'qllPostScripts\');\\n\\n\\/* Ensure the blog start page is set or exists (by default) *\\/\\nif (empty($blogStart)) {\\n    $modx->log(modX::LOG_LEVEL_ERROR, \'[\' . $snippet . \'] missing blog container id.\');\\n    return;\\n}\\n\\n\\/* Select relevant page scripts *\\/\\n$output = ($modx->resource->get(\'parent\') == $blogStart) ? $postScpt : $startScpt;\\n\\nreturn $modx->getChunk($output);","locked":0,"properties":"a:0:{}","moduleguid":"","static":0,"static_file":"","content":"\\/**\\n * qllPostScripts\\n *\\n * This snippet loads relevant page scripts.\\n * @author Treigh P. M. <treigh(at)kleverr.com>\\n * @version 1.0.0 - December 7, 2015\\n *\\n * USAGE:\\n *\\n * [[qllPostScripts? &start=`1` &startScripts=`myBlogScriptChunk` &postScripts=`myPostScriptChunk`]]\\n *\\n *\\/\\n\\n$output  = \'\';\\n$snippet = \'qllPostScripts\';\\n\\n\\/* Default properties *\\/\\n$blogStart = $modx->getOption(\'start\', $scriptProperties, $modx->getOption(\'quill.blog_container\'));\\n$startScpt = $modx->getOption(\'startScripts\', $scriptProperties, \'qllContainerScripts\');\\n$postScpt  = $modx->getOption(\'postScripts\', $scriptProperties, \'qllPostScripts\');\\n\\n\\/* Ensure the blog start page is set or exists (by default) *\\/\\nif (empty($blogStart)) {\\n    $modx->log(modX::LOG_LEVEL_ERROR, \'[\' . $snippet . \'] missing blog container id.\');\\n    return;\\n}\\n\\n\\/* Select relevant page scripts *\\/\\n$output = ($modx->resource->get(\'parent\') == $blogStart) ? $postScpt : $startScpt;\\n\\nreturn $modx->getChunk($output);"}',
+        'guid' => '88862b4327689918678058e2b4ff8b1e',
+        'native_key' => NULL,
+        'signature' => '4678f3fb170a4cbfffd271b0b43f2f0c',
+      ),
+      '4da56f072ae917ee5ecbbaf08321779e' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modSnippet',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllRelatedUser","description":"This snippet returns a list of the site\'s active users.","editor_type":0,"category":0,"cache_type":0,"snippet":"\\/* RelatedUser *\\/\\n$output = $modx->runSnippet(\'Rowboat\', array(\\n    \'table\' => \'modx_users\',\\n    \'where\' => \'{\\"active:=\\":1}\',\\n    \'tpl\' => \'qllUserOptionTpl\',\\n    \'outputSeparator\' => \'||\'\\n));\\n\\nreturn $output;","locked":0,"properties":"a:0:{}","moduleguid":"","static":0,"static_file":"","content":"\\/* RelatedUser *\\/\\n$output = $modx->runSnippet(\'Rowboat\', array(\\n    \'table\' => \'modx_users\',\\n    \'where\' => \'{\\"active:=\\":1}\',\\n    \'tpl\' => \'qllUserOptionTpl\',\\n    \'outputSeparator\' => \'||\'\\n));\\n\\nreturn $output;"}',
+        'guid' => 'f7055fb03309bd76f7d5d52bd5029023',
+        'native_key' => NULL,
+        'signature' => 'f2fa9529e920d544d9082c03065b5ecb',
+      ),
+    ),
+    'Plugins' => 
+    array (
+      '349117fc8096afae37492f802ca58275' => 
+      array (
+        'unique_key' => 'name',
+        'preserve_keys' => false,
+        'update_object' => true,
+        'related_objects' => 
+        array (
+          'PluginEvents' => 
+          array (
+            '45ea0b81ccb72158f1f67adef2df9628' => 
+            array (
+              'class' => 'modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnBeforeSaveWebPageCache","priority":0,"propertyset":0}',
+              'guid' => '52852876402b93c15d95379997b59f44',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnBeforeSaveWebPageCache',
+              ),
+              'signature' => '9d4ee5640b2782d9b08278b316958efd',
+            ),
+            '63e82c4365841ba851df7601d838cc79' => 
+            array (
+              'class' => 'modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnLoadWebDocument","priority":0,"propertyset":0}',
+              'guid' => '2465e7089d150bea9c61219c7227f8ff',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnLoadWebDocument',
+              ),
+              'signature' => '250db2e84ca9c4b4075f67ec86d0ad22',
+            ),
+            'df0db47a0bbda6fe9b9188e300621809' => 
+            array (
+              'class' => 'modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnWebPagePrerender","priority":0,"propertyset":0}',
+              'guid' => '1965de4ed7a076ddc94ff5a848aefdea',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnWebPagePrerender',
+              ),
+              'signature' => '79dcf8d0e200b74df04ef62432c21835',
+            ),
+          ),
+        ),
+        'related_object_attributes' => 
+        array (
+          'PluginEvents' => 
+          array (
+            'preserve_keys' => true,
+            'update_object' => false,
+            'unique_key' => 
+            array (
+              0 => 'pluginid',
+              1 => 'event',
+            ),
+          ),
+        ),
+        'class' => 'modPlugin',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSkipParser","description":"","editor_type":0,"category":0,"cache_type":0,"plugincode":"$eventName = $modx->event->name;\\nswitch ($eventName) {\\n    case \'OnLoadWebDocument\' :\\n        $output = $GLOBALS[\'code_content\'] = $modx->resource->get(\'content\');\\n        preg_match_all(\'\\/<code.*?>(.*?)<\\\\\\/code>\\/ims\', $output, $matches);\\n\\n        $i = 0;\\n        foreach ((array) $matches[1] as $key => $match) {\\n            $output = str_replace($match, \'~*code_\' . $i . \'*~\', $output);\\n            $GLOBALS[\'code_matches\'][\'~*code_\' . $i . \'*~\'] = $match;\\n            $i++;\\n        }\\n        $modx->resource->set(\'content\', $output);\\n        break;\\n    case \'OnWebPagePrerender\' :\\n        $html = & $modx->resource->_output;\\n        $output = $modx->resource->get(\'content\');\\n        preg_match_all(\'\\/<code.*?>(.*?)<\\\\\\/code>\\/ims\', $html, $matches);\\n        $i = 0;\\n\\n        $replacements = array (\\n            \'<\' => \'<\',\\n            \'>\' => \'>\'\\n        );\\n\\n        foreach ((array) $GLOBALS[\'code_matches\'] as $key => $match) {\\n            $match = preg_replace(\'\\/&amp;([^\\\\s]*;)\\/i\', \'&amp;amp;$1\', $match);\\n            foreach ((array)$replacements as $key => $value) {\\n                $match = str_replace($key, $value, $match);\\n            }\\n\\n            $html = str_replace(\'~*code_\' . $i . \'*~\', $match, $html);\\n            $output = str_replace(\'~*code_\' . $i . \'*~\', $match, $output);\\n            $i++;\\n        }\\n        $modx->resource->set(\'content\', $output);\\n        break;\\n    case \'OnBeforeSaveWebPageCache\' :\\n        $modx->resource->set(\'content\', $GLOBALS[\'code_content\']);\\n        break;\\n    default :\\n        break;\\n}","locked":0,"properties":"a:0:{}","disabled":0,"moduleguid":"","static":0,"static_file":"","content":"$eventName = $modx->event->name;\\nswitch ($eventName) {\\n    case \'OnLoadWebDocument\' :\\n        $output = $GLOBALS[\'code_content\'] = $modx->resource->get(\'content\');\\n        preg_match_all(\'\\/<code.*?>(.*?)<\\\\\\/code>\\/ims\', $output, $matches);\\n\\n        $i = 0;\\n        foreach ((array) $matches[1] as $key => $match) {\\n            $output = str_replace($match, \'~*code_\' . $i . \'*~\', $output);\\n            $GLOBALS[\'code_matches\'][\'~*code_\' . $i . \'*~\'] = $match;\\n            $i++;\\n        }\\n        $modx->resource->set(\'content\', $output);\\n        break;\\n    case \'OnWebPagePrerender\' :\\n        $html = & $modx->resource->_output;\\n        $output = $modx->resource->get(\'content\');\\n        preg_match_all(\'\\/<code.*?>(.*?)<\\\\\\/code>\\/ims\', $html, $matches);\\n        $i = 0;\\n\\n        $replacements = array (\\n            \'<\' => \'<\',\\n            \'>\' => \'>\'\\n        );\\n\\n        foreach ((array) $GLOBALS[\'code_matches\'] as $key => $match) {\\n            $match = preg_replace(\'\\/&amp;([^\\\\s]*;)\\/i\', \'&amp;amp;$1\', $match);\\n            foreach ((array)$replacements as $key => $value) {\\n                $match = str_replace($key, $value, $match);\\n            }\\n\\n            $html = str_replace(\'~*code_\' . $i . \'*~\', $match, $html);\\n            $output = str_replace(\'~*code_\' . $i . \'*~\', $match, $output);\\n            $i++;\\n        }\\n        $modx->resource->set(\'content\', $output);\\n        break;\\n    case \'OnBeforeSaveWebPageCache\' :\\n        $modx->resource->set(\'content\', $GLOBALS[\'code_content\']);\\n        break;\\n    default :\\n        break;\\n}"}',
+        'guid' => '4dc920cf8be91f993a64db7a3de72d24',
+        'native_key' => NULL,
+        'signature' => '8aa53df1f9242845935944fe7fd5106a',
+      ),
+    ),
+    'Templates' => 
+    array (
+      '16f48938cb8838fbbce07ccbc5da09bb' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'templatename',
+        'class' => 'modTemplate',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"templatename":"Quill","description":"","editor_type":0,"category":0,"icon":"","template_type":0,"content":"<!DOCTYPE html>\\n<html lang=\\"[[++cultureKey]]\\">\\n\\n<head>\\n  [[$qllHead]]\\n<\\/head>\\n\\n<body>\\n  [[$qllNavbar]]\\n  [[*qllPageLayout]]\\n  [[$qllFooter]]\\n  [[$qllScripts]]\\n<\\/body>\\n<\\/html>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":""}',
+        'guid' => '4569c873c96d45434f6a4b1bedbe9eac',
+        'native_key' => NULL,
+        'signature' => 'c2a8701ed7b7492586e1da49a8daa9d1',
+      ),
+    ),
+    'TemplateVars' => 
+    array (
+      'f005d236c8aa6b132706991a0a14d85a' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"listbox","name":"qllAuthor","caption":"Related User Id","description":"(Required => Author resources) - Select the related user id for this author:","editor_type":0,"category":0,"locked":0,"elements":"@EVAL return \'-- choose a user --||\' . $modx->runSnippet(\'qllRelatedUser\');","rank":5,"display":"","default_text":"","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":""}',
+        'guid' => '621c3b1f7cc1e01cabf6827984e5687f',
+        'native_key' => NULL,
+        'signature' => '9016eb1f93a6280a6d7a6a587ffa03c1',
+      ),
+      '8f57d94894f0728920452387e87c5bf2' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"image","name":"qllFeaturedImage","caption":"Featured Image","description":"(Optional) - Add\\/Edit the featured image (minimum size: 1200x480):","editor_type":0,"category":0,"locked":0,"elements":"","rank":1,"display":"","default_text":"","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":""}',
+        'guid' => '5e7192954f3eb40989922f43b7bea8cd',
+        'native_key' => NULL,
+        'signature' => '81575a63a144dc9f19969d6c3900487b',
+      ),
+      '69200301a51c79353da49228758cfddb' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"text","name":"qllImageCaption","caption":"Image Caption","description":"Type a caption for the featured image here:","editor_type":0,"category":0,"locked":0,"elements":"","rank":3,"display":"","default_text":"","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":""}',
+        'guid' => '99b0ab88fef3e27a66017c704796d57b',
+        'native_key' => NULL,
+        'signature' => '4f24b76e3a341083a3e155c13586391c',
+      ),
+      'a8f5bbe165e6cd4706cb4ca9f5e2e333' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"text","name":"qllImageCredits","caption":"Image Credits","description":"Add credits for the featured image here:","editor_type":0,"category":0,"locked":0,"elements":"","rank":4,"display":"","default_text":"","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":""}',
+        'guid' => 'f0b5f76e0ff79d06a25a4eaeed184813',
+        'native_key' => NULL,
+        'signature' => '48e9b0ce84d4edc0ffb346c9d8d3ef90',
+      ),
+      'b852b8698408793726fab190446cb2a2' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"textarea","name":"qllLeftFloatbar","caption":"Left Floatbar","description":"(Optional) - Add widgets to the left float bar.","editor_type":0,"category":0,"locked":0,"elements":"","rank":7,"display":"","default_text":"","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":""}',
+        'guid' => 'd00a74106b8fa8aaeb3ff78574cb505b',
+        'native_key' => NULL,
+        'signature' => 'd6e522886445276c25ae3d180a50c200',
+      ),
+      'bcfb9096f236c1b2da0ec5e220692ed3' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"listbox","name":"qllPageLayout","caption":"Page Layout","description":"Select the layout to use for this resource:","editor_type":0,"category":0,"locked":0,"elements":"Blog Listing==[[$qllHomeLayout]]||Blog Post==[[$qllPostLayout]]||Blog Section==[[$qllSectionLayout]]||Author Profile==[[$qllAuthorLayout]]||Blog Search==[[$qllSearchLayout]]||Minimal==[[$qllMinimalLayout]]||Full==[[$qllFullLayout]]","rank":0,"display":"","default_text":"[[$qllPostLayout]]","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":"[[$qllPostLayout]]"}',
+        'guid' => 'bda00ee595fa057db9b9dd570de42538',
+        'native_key' => NULL,
+        'signature' => 'b2d5dfd116c9ad5dc6dc7fa6e35d3e44',
+      ),
+      '5065239e591c99749e7c65a96a47e3d6' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"textarea","name":"qllRightFloatbar","caption":"Right Floatbar","description":"(Optional) - Add widgets to the right float bar.","editor_type":0,"category":0,"locked":0,"elements":"","rank":8,"display":"","default_text":"[[$qllSocialButtons]]","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":"[[$qllSocialButtons]]"}',
+        'guid' => '4731e1e428e2c774305255aaa4aaced6',
+        'native_key' => NULL,
+        'signature' => 'c6c6e84164da04024f15fbe1e13bf7de',
+      ),
+      '646b2eb6e81d8d96e6cc26bd47e02051' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"checkbox","name":"qllShowFeaturedImage","caption":"Show Featured Image","description":"Show the featured image on this page?","editor_type":0,"category":0,"locked":0,"elements":"Yes==1","rank":2,"display":"","default_text":"","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":""}',
+        'guid' => '957e7742c642f62dc48a23a471e67e41',
+        'native_key' => NULL,
+        'signature' => 'a8c86903e740174b01ab6139f3ce847c',
+      ),
+      'a4a520473cfc2947f1482bea1df89950' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'modTemplateVar',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"type":"text","name":"qllTwitterAccount","caption":"Twitter Handle","description":"(Optional => Author resources) - Enter the author\'s related twitter handle:","editor_type":0,"category":0,"locked":0,"elements":"","rank":6,"display":"","default_text":"","properties":"a:0:{}","input_properties":null,"output_properties":null,"static":0,"static_file":"","content":""}',
+        'guid' => '81246989ba89c74a4f19ee405599958d',
+        'native_key' => NULL,
+        'signature' => '0c7c3ec26c0d62517e9800dcc56bbdd4',
+      ),
+    ),
+    'Children' => 
+    array (
+      '55f97d7c8a00904069d36082809b2e9c' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 
+        array (
+          0 => 'parent',
+          1 => 'category',
+        ),
+        'class' => 'modCategory',
+        'object' => '{"id":null,"parent":0,"category":"QuillBasics","rank":0}',
+        'guid' => '7f45572388918e8f148d76bbe8958eab',
+        'native_key' => NULL,
+        'signature' => '8279e8e9f42e48f6da15b960ad6048ea',
+        'related_objects' => 
+        array (
+          'Chunks' => 
+          array (
+            '89fec739b181662a0aada271eaf77647' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllFigure","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<figure class=\\"figure\\">\\n  <img data-src=\\"[[+img]]\\" width=\\"[[+width:default=`824`]]\\" class=\\"img-fluid\\" alt=\\"[[+caption]]\\">\\n  <figcaption class=\\"figure-caption post-photo-credit[[+center-caption:is=`1`:then=` text-xs-center`]]\\">\\n    [[+caption]]\\n    <span class=\\"pull-md-right\\">[[+credits]]<\\/span>\\n  <\\/figcaption>\\n<\\/figure>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<figure class=\\"figure\\">\\n  <img data-src=\\"[[+img]]\\" width=\\"[[+width:default=`824`]]\\" class=\\"img-fluid\\" alt=\\"[[+caption]]\\">\\n  <figcaption class=\\"figure-caption post-photo-credit[[+center-caption:is=`1`:then=` text-xs-center`]]\\">\\n    [[+caption]]\\n    <span class=\\"pull-md-right\\">[[+credits]]<\\/span>\\n  <\\/figcaption>\\n<\\/figure>\\n"}',
+              'guid' => '656006e9938cb511dbf6185e6eb3d158',
+              'native_key' => NULL,
+              'signature' => '4aa4abf1c7b12fd17e32a9c6081dbb94',
+            ),
+            '73d54ff38e469f7dd161c6c756f751d0' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllFooter","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Page Footer -->\\n  <footer class=\\"footer\\" role=\\"contentinfo\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/WPFooter\\">\\n    <div class=\\"container-fluid\\">\\n      <article class=\\"list-inline footer-content\\" role=\\"navigation\\">\\n          <div class=\\"list-inline-item\\">[[++quill_footer_content]]<\\/div>\\n          <aside class=\\"list-inline-item pull-md-right hidden-sm-down\\">[[++quill_copyright]]<\\/aside>\\n      <\\/article>\\n    <\\/div>\\n  <\\/footer>\\n<!-- \\/.Page Footer -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Page Footer -->\\n  <footer class=\\"footer\\" role=\\"contentinfo\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/WPFooter\\">\\n    <div class=\\"container-fluid\\">\\n      <article class=\\"list-inline footer-content\\" role=\\"navigation\\">\\n          <div class=\\"list-inline-item\\">[[++quill_footer_content]]<\\/div>\\n          <aside class=\\"list-inline-item pull-md-right hidden-sm-down\\">[[++quill_copyright]]<\\/aside>\\n      <\\/article>\\n    <\\/div>\\n  <\\/footer>\\n<!-- \\/.Page Footer -->\\n"}',
+              'guid' => '5127b3e55e1467554927709511f0ff9c',
+              'native_key' => NULL,
+              'signature' => 'bde0d9cf7619cee999d80c128245bce1',
+            ),
+            '58fe9842d40f5d1375969f70c2a7cc82' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllHead","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<meta charset=\\"utf-8\\">\\n<meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">\\n<meta http-equiv=\\"x-ua-compatible\\" content=\\"ie=edge\\">\\n<title>[[*pagetitle]]<\\/title>\\n[[If?\\n  &subject=`[[*parent]]`\\n  &operand=`[[++quill.blog_container]]`\\n  &then=`<meta name=\\"description\\" content=\\"[[*introtext:striptags:ellipsis=`155`]]\\">`\\n  &else=`<meta name=\\"description\\" content=\\"[[*description:striptags:ellipsis=`155`]]\\">`\\n]]\\n<base href=\\"[[++site_url]]\\" itemprop=\\"url\\">\\n<!-- DNS Prefetching -->\\n<meta http-equiv=\\"x-dns-prefetch-control\\" content=\\"on\\">\\n<link href=\\"http:\\/\\/cdn.kleverr.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/cdn.rawgit.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/cdnjs.cloudflare.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/disqus.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/fonts.googleapis.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/ssl.google-analytics.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"http:\\/\\/www.gravatar.com\\" rel=\\"dns-prefetch\\">\\n<!-- CSS -->\\n<link href=\\"[[++quill_css]]\\" rel=\\"stylesheet\\">\\n\\n<!--[if lt IE 9]>\\n  <script src=\\"\\/\\/html5shim.googlecode.com\\/svn\\/trunk\\/html5.js\\"><\\/script>\\n<![endif]-->\\n\\n<link rel=\\"canonical\\" href=\\"[[~[[*id]]? &scheme=`full`]]\\">\\n<meta property=\\"og:title\\" content=\\"[[*pagetitle]]\\">\\n<meta property=\\"og:description\\" content=\\"[[*description:striptags:default=`[[*introtext]]`]]\\">\\n<meta property=\\"og:url\\" content=\\"[[~[[*id]]? &scheme=`full`]]\\">\\n<meta property=\\"og:image\\" content=\\"[[++site_url]][[*qllFeaturedImage]]\\">\\n<!-- Favicon -->\\n<link href=\\"[[++quill_favicon]]\\" rel=\\"icon\\" type=\\"[[++quill_favicon_type]]\\">\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<meta charset=\\"utf-8\\">\\n<meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">\\n<meta http-equiv=\\"x-ua-compatible\\" content=\\"ie=edge\\">\\n<title>[[*pagetitle]]<\\/title>\\n[[If?\\n  &subject=`[[*parent]]`\\n  &operand=`[[++quill.blog_container]]`\\n  &then=`<meta name=\\"description\\" content=\\"[[*introtext:striptags:ellipsis=`155`]]\\">`\\n  &else=`<meta name=\\"description\\" content=\\"[[*description:striptags:ellipsis=`155`]]\\">`\\n]]\\n<base href=\\"[[++site_url]]\\" itemprop=\\"url\\">\\n<!-- DNS Prefetching -->\\n<meta http-equiv=\\"x-dns-prefetch-control\\" content=\\"on\\">\\n<link href=\\"http:\\/\\/cdn.kleverr.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/cdn.rawgit.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/cdnjs.cloudflare.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/disqus.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/fonts.googleapis.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"\\/\\/ssl.google-analytics.com\\" rel=\\"dns-prefetch\\">\\n<link href=\\"http:\\/\\/www.gravatar.com\\" rel=\\"dns-prefetch\\">\\n<!-- CSS -->\\n<link href=\\"[[++quill_css]]\\" rel=\\"stylesheet\\">\\n\\n<!--[if lt IE 9]>\\n  <script src=\\"\\/\\/html5shim.googlecode.com\\/svn\\/trunk\\/html5.js\\"><\\/script>\\n<![endif]-->\\n\\n<link rel=\\"canonical\\" href=\\"[[~[[*id]]? &scheme=`full`]]\\">\\n<meta property=\\"og:title\\" content=\\"[[*pagetitle]]\\">\\n<meta property=\\"og:description\\" content=\\"[[*description:striptags:default=`[[*introtext]]`]]\\">\\n<meta property=\\"og:url\\" content=\\"[[~[[*id]]? &scheme=`full`]]\\">\\n<meta property=\\"og:image\\" content=\\"[[++site_url]][[*qllFeaturedImage]]\\">\\n<!-- Favicon -->\\n<link href=\\"[[++quill_favicon]]\\" rel=\\"icon\\" type=\\"[[++quill_favicon_type]]\\">\\n"}',
+              'guid' => '9032b7972ce4d2b370553d0cb4143740',
+              'native_key' => NULL,
+              'signature' => '12631a71e753462584ebe8a95d5ae3e5',
+            ),
+            '3c7b5da79f60a31e0e6453f8fa3cf21e' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllNavbar","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Masthead -->\\n  <header id=\\"masthead\\" role=\\"banner\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/WPHeader\\">\\n    <nav id=\\"navbar\\" class=\\"navbar navbar-light\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/SiteNavigationElement\\">\\n      <div class=\\"navbar-centered\\">\\n        <a class=\\"navbar-brand\\" href=\\"[[++site_url]]\\">\\n          <img src=\\"[[++quill_logo]]\\" width=\\"32\\" class=\\"navbar-logo\\" alt=\\"[[++quill_blog_name]]\\">\\n        <\\/a>\\n      <\\/div>\\n      <ul class=\\"nav navbar-nav pull-xs-left\\">\\n        <li class=\\"nav-item dropdown\\">\\n          <a href=\\"#\\" title=\\"Sections (alt+ctrl+n)\\" class=\\"nav-link\\" aria-expanded=\\"true\\" aria-haspopup=\\"true\\" role=\\"button\\" data-toggle=\\"dropdown\\" accesskey=\\"n\\">\\n            <svg class=\\"svg-icon svg-icon-link\\" viewBox=\\"0 0 20 20\\">\\n              <path fill=\\"none\\" d=\\"M1.683,3.39h16.676C18.713,3.39,19,3.103,19,2.749s-0.287-0.642-0.642-0.642H1.683\\n                    c-0.354,0-0.641,0.287-0.641,0.642S1.328,3.39,1.683,3.39z M1.683,7.879h11.545c0.354,0,0.642-0.287,0.642-0.641\\n                    s-0.287-0.642-0.642-0.642H1.683c-0.354,0-0.641,0.287-0.641,0.642S1.328,7.879,1.683,7.879z M18.358,11.087H1.683\\n                    c-0.354,0-0.641,0.286-0.641,0.641s0.287,0.642,0.641,0.642h16.676c0.354,0,0.642-0.287,0.642-0.642S18.713,11.087,18.358,11.087z\\n                     M11.304,15.576H1.683c-0.354,0-0.641,0.287-0.641,0.642s0.287,0.641,0.641,0.641h9.621c0.354,0,0.642-0.286,0.642-0.641\\n                    S11.657,15.576,11.304,15.576z\\">\\n              <\\/path>\\n            <\\/svg>\\n          <\\/a>\\n          <!-- Site nav -->\\n          [[pdoMenu?\\n              &parents=`0`\\n              &displayStart=`1`\\n              &level=`2`\\n              &rowClass=`dropdown-item`\\n              &outerClass=`dropdown-menu dropdown-menu-dark`\\n              &tpl=`@INLINE <a href=\\"[[+link]]\\" [[+attributes]][[+classes]]>[[+menutitle]]<\\/a>`\\n              &tplOuter=`@INLINE <div[[+classes]]><h6 class=\\"dropdown-header\\">[[+pagetitle]]<\\/h6>[[+wrapper]]<\\/div>`\\n              &sortby=`menuindex`\\n            ]]\\n            <!-- \\/.Site nav -->\\n        <\\/li>\\n      <\\/ul>\\n      [[SimpleSearchForm? &tpl=`qllSearchForm` &landing=`[[++quill.search_page]]` &searchIndex=`term`]]\\n    <\\/nav>\\n  <\\/header>\\n  <!-- \\/.Masthead -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Masthead -->\\n  <header id=\\"masthead\\" role=\\"banner\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/WPHeader\\">\\n    <nav id=\\"navbar\\" class=\\"navbar navbar-light\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/SiteNavigationElement\\">\\n      <div class=\\"navbar-centered\\">\\n        <a class=\\"navbar-brand\\" href=\\"[[++site_url]]\\">\\n          <img src=\\"[[++quill_logo]]\\" width=\\"32\\" class=\\"navbar-logo\\" alt=\\"[[++quill_blog_name]]\\">\\n        <\\/a>\\n      <\\/div>\\n      <ul class=\\"nav navbar-nav pull-xs-left\\">\\n        <li class=\\"nav-item dropdown\\">\\n          <a href=\\"#\\" title=\\"Sections (alt+ctrl+n)\\" class=\\"nav-link\\" aria-expanded=\\"true\\" aria-haspopup=\\"true\\" role=\\"button\\" data-toggle=\\"dropdown\\" accesskey=\\"n\\">\\n            <svg class=\\"svg-icon svg-icon-link\\" viewBox=\\"0 0 20 20\\">\\n              <path fill=\\"none\\" d=\\"M1.683,3.39h16.676C18.713,3.39,19,3.103,19,2.749s-0.287-0.642-0.642-0.642H1.683\\n                    c-0.354,0-0.641,0.287-0.641,0.642S1.328,3.39,1.683,3.39z M1.683,7.879h11.545c0.354,0,0.642-0.287,0.642-0.641\\n                    s-0.287-0.642-0.642-0.642H1.683c-0.354,0-0.641,0.287-0.641,0.642S1.328,7.879,1.683,7.879z M18.358,11.087H1.683\\n                    c-0.354,0-0.641,0.286-0.641,0.641s0.287,0.642,0.641,0.642h16.676c0.354,0,0.642-0.287,0.642-0.642S18.713,11.087,18.358,11.087z\\n                     M11.304,15.576H1.683c-0.354,0-0.641,0.287-0.641,0.642s0.287,0.641,0.641,0.641h9.621c0.354,0,0.642-0.286,0.642-0.641\\n                    S11.657,15.576,11.304,15.576z\\">\\n              <\\/path>\\n            <\\/svg>\\n          <\\/a>\\n          <!-- Site nav -->\\n          [[pdoMenu?\\n              &parents=`0`\\n              &displayStart=`1`\\n              &level=`2`\\n              &rowClass=`dropdown-item`\\n              &outerClass=`dropdown-menu dropdown-menu-dark`\\n              &tpl=`@INLINE <a href=\\"[[+link]]\\" [[+attributes]][[+classes]]>[[+menutitle]]<\\/a>`\\n              &tplOuter=`@INLINE <div[[+classes]]><h6 class=\\"dropdown-header\\">[[+pagetitle]]<\\/h6>[[+wrapper]]<\\/div>`\\n              &sortby=`menuindex`\\n            ]]\\n            <!-- \\/.Site nav -->\\n        <\\/li>\\n      <\\/ul>\\n      [[SimpleSearchForm? &tpl=`qllSearchForm` &landing=`[[++quill.search_page]]` &searchIndex=`term`]]\\n    <\\/nav>\\n  <\\/header>\\n  <!-- \\/.Masthead -->\\n"}',
+              'guid' => '8b6a48e166094a89d54e6663d25f39e8',
+              'native_key' => NULL,
+              'signature' => 'beb6c5effc15decd6231541adfcb6fdb',
+            ),
+          ),
+        ),
+      ),
+      '96cddba9cf7aee14ab96d1ce3a926bbf' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 
+        array (
+          0 => 'parent',
+          1 => 'category',
+        ),
+        'class' => 'modCategory',
+        'object' => '{"id":null,"parent":0,"category":"QuillLayouts","rank":0}',
+        'guid' => 'e3d150d71e77e1d95907cec685ad5660',
+        'native_key' => NULL,
+        'signature' => '6a138feb3cd54c26149c1901a369e25f',
+        'related_objects' => 
+        array (
+          'Chunks' => 
+          array (
+            '8acc342bebfd1f601eeb033bf2f5323e' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllAuthorLayout","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<section class=\\"container-wrapper masthead body-spacer\\">\\n  <!-- Page header -->\\n  <article class=\\"container-fluid\\">\\n    <section class=\\"row\\">\\n      <header class=\\"content-col-half\\">\\n        <h1 class=\\"text-xs-center article-header\\" itemprop=\\"headline\\" itemprop=\\"headline\\">[[*pagetitle]]<\\/h1>\\n        <figure class=\\"figure center-block\\" itemprop=\\"author\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/Person\\">\\n          <img class=\\"img-circle center-block profile-img\\" data-src=\\"[[Gravatar? &email=`[[*qllAuthor:userinfo=`email`]]` &size=`128` &rating=`r` &default=`wavatar`]]\\" width=\\"128\\" alt=\\"[[*pagetitle]]\\" itemprop=\\"image\\">\\n          [[If?\\n            &subject=`[[*id]]`\\n            &operand=`[[++quill.authors_page]]`\\n            &then=`<img class=\\"img-circle center-block profile-img\\" data-src=\\"[[++quill_logo]]\\" width=\\"128\\" alt=\\"[[*pagetitle]]\\" itemprop=\\"image\\">`\\n            &else=`<img class=\\"img-circle center-block profile-img\\" data-src=\\"[[Gravatar? &email=`[[*qllAuthor:userinfo=`email`]]` &size=`128` &rating=`r` &default=`wavatar`]]\\" width=\\"128\\" alt=\\"[[*pagetitle]]\\" itemprop=\\"image\\">`\\n          ]]\\n          <figcaption>\\n            <p class=\\"text-xs-center\\">\\n                [[If?\\n                  &subject=`[[*id]]`\\n                  &operand=`[[++quill.authors_page]]`\\n                  &then=`[[*description]]`\\n                  &else=`[[*qllAuthor:userinfo=`comment`]]`\\n                ]]\\n            <\\/p>\\n          <\\/figcaption>\\n        <\\/figure>\\n        [[If?\\n          &subject=`[[*qllTwitterAccount]]`\\n          &operator=`notempty`\\n          &then=`<p class=\\"small text-xs-center\\"><a href=\\"https:\\/\\/twitter.com\\/[[*qllTwitterAccount]]\\" target=\\"_blank\\" rel=\\"_nofollow\\">@[[*qllTwitterAccount]]<\\/a><\\/p>`\\n        ]]\\n      <\\/header>\\n    <\\/section>\\n  <\\/article>\\n  <!-- \\/.Page header -->\\n<\\/section>\\n<!-- Content -->\\n<main class=\\"container-fluid main-content\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    <article class=\\"content-col\\">\\n      <h2 class=\\"h5 top-spacer\\"><strong class=\\"text-thick \\">The latest from [[*id:is=`[[++quill.authors_page]]`:then=`our `]]<span class=\\"underline-primary\\">[[*pagetitle]]<\\/span><\\/strong><\\/h2>\\n      <!-- Content body -->\\n      <section class=\\"article-body block-spacer\\" itemprop=\\"articleBody\\">\\n\\n        [[*content]]\\n\\n        [[- The default listing limit is 10]]\\n        [[!pdoPage:default=`<p>[[*pagetitle]] is probably writing the next <em>best-seller<\\/em>. Please check back soon.<\\/p>`?\\n          &where=`{\\"createdby:=\\":[[*Author]]}`\\n          &select=`{\\"modResource\\":\\"id,pagetitle,introtext,publishedon,createdby\\"}`\\n          &parents=`[[++quill.blog_container]]`\\n          &tpl=`qllPostTpl`\\n          &scheme=`full`\\n          &sortby=`publishedon`\\n          &sortdir=`DESC`\\n          &includeTVs=`qllFeaturedImage`\\n          &tplPageWrapper=`qllPageWrapperTpl`\\n          &tplPage=`qllPageTpl`\\n          &tplPageActive=`qllPageActiveTpl`\\n          &tplPagePrev=`qllPagePrevTpl`\\n          &tplPageNext=`qllPageNextTpl`\\n          &tplPagePrevEmpty=``\\n          &tplPageNextEmpty=``\\n        ]]\\n      <\\/section>\\n      <!-- \\/.Content body -->\\n    <\\/article>\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- \\/.Content -->\\n<!-- Newsletter signup -->\\n<section class=\\"container-wrapper v-spacer\\">\\n  <div class=\\"container\\">\\n    <!-- Pagination -->\\n    <article class=\\"row\\">\\n      <nav class=\\"content-col-big\\">\\n        [[!+page.nav]]\\n      <\\/nav>\\n    <\\/article>\\n    <!-- \\/.Pagination -->\\n    <!-- Newsletter signup -->\\n    <article class=\\"row\\">\\n      <div class=\\"content-col-big v-spacer\\">\\n        <div class=\\"block-bg bg-primary nletter-signup\\">\\n          <form id=\\"newsletter-signup\\" class=\\"row\\" action=\\"\\/\\/formspree.io\\/[[++emailsender]]\\" method=\\"POST\\">\\n            <input type=\\"hidden\\" name=\\"_subject\\" value=\\"Your List has a new Subscriber\\">\\n            <input type=\\"text\\" name=\\"_gotcha\\" class=\\"hidden-xs-up\\">\\n            <div class=\\"col-md-4 col-md-offset-1\\">\\n              <p class=\\"signup-text\\">\\n                Be notified of new Thoughts\\n              <\\/p>\\n            <\\/div>\\n            <div class=\\"col-md-6\\">\\n              <div class=\\"input-group\\">\\n                <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Enter your email\\">\\n                <span class=\\"input-group-btn\\">\\n                  <button class=\\"btn btn-success\\" type=\\"submit\\">Subscribe<\\/button>\\n                <\\/span>\\n              <\\/div>\\n            <\\/div>\\n          <\\/form>\\n        <\\/div>\\n      <\\/div>\\n    <\\/article>\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Newsletter signup -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<section class=\\"container-wrapper masthead body-spacer\\">\\n  <!-- Page header -->\\n  <article class=\\"container-fluid\\">\\n    <section class=\\"row\\">\\n      <header class=\\"content-col-half\\">\\n        <h1 class=\\"text-xs-center article-header\\" itemprop=\\"headline\\" itemprop=\\"headline\\">[[*pagetitle]]<\\/h1>\\n        <figure class=\\"figure center-block\\" itemprop=\\"author\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/Person\\">\\n          <img class=\\"img-circle center-block profile-img\\" data-src=\\"[[Gravatar? &email=`[[*qllAuthor:userinfo=`email`]]` &size=`128` &rating=`r` &default=`wavatar`]]\\" width=\\"128\\" alt=\\"[[*pagetitle]]\\" itemprop=\\"image\\">\\n          [[If?\\n            &subject=`[[*id]]`\\n            &operand=`[[++quill.authors_page]]`\\n            &then=`<img class=\\"img-circle center-block profile-img\\" data-src=\\"[[++quill_logo]]\\" width=\\"128\\" alt=\\"[[*pagetitle]]\\" itemprop=\\"image\\">`\\n            &else=`<img class=\\"img-circle center-block profile-img\\" data-src=\\"[[Gravatar? &email=`[[*qllAuthor:userinfo=`email`]]` &size=`128` &rating=`r` &default=`wavatar`]]\\" width=\\"128\\" alt=\\"[[*pagetitle]]\\" itemprop=\\"image\\">`\\n          ]]\\n          <figcaption>\\n            <p class=\\"text-xs-center\\">\\n                [[If?\\n                  &subject=`[[*id]]`\\n                  &operand=`[[++quill.authors_page]]`\\n                  &then=`[[*description]]`\\n                  &else=`[[*qllAuthor:userinfo=`comment`]]`\\n                ]]\\n            <\\/p>\\n          <\\/figcaption>\\n        <\\/figure>\\n        [[If?\\n          &subject=`[[*qllTwitterAccount]]`\\n          &operator=`notempty`\\n          &then=`<p class=\\"small text-xs-center\\"><a href=\\"https:\\/\\/twitter.com\\/[[*qllTwitterAccount]]\\" target=\\"_blank\\" rel=\\"_nofollow\\">@[[*qllTwitterAccount]]<\\/a><\\/p>`\\n        ]]\\n      <\\/header>\\n    <\\/section>\\n  <\\/article>\\n  <!-- \\/.Page header -->\\n<\\/section>\\n<!-- Content -->\\n<main class=\\"container-fluid main-content\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    <article class=\\"content-col\\">\\n      <h2 class=\\"h5 top-spacer\\"><strong class=\\"text-thick \\">The latest from [[*id:is=`[[++quill.authors_page]]`:then=`our `]]<span class=\\"underline-primary\\">[[*pagetitle]]<\\/span><\\/strong><\\/h2>\\n      <!-- Content body -->\\n      <section class=\\"article-body block-spacer\\" itemprop=\\"articleBody\\">\\n\\n        [[*content]]\\n\\n        [[- The default listing limit is 10]]\\n        [[!pdoPage:default=`<p>[[*pagetitle]] is probably writing the next <em>best-seller<\\/em>. Please check back soon.<\\/p>`?\\n          &where=`{\\"createdby:=\\":[[*Author]]}`\\n          &select=`{\\"modResource\\":\\"id,pagetitle,introtext,publishedon,createdby\\"}`\\n          &parents=`[[++quill.blog_container]]`\\n          &tpl=`qllPostTpl`\\n          &scheme=`full`\\n          &sortby=`publishedon`\\n          &sortdir=`DESC`\\n          &includeTVs=`qllFeaturedImage`\\n          &tplPageWrapper=`qllPageWrapperTpl`\\n          &tplPage=`qllPageTpl`\\n          &tplPageActive=`qllPageActiveTpl`\\n          &tplPagePrev=`qllPagePrevTpl`\\n          &tplPageNext=`qllPageNextTpl`\\n          &tplPagePrevEmpty=``\\n          &tplPageNextEmpty=``\\n        ]]\\n      <\\/section>\\n      <!-- \\/.Content body -->\\n    <\\/article>\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- \\/.Content -->\\n<!-- Newsletter signup -->\\n<section class=\\"container-wrapper v-spacer\\">\\n  <div class=\\"container\\">\\n    <!-- Pagination -->\\n    <article class=\\"row\\">\\n      <nav class=\\"content-col-big\\">\\n        [[!+page.nav]]\\n      <\\/nav>\\n    <\\/article>\\n    <!-- \\/.Pagination -->\\n    <!-- Newsletter signup -->\\n    <article class=\\"row\\">\\n      <div class=\\"content-col-big v-spacer\\">\\n        <div class=\\"block-bg bg-primary nletter-signup\\">\\n          <form id=\\"newsletter-signup\\" class=\\"row\\" action=\\"\\/\\/formspree.io\\/[[++emailsender]]\\" method=\\"POST\\">\\n            <input type=\\"hidden\\" name=\\"_subject\\" value=\\"Your List has a new Subscriber\\">\\n            <input type=\\"text\\" name=\\"_gotcha\\" class=\\"hidden-xs-up\\">\\n            <div class=\\"col-md-4 col-md-offset-1\\">\\n              <p class=\\"signup-text\\">\\n                Be notified of new Thoughts\\n              <\\/p>\\n            <\\/div>\\n            <div class=\\"col-md-6\\">\\n              <div class=\\"input-group\\">\\n                <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Enter your email\\">\\n                <span class=\\"input-group-btn\\">\\n                  <button class=\\"btn btn-success\\" type=\\"submit\\">Subscribe<\\/button>\\n                <\\/span>\\n              <\\/div>\\n            <\\/div>\\n          <\\/form>\\n        <\\/div>\\n      <\\/div>\\n    <\\/article>\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Newsletter signup -->\\n"}',
+              'guid' => 'b5811c1da6e503fdd5a05dd8d82fb9ce',
+              'native_key' => NULL,
+              'signature' => '993d66434a9f6989824733f76329f784',
+            ),
+            '8e7d6c89b685fb720e48dc1e3a40a09e' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllFullLayout","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<div class=\\"body-spacer\\">\\n    [[*content]]\\n<\\/div>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<div class=\\"body-spacer\\">\\n    [[*content]]\\n<\\/div>\\n"}',
+              'guid' => '3cfa432968b8b5df06b7b557e85ce914',
+              'native_key' => NULL,
+              'signature' => '0531110e214ea39c4fef0263d3838349',
+            ),
+            '02a4efa5bfa216576c37c00e4b7d91ec' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllHomeLayout","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Featured post -->\\n<section class=\\"section-full featured-post\\">\\n  [[pdoResources?\\n    &select=`{\\"modResource\\":\\"id,pagetitle,introtext,publishedon,createdby\\"}`\\n    &parents=`[[++quill.blog_container]]`\\n    &limit=`1`\\n    &tpl=`qllFeaturedPostTpl`\\n    &scheme=`full`\\n    &sortby=`publishedon`\\n    &sortdir=`DESC`\\n    &includeTVs=`qllFeaturedImage,qllImageCaption,qllImageCredits`\\n    &tvFilters=`qllFeaturedImage!==%%`\\n    &toPlaceholder=`featured`\\n  ]]\\n  [[+featured]]\\n<\\/section>\\n<!-- \\/.Featured post -->\\n<!-- Content -->\\n<main class=\\"container-fluid main-content\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    <article class=\\"content-col-off\\">\\n      <h2 class=\\"h5 text-thick m-t-0\\"><strong>The latest<\\/strong><\\/h2>\\n      <!-- Content body -->\\n      <section class=\\"body-text block-spacer\\" itemprop=\\"articleBody\\">\\n        [[*content]]\\n      <\\/section>\\n      <!-- \\/.Content body -->\\n    <\\/article>\\n    <aside class=\\"side-col\\">\\n      <div class=\\"card card-block\\">\\n        <h5 class=\\"card-title meta meta-title\\">About this blog<\\/h5>\\n        <p class=\\"card-text meta\\">[[++quill_blog_description:default=`[[*description]]`]]<\\/p>\\n      <\\/div>\\n      <p class=\\"section-title top-spacer\\">Popular Topics<\\/p>\\n      <nav>\\n        <ul class=\\"list-inline\\">\\n          [[TaggerGetTags?\\n            &groups=`[[++quill_topic_group]]`\\n            &rowTpl=`qllTagLinksTpl`\\n            &target=`[[++quill.topics_page]]`\\n          ]]\\n        <\\/ul>\\n      <\\/nav>\\n      <p class=\\"section-title top-spacer\\">What we\'re reading<\\/p>\\n      <div class=\\"card card-block\\">\\n        <h5 class=\\"card-title meta meta-title\\">MODX: The Official Guide<\\/h5>\\n        <p class=\\"card-text meta\\"><a href=\\"http:\\/\\/modx.com\\/learn\\/modx-books\\/modx-the-official-guide\\/\\" target=\\"_blank\\"><img src=\\"http:\\/\\/cdn.kleverr.com\\/pjx\\/quill\\/img\\/blog\\/modx-the-official-guide.jpg\\" width=\\"350\\" class=\\"img-fluid\\" title=\\"MODX: The Official Guide\\"><\\/a><\\/p>\\n      <\\/div>\\n    <\\/aside>\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- \\/.Content -->\\n<!-- Newsletter signup -->\\n<section class=\\"container-wrapper v-spacer\\">\\n  <div class=\\"container-fluid\\">\\n    <!-- Pagination -->\\n    <article class=\\"row\\">\\n      <nav class=\\"content-col-big\\">\\n        [[!+page.nav]]\\n      <\\/nav>\\n    <\\/article>\\n    <!-- \\/.Pagination -->\\n    <!-- Newsletter signup -->\\n    <article class=\\"row\\">\\n      <div class=\\"content-col-big v-spacer\\">\\n        <div class=\\"block-bg bg-primary nletter-signup\\">\\n          <form id=\\"newsletter-signup\\" class=\\"row\\" action=\\"\\/\\/formspree.io\\/[[++emailsender]]\\" method=\\"POST\\">\\n            <input type=\\"hidden\\" name=\\"_subject\\" value=\\"Your List has a new Subscriber\\">\\n            <input type=\\"text\\" name=\\"_gotcha\\" class=\\"hidden-xs-up\\">\\n            <div class=\\"col-md-4 col-md-offset-1\\">\\n              <p class=\\"signup-text\\">\\n                Be notified of new Thoughts\\n              <\\/p>\\n            <\\/div>\\n            <div class=\\"col-md-6\\">\\n              <div class=\\"input-group\\">\\n                <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Enter your email\\">\\n                <span class=\\"input-group-btn\\">\\n                  <button class=\\"btn btn-success\\" type=\\"submit\\">Subscribe<\\/button>\\n                <\\/span>\\n              <\\/div>\\n            <\\/div>\\n          <\\/form>\\n        <\\/div>\\n      <\\/div>\\n    <\\/article>\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Newsletter signup -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Featured post -->\\n<section class=\\"section-full featured-post\\">\\n  [[pdoResources?\\n    &select=`{\\"modResource\\":\\"id,pagetitle,introtext,publishedon,createdby\\"}`\\n    &parents=`[[++quill.blog_container]]`\\n    &limit=`1`\\n    &tpl=`qllFeaturedPostTpl`\\n    &scheme=`full`\\n    &sortby=`publishedon`\\n    &sortdir=`DESC`\\n    &includeTVs=`qllFeaturedImage,qllImageCaption,qllImageCredits`\\n    &tvFilters=`qllFeaturedImage!==%%`\\n    &toPlaceholder=`featured`\\n  ]]\\n  [[+featured]]\\n<\\/section>\\n<!-- \\/.Featured post -->\\n<!-- Content -->\\n<main class=\\"container-fluid main-content\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    <article class=\\"content-col-off\\">\\n      <h2 class=\\"h5 text-thick m-t-0\\"><strong>The latest<\\/strong><\\/h2>\\n      <!-- Content body -->\\n      <section class=\\"body-text block-spacer\\" itemprop=\\"articleBody\\">\\n        [[*content]]\\n      <\\/section>\\n      <!-- \\/.Content body -->\\n    <\\/article>\\n    <aside class=\\"side-col\\">\\n      <div class=\\"card card-block\\">\\n        <h5 class=\\"card-title meta meta-title\\">About this blog<\\/h5>\\n        <p class=\\"card-text meta\\">[[++quill_blog_description:default=`[[*description]]`]]<\\/p>\\n      <\\/div>\\n      <p class=\\"section-title top-spacer\\">Popular Topics<\\/p>\\n      <nav>\\n        <ul class=\\"list-inline\\">\\n          [[TaggerGetTags?\\n            &groups=`[[++quill_topic_group]]`\\n            &rowTpl=`qllTagLinksTpl`\\n            &target=`[[++quill.topics_page]]`\\n          ]]\\n        <\\/ul>\\n      <\\/nav>\\n      <p class=\\"section-title top-spacer\\">What we\'re reading<\\/p>\\n      <div class=\\"card card-block\\">\\n        <h5 class=\\"card-title meta meta-title\\">MODX: The Official Guide<\\/h5>\\n        <p class=\\"card-text meta\\"><a href=\\"http:\\/\\/modx.com\\/learn\\/modx-books\\/modx-the-official-guide\\/\\" target=\\"_blank\\"><img src=\\"http:\\/\\/cdn.kleverr.com\\/pjx\\/quill\\/img\\/blog\\/modx-the-official-guide.jpg\\" width=\\"350\\" class=\\"img-fluid\\" title=\\"MODX: The Official Guide\\"><\\/a><\\/p>\\n      <\\/div>\\n    <\\/aside>\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- \\/.Content -->\\n<!-- Newsletter signup -->\\n<section class=\\"container-wrapper v-spacer\\">\\n  <div class=\\"container-fluid\\">\\n    <!-- Pagination -->\\n    <article class=\\"row\\">\\n      <nav class=\\"content-col-big\\">\\n        [[!+page.nav]]\\n      <\\/nav>\\n    <\\/article>\\n    <!-- \\/.Pagination -->\\n    <!-- Newsletter signup -->\\n    <article class=\\"row\\">\\n      <div class=\\"content-col-big v-spacer\\">\\n        <div class=\\"block-bg bg-primary nletter-signup\\">\\n          <form id=\\"newsletter-signup\\" class=\\"row\\" action=\\"\\/\\/formspree.io\\/[[++emailsender]]\\" method=\\"POST\\">\\n            <input type=\\"hidden\\" name=\\"_subject\\" value=\\"Your List has a new Subscriber\\">\\n            <input type=\\"text\\" name=\\"_gotcha\\" class=\\"hidden-xs-up\\">\\n            <div class=\\"col-md-4 col-md-offset-1\\">\\n              <p class=\\"signup-text\\">\\n                Be notified of new Thoughts\\n              <\\/p>\\n            <\\/div>\\n            <div class=\\"col-md-6\\">\\n              <div class=\\"input-group\\">\\n                <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Enter your email\\">\\n                <span class=\\"input-group-btn\\">\\n                  <button class=\\"btn btn-success\\" type=\\"submit\\">Subscribe<\\/button>\\n                <\\/span>\\n              <\\/div>\\n            <\\/div>\\n          <\\/form>\\n        <\\/div>\\n      <\\/div>\\n    <\\/article>\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Newsletter signup -->\\n"}',
+              'guid' => '8cc21535a4b98904ee3cb5203982cc5e',
+              'native_key' => NULL,
+              'signature' => 'fcc415e4943b5d99273dd922986ed956',
+            ),
+            'ce6b17dbfd0010f73106ea457cf39ce1' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllMinimalLayout","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Content -->\\n<main class=\\"container-fluid main-content body-spacer\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    [[*content]]\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- \\/.Content -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Content -->\\n<main class=\\"container-fluid main-content body-spacer\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    [[*content]]\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- \\/.Content -->\\n"}',
+              'guid' => '83f7c4cce379cb38ea589586ee1d7784',
+              'native_key' => NULL,
+              'signature' => '4683e496bb909985a978a56196d229ec',
+            ),
+            'b660680206c5f86e641bebdf00584047' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPostLayout","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<main class=\\"container-fluid main-content body-spacer\\" role=\\"main\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" role=\\"main\\" itemprop=\\"blogPost\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\">\\n    <article class=\\"content-col\\">\\n      <!-- Post header -->\\n      <header class=\\"article-header\\">\\n        <h1 itemprop=\\"headline\\">[[*pagetitle]]<\\/h1>\\n        <p>\\n          <small class=\\"meta text-muted\\">\\n            <time datetime=\\"[[*publishedon:strtotime:date=`%Y-%m-%dT%R%z`]]\\" itemprop=\\"datePublished\\">[[*publishedon:strtotime:date=`%B %e, %Y`]]<\\/time>.\\n            <meta name=\\"dateModified\\" content=\\"[[*publishedon:strtotime:date=`%Y-%m-%dT%R%z`]]\\">\\n            Published in\\n            [[TaggerGetTags:default=`<a href=\\"[[~[[*parent]]]]\\">Thoughts<\\/a>`?\\n              &resources=`[[*id]]`\\n              &groups=`[[++quill_section_group]]`\\n              &rowTpl=`qllSectionLinksTpl`\\n              &target=`[[++quill.sections_page]]`\\n            ]], by [[qllAuthorUrl]].\\n          <\\/small>\\n        <\\/p>\\n        [[If?\\n          &subject=`[[*qllShowFeaturedImage]]`\\n          &operand=`1`\\n          &then=`[[$qllFigure? &img=`[[*qllFeaturedImage]]` &caption=`[[*qllImageCaption]]` &credits=`[[*qllImageCredits]]`]]<hr>`\\n        ]]\\n      <\\/header>\\n      <!-- \\/.Post header -->\\n      <!-- Reading time info -->\\n      <p class=\\"section-title readtime\\" title=\\"Estimated read time\\"><span class=\\"eta\\"><\\/span> read.<\\/p>\\n      <!-- \\/.Reading time info -->\\n      <!-- Content body -->\\n      <section class=\\"article-body\\" itemprop=\\"articleBody\\">\\n        [[*content]]\\n      <\\/section>\\n      <!-- \\/.Content body -->\\n      <!-- Post tags -->\\n      [[TaggerGetTags?\\n        &resources=`[[*id]]`\\n        &groups=`[[++quill_topic_group]]`\\n        &rowTpl=`qllTagLinksTpl`\\n        &outTpl=`qllTagLinksOutTpl`\\n        &target=`[[++quill.topics_page]]`\\n      ]]\\n      <!-- \\/.Post tags -->\\n      <!-- Author bio -->\\n      <footer class=\\"author-bio block-spacer\\" itemprop=\\"author\\">\\n        <h3 class=\\"section-title\\">About the author<\\/h3>\\n        <figure class=\\"media\\" itemprop=\\"author\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/Person\\">\\n          <a class=\\"media-left\\" href=\\"[[~[[++quill.authors_page]]? &name=`[[*createdby:userinfo=`username`]]`]]\\" itemprop=\\"url\\">\\n            <img class=\\"media-object\\" data-src=\\"[[Gravatar? &email=`[[*createdby:userinfo=`email`]]` &size=`64` &rating=`r` &default=`wavatar`]]\\" width=\\"64\\" alt=\\"[[*createdby:userinfo=`fullname`]]\\" itemprop=\\"image\\">\\n          <\\/a>\\n          <figcaption class=\\"media-body\\">\\n            <h4 class=\\"media-heading\\" rel=\\"author\\" itemprop=\\"name\\">[[*createdby:userinfo=`fullname`]]<\\/h4>\\n            [[*createdby:userinfo=`comment`]]\\n          <\\/figcaption>\\n        <\\/figure>\\n      <\\/footer>\\n      <!-- \\/.Author bio -->\\n    <\\/article>\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- Comments + Newsletter -->\\n<section class=\\"container-wrapper\\">\\n  <div class=\\"container block-spacer\\">\\n    <!-- Post Comments -->\\n    <article class=\\"row\\" itemprop=\\"comment\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/UserComments\\">\\n      <header class=\\"read-next\\">\\n        <h2 class=\\"heading h4\\">Add your thought<\\/h2>\\n      <\\/header>\\n      <div id=\\"disqus_thread\\" data-disqus-shortname=\\"[[++quill_disqus_shortname]]\\" data-disqus-url=\\"[[~[[*id]]? &scheme=`full`]]\\" data-disqus-identifier=\\"[[*publishedon:strtotime]]-[[*parent]][[*id]]\\" class=\\"col-md-10 col-md-offset-1\\"><\\/div>\\n    <\\/article>\\n    <!-- \\/.Post Comments -->\\n    <!-- Newsletter signup -->\\n    <article class=\\"row\\">\\n      <div class=\\"content-col-big block-spacer\\">\\n        <div class=\\"block-bg bg-primary nletter-signup\\">\\n          <form id=\\"newsletter-signup\\" class=\\"row\\" action=\\"\\/\\/formspree.io\\/[[++emailsender]]\\" method=\\"POST\\">\\n            <input type=\\"hidden\\" name=\\"_subject\\" value=\\"Your List has a new Subscriber\\">\\n            <input type=\\"text\\" name=\\"_gotcha\\" class=\\"hidden-xs-up\\">\\n            <div class=\\"col-md-4 col-md-offset-1\\">\\n              <p class=\\"signup-text\\">\\n                Be notified of new Thoughts\\n              <\\/p>\\n            <\\/div>\\n            <div class=\\"col-md-6\\">\\n              <div class=\\"input-group\\">\\n                <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Enter your email\\">\\n                <span class=\\"input-group-btn\\">\\n                  <button class=\\"btn btn-success\\" type=\\"submit\\">Subscribe<\\/button>\\n                <\\/span>\\n              <\\/div>\\n            <\\/div>\\n          <\\/form>\\n        <\\/div>\\n      <\\/div>\\n    <\\/article>\\n    <!-- \\/.Newsletter signup -->\\n  <\\/div>\\n<\\/section>\\n<!-- Comments + Newsletter -->\\n<!-- Suggestions -->\\n<section class=\\"v-spacer\\">\\n  <div class=\\"read-next\\">\\n    <h2 class=\\"heading h4\\">Read these next<\\/h2>\\n  <\\/div>\\n  <div class=\\"container-wrapper\\">\\n    <div class=\\"container-fluid\\">\\n      <div class=\\"row\\">\\n        <aside class=\\"col-md-4 block-content has-border-right\\">\\n          <div class=\\"inner-spacer-col\\">\\n              [[pdoResources:default=`<p class=\\"text-xs-center text-muted\\">No suggestions available. Please check back soon.<\\/p>`?\\n                &parents=`[[++quill.blog_container]]`\\n                &resources=`-[[*id]]`\\n                &depth=`0`\\n                &limit=`3`\\n                &select=`{\\"modResource\\":\\"id,pagetitle,introtext,createdby,publishedon\\"}`\\n                &sortby=`RAND()`\\n                &scheme=`full`\\n                &tpl=`qllPostTpl`\\n                &tpl_3=`qllReadNextTplBig`\\n              ]]\\n          [[- the closing tags <\\/div><\\/aside> are in the third tpl (right column)\\n              This setup helps avoid an extra unnecessary pdoResources call.\\n          ]]\\n      <\\/div>\\n    <\\/div>\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Suggestions -->\\n<!-- \\/.Content -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<main class=\\"container-fluid main-content body-spacer\\" role=\\"main\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" role=\\"main\\" itemprop=\\"blogPost\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\">\\n    <article class=\\"content-col\\">\\n      <!-- Post header -->\\n      <header class=\\"article-header\\">\\n        <h1 itemprop=\\"headline\\">[[*pagetitle]]<\\/h1>\\n        <p>\\n          <small class=\\"meta text-muted\\">\\n            <time datetime=\\"[[*publishedon:strtotime:date=`%Y-%m-%dT%R%z`]]\\" itemprop=\\"datePublished\\">[[*publishedon:strtotime:date=`%B %e, %Y`]]<\\/time>.\\n            <meta name=\\"dateModified\\" content=\\"[[*publishedon:strtotime:date=`%Y-%m-%dT%R%z`]]\\">\\n            Published in\\n            [[TaggerGetTags:default=`<a href=\\"[[~[[*parent]]]]\\">Thoughts<\\/a>`?\\n              &resources=`[[*id]]`\\n              &groups=`[[++quill_section_group]]`\\n              &rowTpl=`qllSectionLinksTpl`\\n              &target=`[[++quill.sections_page]]`\\n            ]], by [[qllAuthorUrl]].\\n          <\\/small>\\n        <\\/p>\\n        [[If?\\n          &subject=`[[*qllShowFeaturedImage]]`\\n          &operand=`1`\\n          &then=`[[$qllFigure? &img=`[[*qllFeaturedImage]]` &caption=`[[*qllImageCaption]]` &credits=`[[*qllImageCredits]]`]]<hr>`\\n        ]]\\n      <\\/header>\\n      <!-- \\/.Post header -->\\n      <!-- Reading time info -->\\n      <p class=\\"section-title readtime\\" title=\\"Estimated read time\\"><span class=\\"eta\\"><\\/span> read.<\\/p>\\n      <!-- \\/.Reading time info -->\\n      <!-- Content body -->\\n      <section class=\\"article-body\\" itemprop=\\"articleBody\\">\\n        [[*content]]\\n      <\\/section>\\n      <!-- \\/.Content body -->\\n      <!-- Post tags -->\\n      [[TaggerGetTags?\\n        &resources=`[[*id]]`\\n        &groups=`[[++quill_topic_group]]`\\n        &rowTpl=`qllTagLinksTpl`\\n        &outTpl=`qllTagLinksOutTpl`\\n        &target=`[[++quill.topics_page]]`\\n      ]]\\n      <!-- \\/.Post tags -->\\n      <!-- Author bio -->\\n      <footer class=\\"author-bio block-spacer\\" itemprop=\\"author\\">\\n        <h3 class=\\"section-title\\">About the author<\\/h3>\\n        <figure class=\\"media\\" itemprop=\\"author\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/Person\\">\\n          <a class=\\"media-left\\" href=\\"[[~[[++quill.authors_page]]? &name=`[[*createdby:userinfo=`username`]]`]]\\" itemprop=\\"url\\">\\n            <img class=\\"media-object\\" data-src=\\"[[Gravatar? &email=`[[*createdby:userinfo=`email`]]` &size=`64` &rating=`r` &default=`wavatar`]]\\" width=\\"64\\" alt=\\"[[*createdby:userinfo=`fullname`]]\\" itemprop=\\"image\\">\\n          <\\/a>\\n          <figcaption class=\\"media-body\\">\\n            <h4 class=\\"media-heading\\" rel=\\"author\\" itemprop=\\"name\\">[[*createdby:userinfo=`fullname`]]<\\/h4>\\n            [[*createdby:userinfo=`comment`]]\\n          <\\/figcaption>\\n        <\\/figure>\\n      <\\/footer>\\n      <!-- \\/.Author bio -->\\n    <\\/article>\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- Comments + Newsletter -->\\n<section class=\\"container-wrapper\\">\\n  <div class=\\"container block-spacer\\">\\n    <!-- Post Comments -->\\n    <article class=\\"row\\" itemprop=\\"comment\\" itemscope itemtype=\\"http:\\/\\/schema.org\\/UserComments\\">\\n      <header class=\\"read-next\\">\\n        <h2 class=\\"heading h4\\">Add your thought<\\/h2>\\n      <\\/header>\\n      <div id=\\"disqus_thread\\" data-disqus-shortname=\\"[[++quill_disqus_shortname]]\\" data-disqus-url=\\"[[~[[*id]]? &scheme=`full`]]\\" data-disqus-identifier=\\"[[*publishedon:strtotime]]-[[*parent]][[*id]]\\" class=\\"col-md-10 col-md-offset-1\\"><\\/div>\\n    <\\/article>\\n    <!-- \\/.Post Comments -->\\n    <!-- Newsletter signup -->\\n    <article class=\\"row\\">\\n      <div class=\\"content-col-big block-spacer\\">\\n        <div class=\\"block-bg bg-primary nletter-signup\\">\\n          <form id=\\"newsletter-signup\\" class=\\"row\\" action=\\"\\/\\/formspree.io\\/[[++emailsender]]\\" method=\\"POST\\">\\n            <input type=\\"hidden\\" name=\\"_subject\\" value=\\"Your List has a new Subscriber\\">\\n            <input type=\\"text\\" name=\\"_gotcha\\" class=\\"hidden-xs-up\\">\\n            <div class=\\"col-md-4 col-md-offset-1\\">\\n              <p class=\\"signup-text\\">\\n                Be notified of new Thoughts\\n              <\\/p>\\n            <\\/div>\\n            <div class=\\"col-md-6\\">\\n              <div class=\\"input-group\\">\\n                <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Enter your email\\">\\n                <span class=\\"input-group-btn\\">\\n                  <button class=\\"btn btn-success\\" type=\\"submit\\">Subscribe<\\/button>\\n                <\\/span>\\n              <\\/div>\\n            <\\/div>\\n          <\\/form>\\n        <\\/div>\\n      <\\/div>\\n    <\\/article>\\n    <!-- \\/.Newsletter signup -->\\n  <\\/div>\\n<\\/section>\\n<!-- Comments + Newsletter -->\\n<!-- Suggestions -->\\n<section class=\\"v-spacer\\">\\n  <div class=\\"read-next\\">\\n    <h2 class=\\"heading h4\\">Read these next<\\/h2>\\n  <\\/div>\\n  <div class=\\"container-wrapper\\">\\n    <div class=\\"container-fluid\\">\\n      <div class=\\"row\\">\\n        <aside class=\\"col-md-4 block-content has-border-right\\">\\n          <div class=\\"inner-spacer-col\\">\\n              [[pdoResources:default=`<p class=\\"text-xs-center text-muted\\">No suggestions available. Please check back soon.<\\/p>`?\\n                &parents=`[[++quill.blog_container]]`\\n                &resources=`-[[*id]]`\\n                &depth=`0`\\n                &limit=`3`\\n                &select=`{\\"modResource\\":\\"id,pagetitle,introtext,createdby,publishedon\\"}`\\n                &sortby=`RAND()`\\n                &scheme=`full`\\n                &tpl=`qllPostTpl`\\n                &tpl_3=`qllReadNextTplBig`\\n              ]]\\n          [[- the closing tags <\\/div><\\/aside> are in the third tpl (right column)\\n              This setup helps avoid an extra unnecessary pdoResources call.\\n          ]]\\n      <\\/div>\\n    <\\/div>\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Suggestions -->\\n<!-- \\/.Content -->\\n"}',
+              'guid' => 'ce1f8be70a81003e106075a719c8478d',
+              'native_key' => NULL,
+              'signature' => '457bb8343d52901498aa00207e0603a7',
+            ),
+            'e2f631f87824d4297789d936771048c4' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSearchLayout","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Content -->\\n<main class=\\"container-fluid main-content body-spacer\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    <div class=\\"content-col body-text search-results\\">\\n      <header class=\\"article-header\\">\\n        <h1 itemprop=\\"headline\\" itemprop=\\"headline\\">Search results<\\/h1>\\n      <\\/header>\\n      <!-- Search results -->\\n      [[*content]]\\n      <!-- \\/.Search results -->\\n    <\\/div>\\n  <\\/section>\\n<\\/main>\\n<section class=\\"container-wrapper\\">\\n  <div class=\\"container-fluid block-spacer\\">\\n    <!-- Pagination -->\\n    <article class=\\"row\\">\\n      <nav class=\\"content-col\\">\\n        <ul class=\\"pagination\\">\\n          [[+paging:default=`<li class=\\"page-item active text-muted\\"><span class=\\"page-link\\">Page: 1<\\/span><\\/li>`]]\\n        <\\/ul>\\n      <\\/nav>\\n    <\\/article>\\n    <!-- \\/.Pagination -->\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Content -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Content -->\\n<main class=\\"container-fluid main-content body-spacer\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    <div class=\\"content-col body-text search-results\\">\\n      <header class=\\"article-header\\">\\n        <h1 itemprop=\\"headline\\" itemprop=\\"headline\\">Search results<\\/h1>\\n      <\\/header>\\n      <!-- Search results -->\\n      [[*content]]\\n      <!-- \\/.Search results -->\\n    <\\/div>\\n  <\\/section>\\n<\\/main>\\n<section class=\\"container-wrapper\\">\\n  <div class=\\"container-fluid block-spacer\\">\\n    <!-- Pagination -->\\n    <article class=\\"row\\">\\n      <nav class=\\"content-col\\">\\n        <ul class=\\"pagination\\">\\n          [[+paging:default=`<li class=\\"page-item active text-muted\\"><span class=\\"page-link\\">Page: 1<\\/span><\\/li>`]]\\n        <\\/ul>\\n      <\\/nav>\\n    <\\/article>\\n    <!-- \\/.Pagination -->\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Content -->\\n"}',
+              'guid' => 'dc504b320a19ee1b1de0417a1cbd0f5f',
+              'native_key' => NULL,
+              'signature' => '538a95f43deb3944f04f1e23240792d4',
+            ),
+            '035ce0df0af981e9c4f64f72ce3e4b69' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSectionLayout","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<section class=\\"container-wrapper masthead body-spacer\\">\\n  <!-- Page header -->\\n  <article class=\\"container-fluid\\">\\n    <section class=\\"row\\">\\n      <header class=\\"content-col-half\\">\\n        <h1 class=\\"text-xs-center article-header\\" itemprop=\\"headline\\" itemprop=\\"headline\\">[[*pagetitle]]<\\/h1>\\n        <p class=\\"lead text-xs-center\\">[[*description]]<\\/p>\\n      <\\/header>\\n    <\\/section>\\n  <\\/article>\\n  <!-- \\/.Page header -->\\n<\\/section>\\n<!-- Content -->\\n<main class=\\"container-fluid main-content\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    <article class=\\"content-col\\">\\n      [[If?\\n        &subject=`[[*id]]`\\n        &operator=`not`\\n        &operand=`[[++quill.archives_page]]`\\n        &then=`<h2 class=\\"h5 top-spacer\\"><strong class=\\"text-thick \\">The latest<\\/strong><\\/h2>`\\n      ]]\\n      <!-- Content body -->\\n      <section class=\\"article-body block-spacer\\" itemprop=\\"articleBody\\">\\n        [[*content]]\\n      <\\/section>\\n      <!-- \\/.Content body -->\\n    <\\/article>\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- \\/.Content -->\\n<!-- Newsletter signup -->\\n<section class=\\"container-wrapper v-spacer\\">\\n  <div class=\\"container\\">\\n    <!-- Pagination -->\\n    <article class=\\"row\\">\\n      <nav class=\\"content-col-big\\">\\n        [[!+page.nav]]\\n      <\\/nav>\\n    <\\/article>\\n    <!-- \\/.Pagination -->\\n    <!-- Newsletter signup -->\\n    <article class=\\"row\\">\\n      <div class=\\"content-col-big v-spacer\\">\\n        <div class=\\"block-bg bg-primary nletter-signup\\">\\n          <form id=\\"newsletter-signup\\" class=\\"row\\" action=\\"\\/\\/formspree.io\\/[[++emailsender]]\\" method=\\"POST\\">\\n            <input type=\\"hidden\\" name=\\"_subject\\" value=\\"Your List has a new Subscriber\\">\\n            <input type=\\"text\\" name=\\"_gotcha\\" class=\\"hidden-xs-up\\">\\n            <div class=\\"col-md-4 col-md-offset-1\\">\\n              <p class=\\"signup-text\\">\\n                Be notified of new Thoughts\\n              <\\/p>\\n            <\\/div>\\n            <div class=\\"col-md-6\\">\\n              <div class=\\"input-group\\">\\n                <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Enter your email\\">\\n                <span class=\\"input-group-btn\\">\\n                  <button class=\\"btn btn-success\\" type=\\"submit\\">Subscribe<\\/button>\\n                <\\/span>\\n              <\\/div>\\n            <\\/div>\\n          <\\/form>\\n        <\\/div>\\n      <\\/div>\\n    <\\/article>\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Newsletter signup -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<section class=\\"container-wrapper masthead body-spacer\\">\\n  <!-- Page header -->\\n  <article class=\\"container-fluid\\">\\n    <section class=\\"row\\">\\n      <header class=\\"content-col-half\\">\\n        <h1 class=\\"text-xs-center article-header\\" itemprop=\\"headline\\" itemprop=\\"headline\\">[[*pagetitle]]<\\/h1>\\n        <p class=\\"lead text-xs-center\\">[[*description]]<\\/p>\\n      <\\/header>\\n    <\\/section>\\n  <\\/article>\\n  <!-- \\/.Page header -->\\n<\\/section>\\n<!-- Content -->\\n<main class=\\"container-fluid main-content\\" role=\\"main\\" itemprop=\\"mainContentOfPage\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Blog\\">\\n  <!-- Left floatbar widgets -->\\n  <aside class=\\"floatbar-left\\">\\n    [[*qllLeftFloatbar]]\\n  <\\/aside>\\n  <!-- \\/. Left floatbar widgets -->\\n  <!-- Content area -->\\n  <section class=\\"row\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/BlogPosting\\" itemprop=\\"blogPost\\">\\n    <article class=\\"content-col\\">\\n      [[If?\\n        &subject=`[[*id]]`\\n        &operator=`not`\\n        &operand=`[[++quill.archives_page]]`\\n        &then=`<h2 class=\\"h5 top-spacer\\"><strong class=\\"text-thick \\">The latest<\\/strong><\\/h2>`\\n      ]]\\n      <!-- Content body -->\\n      <section class=\\"article-body block-spacer\\" itemprop=\\"articleBody\\">\\n        [[*content]]\\n      <\\/section>\\n      <!-- \\/.Content body -->\\n    <\\/article>\\n  <\\/section>\\n  <!-- \\/.Content area -->\\n  <!-- Right floatbar widgets -->\\n  <aside class=\\"share-block\\">\\n    [[*qllRightFloatbar]]\\n  <\\/aside>\\n  <!-- \\/.Right floatbar widgets -->\\n<\\/main>\\n<!-- \\/.Content -->\\n<!-- Newsletter signup -->\\n<section class=\\"container-wrapper v-spacer\\">\\n  <div class=\\"container\\">\\n    <!-- Pagination -->\\n    <article class=\\"row\\">\\n      <nav class=\\"content-col-big\\">\\n        [[!+page.nav]]\\n      <\\/nav>\\n    <\\/article>\\n    <!-- \\/.Pagination -->\\n    <!-- Newsletter signup -->\\n    <article class=\\"row\\">\\n      <div class=\\"content-col-big v-spacer\\">\\n        <div class=\\"block-bg bg-primary nletter-signup\\">\\n          <form id=\\"newsletter-signup\\" class=\\"row\\" action=\\"\\/\\/formspree.io\\/[[++emailsender]]\\" method=\\"POST\\">\\n            <input type=\\"hidden\\" name=\\"_subject\\" value=\\"Your List has a new Subscriber\\">\\n            <input type=\\"text\\" name=\\"_gotcha\\" class=\\"hidden-xs-up\\">\\n            <div class=\\"col-md-4 col-md-offset-1\\">\\n              <p class=\\"signup-text\\">\\n                Be notified of new Thoughts\\n              <\\/p>\\n            <\\/div>\\n            <div class=\\"col-md-6\\">\\n              <div class=\\"input-group\\">\\n                <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Enter your email\\">\\n                <span class=\\"input-group-btn\\">\\n                  <button class=\\"btn btn-success\\" type=\\"submit\\">Subscribe<\\/button>\\n                <\\/span>\\n              <\\/div>\\n            <\\/div>\\n          <\\/form>\\n        <\\/div>\\n      <\\/div>\\n    <\\/article>\\n  <\\/div>\\n<\\/section>\\n<!-- \\/.Newsletter signup -->\\n"}',
+              'guid' => '72aa8c6e9d4f6809920c78b46b045b49',
+              'native_key' => NULL,
+              'signature' => '8057b8db4407c0e03ca4e509778e363f',
+            ),
+          ),
+        ),
+      ),
+      '777bf03edde077fade40d069d1320834' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 
+        array (
+          0 => 'parent',
+          1 => 'category',
+        ),
+        'class' => 'modCategory',
+        'object' => '{"id":null,"parent":0,"category":"QuillScripts","rank":0}',
+        'guid' => 'c8e581a7c2168eaced624fe288608bd8',
+        'native_key' => NULL,
+        'signature' => '6be95248c62126a41a08c8e25c2dde99',
+        'related_objects' => 
+        array (
+          'Chunks' => 
+          array (
+            '039f7f50061476ea1f87049dd8df1468' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllContainerScripts","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<script>\\n  \\/\\/ IIFE -> Within this function, $ will always refer to jQuery\\n  (function($) {\\n    \\/* Execute on DOM ready *\\/\\n    $(function() {\\n      \\/\\/ # Lazy load images\\n      $(\\"img\\").unveil(200);\\n      \\/\\/ # Animate navbar on scroll\\n      var previousScroll = 0,\\n        navbar = $(\'#navbar\'),\\n        navbarFixed = \'navbar-fixed-top\',\\n        navBarOrgOffset = navbar.offset().top;\\n\\n      $(\'#masthead\').height(navbar.height());\\n\\n      $(window).scroll(function() {\\n        var currentScroll = $(this).scrollTop();\\n        if (currentScroll > navBarOrgOffset) {\\n          if ((currentScroll > previousScroll) && (currentScroll > 80)) {\\n            navbar.fadeOut();\\n          } else {\\n            navbar.fadeIn();\\n            navbar.addClass(navbarFixed);\\n          }\\n        } else {\\n          navbar.removeClass(navbarFixed);\\n        }\\n        previousScroll = currentScroll;\\n      });\\n      \\/\\/ # Prevent empty searches\\n      $(\'#search-form\').submit(function(s) {\\n        var search = $(this).find(\\"#term\\").val($.trim($(this).find(\\"#term\\").val()));\\n        if (!search.val()) {\\n          s.preventDefault();\\n          $(\'#term\').focus();\\n        }\\n      });\\n    });\\n    \\/* Execute later *\\/\\n    \\/\\/ # Smooth Scrolling\\n    $(\'a[href*=#]:not([href=#])\').click(function() {\\n      if (location.pathname.replace(\\/^\\\\\\/\\/, \'\') == this.pathname.replace(\\/^\\\\\\/\\/, \'\') && location.hostname == this.hostname) {\\n        var target = $(this.hash);\\n        target = target.length ? target : $(\'[name=\' + this.hash.slice(1) + \']\');\\n        if (target.length) {\\n          $(\'html,body\').animate({\\n            scrollTop: target.offset().top\\n          }, 1000);\\n          return false;\\n        }\\n      }\\n    });\\n  })(jQuery);\\n<\\/script>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<script>\\n  \\/\\/ IIFE -> Within this function, $ will always refer to jQuery\\n  (function($) {\\n    \\/* Execute on DOM ready *\\/\\n    $(function() {\\n      \\/\\/ # Lazy load images\\n      $(\\"img\\").unveil(200);\\n      \\/\\/ # Animate navbar on scroll\\n      var previousScroll = 0,\\n        navbar = $(\'#navbar\'),\\n        navbarFixed = \'navbar-fixed-top\',\\n        navBarOrgOffset = navbar.offset().top;\\n\\n      $(\'#masthead\').height(navbar.height());\\n\\n      $(window).scroll(function() {\\n        var currentScroll = $(this).scrollTop();\\n        if (currentScroll > navBarOrgOffset) {\\n          if ((currentScroll > previousScroll) && (currentScroll > 80)) {\\n            navbar.fadeOut();\\n          } else {\\n            navbar.fadeIn();\\n            navbar.addClass(navbarFixed);\\n          }\\n        } else {\\n          navbar.removeClass(navbarFixed);\\n        }\\n        previousScroll = currentScroll;\\n      });\\n      \\/\\/ # Prevent empty searches\\n      $(\'#search-form\').submit(function(s) {\\n        var search = $(this).find(\\"#term\\").val($.trim($(this).find(\\"#term\\").val()));\\n        if (!search.val()) {\\n          s.preventDefault();\\n          $(\'#term\').focus();\\n        }\\n      });\\n    });\\n    \\/* Execute later *\\/\\n    \\/\\/ # Smooth Scrolling\\n    $(\'a[href*=#]:not([href=#])\').click(function() {\\n      if (location.pathname.replace(\\/^\\\\\\/\\/, \'\') == this.pathname.replace(\\/^\\\\\\/\\/, \'\') && location.hostname == this.hostname) {\\n        var target = $(this.hash);\\n        target = target.length ? target : $(\'[name=\' + this.hash.slice(1) + \']\');\\n        if (target.length) {\\n          $(\'html,body\').animate({\\n            scrollTop: target.offset().top\\n          }, 1000);\\n          return false;\\n        }\\n      }\\n    });\\n  })(jQuery);\\n<\\/script>\\n"}',
+              'guid' => '5d1be31d927004c00a757fa3eea84c2a',
+              'native_key' => NULL,
+              'signature' => '1c7462f84550a99cb4defc3e369762bc',
+            ),
+            'c1764c2facbc6bfcae99ca93e79ac400' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPLScripts","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<script src=\\"[[++quill_js]]\\"><\\/script>\\n<script>\\n  \\/\\/ IIFE -> Within this function, $ will always refer to jQuery\\n  (function($) {\\n    \\/* Execute on DOM ready *\\/\\n    $(function() {\\n      \\/\\/ # Lazy load images\\n      $(\\"img\\").unveil(200);\\n      \\/\\/ # Animate navbar on scroll\\n      var previousScroll = 0,\\n        navbar = $(\'#navbar\'),\\n        navbarFixed = \'navbar-fixed-top\',\\n        navBarOrgOffset = navbar.offset().top;\\n\\n      $(\'#masthead\').height(navbar.height());\\n\\n      $(window).scroll(function() {\\n        var currentScroll = $(this).scrollTop();\\n        if (currentScroll > navBarOrgOffset) {\\n          if ((currentScroll > previousScroll) && (currentScroll > 80)) {\\n            navbar.fadeOut();\\n          } else {\\n            navbar.fadeIn();\\n            navbar.addClass(navbarFixed);\\n          }\\n        } else {\\n          navbar.removeClass(navbarFixed);\\n        }\\n        previousScroll = currentScroll;\\n      });\\n      \\/\\/ # Dynamic Table of Contents (Needed for the this guide only)\\n      \\/\\/ Credits: https:\\/\\/css-tricks.com\\/automatic-table-of-contents\\n      var ToC =\\n        \\"<nav role=\'navigation\' class=\'text-sans\'>\\" +\\n        \\"<h5>Table of contents:<\\/h5>\\" +\\n        \\"<ul class=\'list-unstyled\'>\\";\\n      var newLine, el, title, link;\\n\\n      $(\\"h3.top-spacer\\").each(function() {\\n\\n        el = $(this);\\n        title = el.text();\\n        link = \\"[[~[[*id]]]]#\\" + el.attr(\\"id\\");\\n        newLine =\\n          \\"<li>\\" +\\n          \\"<a href=\'\\" + link + \\"\'>\\" +\\n          title +\\n          \\"<\\/a>\\" +\\n          \\"<\\/li>\\";\\n        ToC += newLine;\\n      });\\n      ToC +=\\n        \\"<\\/ul>\\" +\\n        \\"<\\/nav>\\";\\n      $(\\"#toc\\").prepend(ToC);\\n      \\/\\/ # Prevent empty searches\\n      $(\'#search-form\').submit(function(s) {\\n        var search = $(this).find(\\"#term\\").val($.trim($(this).find(\\"#term\\").val()));\\n        if (!search.val()) {\\n          s.preventDefault();\\n          $(\'#term\').focus();\\n        }\\n      });\\n      \\/\\/ # Lazy load Disqus w\\/ Murat Corlu\'s method.\\n      var disqus_div = $(\\"#disqus_thread\\");\\n      if (disqus_div.size() > 0) {\\n        var disqus_loaded = false,\\n          \\/\\/ Where to start loading\\n          top = disqus_div.offset().top,\\n          disqus_data = disqus_div.data(),\\n          check = function() {\\n            if (!disqus_loaded && $(window).scrollTop() + $(window).height() > top) {\\n              disqus_loaded = true;\\n              for (var key in disqus_data) {\\n                if (key.substr(0, 6) == \'disqus\') {\\n                  \\/\\/ Get Disqus parameters via data attributes\\n                  window[\'disqus_\' + key.replace(\'disqus\', \'\').toLowerCase()] = disqus_data[key];\\n                }\\n              }\\n              var dsq = document.createElement(\'script\');\\n              dsq.type = \'text\\/javascript\';\\n              dsq.async = true;\\n              dsq.src = \'http:\\/\\/\' + window.disqus_shortname + \'.disqus.com\\/embed.js\';\\n              (document.getElementsByTagName(\'head\')[0] || document.getElementsByTagName(\'body\')[0]).appendChild(dsq);\\n            }\\n          };\\n        $(window).scroll(check);\\n        check();\\n      }\\n    });\\n    \\/* Execute later *\\/\\n    \\/\\/ # Smooth Scrolling\\n    $(\'a[href*=#]:not([href=#])\').click(function() {\\n      if (location.pathname.replace(\\/^\\\\\\/\\/, \'\') == this.pathname.replace(\\/^\\\\\\/\\/, \'\') && location.hostname == this.hostname) {\\n        var target = $(this.hash);\\n        target = target.length ? target : $(\'[name=\' + this.hash.slice(1) + \']\');\\n        if (target.length) {\\n          $(\'html,body\').animate({\\n            scrollTop: target.offset().top\\n          }, 1000);\\n          return false;\\n        }\\n      }\\n    });\\n  })(jQuery);\\n<\\/script>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<script src=\\"[[++quill_js]]\\"><\\/script>\\n<script>\\n  \\/\\/ IIFE -> Within this function, $ will always refer to jQuery\\n  (function($) {\\n    \\/* Execute on DOM ready *\\/\\n    $(function() {\\n      \\/\\/ # Lazy load images\\n      $(\\"img\\").unveil(200);\\n      \\/\\/ # Animate navbar on scroll\\n      var previousScroll = 0,\\n        navbar = $(\'#navbar\'),\\n        navbarFixed = \'navbar-fixed-top\',\\n        navBarOrgOffset = navbar.offset().top;\\n\\n      $(\'#masthead\').height(navbar.height());\\n\\n      $(window).scroll(function() {\\n        var currentScroll = $(this).scrollTop();\\n        if (currentScroll > navBarOrgOffset) {\\n          if ((currentScroll > previousScroll) && (currentScroll > 80)) {\\n            navbar.fadeOut();\\n          } else {\\n            navbar.fadeIn();\\n            navbar.addClass(navbarFixed);\\n          }\\n        } else {\\n          navbar.removeClass(navbarFixed);\\n        }\\n        previousScroll = currentScroll;\\n      });\\n      \\/\\/ # Dynamic Table of Contents (Needed for the this guide only)\\n      \\/\\/ Credits: https:\\/\\/css-tricks.com\\/automatic-table-of-contents\\n      var ToC =\\n        \\"<nav role=\'navigation\' class=\'text-sans\'>\\" +\\n        \\"<h5>Table of contents:<\\/h5>\\" +\\n        \\"<ul class=\'list-unstyled\'>\\";\\n      var newLine, el, title, link;\\n\\n      $(\\"h3.top-spacer\\").each(function() {\\n\\n        el = $(this);\\n        title = el.text();\\n        link = \\"[[~[[*id]]]]#\\" + el.attr(\\"id\\");\\n        newLine =\\n          \\"<li>\\" +\\n          \\"<a href=\'\\" + link + \\"\'>\\" +\\n          title +\\n          \\"<\\/a>\\" +\\n          \\"<\\/li>\\";\\n        ToC += newLine;\\n      });\\n      ToC +=\\n        \\"<\\/ul>\\" +\\n        \\"<\\/nav>\\";\\n      $(\\"#toc\\").prepend(ToC);\\n      \\/\\/ # Prevent empty searches\\n      $(\'#search-form\').submit(function(s) {\\n        var search = $(this).find(\\"#term\\").val($.trim($(this).find(\\"#term\\").val()));\\n        if (!search.val()) {\\n          s.preventDefault();\\n          $(\'#term\').focus();\\n        }\\n      });\\n      \\/\\/ # Lazy load Disqus w\\/ Murat Corlu\'s method.\\n      var disqus_div = $(\\"#disqus_thread\\");\\n      if (disqus_div.size() > 0) {\\n        var disqus_loaded = false,\\n          \\/\\/ Where to start loading\\n          top = disqus_div.offset().top,\\n          disqus_data = disqus_div.data(),\\n          check = function() {\\n            if (!disqus_loaded && $(window).scrollTop() + $(window).height() > top) {\\n              disqus_loaded = true;\\n              for (var key in disqus_data) {\\n                if (key.substr(0, 6) == \'disqus\') {\\n                  \\/\\/ Get Disqus parameters via data attributes\\n                  window[\'disqus_\' + key.replace(\'disqus\', \'\').toLowerCase()] = disqus_data[key];\\n                }\\n              }\\n              var dsq = document.createElement(\'script\');\\n              dsq.type = \'text\\/javascript\';\\n              dsq.async = true;\\n              dsq.src = \'http:\\/\\/\' + window.disqus_shortname + \'.disqus.com\\/embed.js\';\\n              (document.getElementsByTagName(\'head\')[0] || document.getElementsByTagName(\'body\')[0]).appendChild(dsq);\\n            }\\n          };\\n        $(window).scroll(check);\\n        check();\\n      }\\n    });\\n    \\/* Execute later *\\/\\n    \\/\\/ # Smooth Scrolling\\n    $(\'a[href*=#]:not([href=#])\').click(function() {\\n      if (location.pathname.replace(\\/^\\\\\\/\\/, \'\') == this.pathname.replace(\\/^\\\\\\/\\/, \'\') && location.hostname == this.hostname) {\\n        var target = $(this.hash);\\n        target = target.length ? target : $(\'[name=\' + this.hash.slice(1) + \']\');\\n        if (target.length) {\\n          $(\'html,body\').animate({\\n            scrollTop: target.offset().top\\n          }, 1000);\\n          return false;\\n        }\\n      }\\n    });\\n  })(jQuery);\\n<\\/script>\\n"}',
+              'guid' => 'b5f72a4feaf33bab00a45d2aab2ea5b2',
+              'native_key' => NULL,
+              'signature' => 'd76d8e176eb91cf5cd259e81f0e356fa',
+            ),
+            '2ab8f617c51f2abe377f0ec3da603659' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPostScripts","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<script src=\\"[[++quill_js]]\\"><\\/script>\\n<script>\\n  \\/\\/ IIFE -> Within this function, $ will always refer to jQuery\\n  (function($) {\\n    \\/* Execute on DOM ready *\\/\\n    $(function() {\\n      \\/\\/ # Estimate the read time\\n      $(\'.article-body\').readingTime();\\n      \\/\\/ # Lazy load images\\n      $(\\"img\\").unveil(200);\\n      \\/\\/ # Animate navbar on scroll\\n      var previousScroll = 0,\\n        navbar = $(\'#navbar\'),\\n        navbarFixed = \'navbar-fixed-top\',\\n        navBarOrgOffset = navbar.offset().top;\\n\\n      $(\'#masthead\').height(navbar.height());\\n\\n      $(window).scroll(function() {\\n        var currentScroll = $(this).scrollTop();\\n        console.log(currentScroll + \\" and \\" + previousScroll + \\" and \\" + navBarOrgOffset);\\n        if (currentScroll > navBarOrgOffset) {\\n          if ((currentScroll > previousScroll) && (currentScroll > 80)) {\\n            navbar.fadeOut();\\n          } else {\\n            navbar.fadeIn();\\n            navbar.addClass(navbarFixed);\\n          }\\n        } else {\\n          navbar.removeClass(navbarFixed);\\n        }\\n        previousScroll = currentScroll;\\n      });\\n      \\/\\/ # Prevent empty searches\\n      $(\'#search-form\').submit(function(s) {\\n        var search = $(this).find(\\"#term\\").val($.trim($(this).find(\\"#term\\").val()));\\n        if (!search.val()) {\\n          s.preventDefault();\\n          $(\'#term\').focus();\\n        }\\n      });\\n      \\/\\/ # Lazy load Disqus w\\/ Murat Corlu\'s method.\\n      var disqus_div = $(\\"#disqus_thread\\");\\n      if (disqus_div.size() > 0) {\\n        var disqus_loaded = false,\\n          \\/\\/ Where to start loading\\n          top = disqus_div.offset().top,\\n          disqus_data = disqus_div.data(),\\n          check = function() {\\n            if (!disqus_loaded && $(window).scrollTop() + $(window).height() > top) {\\n              disqus_loaded = true;\\n              for (var key in disqus_data) {\\n                if (key.substr(0, 6) == \'disqus\') {\\n                  \\/\\/ Get Disqus parameters via data attributes\\n                  window[\'disqus_\' + key.replace(\'disqus\', \'\').toLowerCase()] = disqus_data[key];\\n                }\\n              }\\n              var dsq = document.createElement(\'script\');\\n              dsq.type = \'text\\/javascript\';\\n              dsq.async = true;\\n              dsq.src = \'http:\\/\\/\' + window.disqus_shortname + \'.disqus.com\\/embed.js\';\\n              (document.getElementsByTagName(\'head\')[0] || document.getElementsByTagName(\'body\')[0]).appendChild(dsq);\\n            }\\n          };\\n        $(window).scroll(check);\\n        check();\\n      }\\n    });\\n    \\/* Execute later  *\\/\\n    \\/\\/ # Smooth Scrolling\\n    $(\'a[href*=#]:not([href=#])\').click(function() {\\n      if (location.pathname.replace(\\/^\\\\\\/\\/, \'\') == this.pathname.replace(\\/^\\\\\\/\\/, \'\') && location.hostname == this.hostname) {\\n        var target = $(this.hash);\\n        target = target.length ? target : $(\'[name=\' + this.hash.slice(1) + \']\');\\n        if (target.length) {\\n          $(\'html,body\').animate({\\n            scrollTop: target.offset().top\\n          }, 1000);\\n          return false;\\n        }\\n      }\\n    });\\n  })(jQuery);\\n<\\/script>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<script src=\\"[[++quill_js]]\\"><\\/script>\\n<script>\\n  \\/\\/ IIFE -> Within this function, $ will always refer to jQuery\\n  (function($) {\\n    \\/* Execute on DOM ready *\\/\\n    $(function() {\\n      \\/\\/ # Estimate the read time\\n      $(\'.article-body\').readingTime();\\n      \\/\\/ # Lazy load images\\n      $(\\"img\\").unveil(200);\\n      \\/\\/ # Animate navbar on scroll\\n      var previousScroll = 0,\\n        navbar = $(\'#navbar\'),\\n        navbarFixed = \'navbar-fixed-top\',\\n        navBarOrgOffset = navbar.offset().top;\\n\\n      $(\'#masthead\').height(navbar.height());\\n\\n      $(window).scroll(function() {\\n        var currentScroll = $(this).scrollTop();\\n        console.log(currentScroll + \\" and \\" + previousScroll + \\" and \\" + navBarOrgOffset);\\n        if (currentScroll > navBarOrgOffset) {\\n          if ((currentScroll > previousScroll) && (currentScroll > 80)) {\\n            navbar.fadeOut();\\n          } else {\\n            navbar.fadeIn();\\n            navbar.addClass(navbarFixed);\\n          }\\n        } else {\\n          navbar.removeClass(navbarFixed);\\n        }\\n        previousScroll = currentScroll;\\n      });\\n      \\/\\/ # Prevent empty searches\\n      $(\'#search-form\').submit(function(s) {\\n        var search = $(this).find(\\"#term\\").val($.trim($(this).find(\\"#term\\").val()));\\n        if (!search.val()) {\\n          s.preventDefault();\\n          $(\'#term\').focus();\\n        }\\n      });\\n      \\/\\/ # Lazy load Disqus w\\/ Murat Corlu\'s method.\\n      var disqus_div = $(\\"#disqus_thread\\");\\n      if (disqus_div.size() > 0) {\\n        var disqus_loaded = false,\\n          \\/\\/ Where to start loading\\n          top = disqus_div.offset().top,\\n          disqus_data = disqus_div.data(),\\n          check = function() {\\n            if (!disqus_loaded && $(window).scrollTop() + $(window).height() > top) {\\n              disqus_loaded = true;\\n              for (var key in disqus_data) {\\n                if (key.substr(0, 6) == \'disqus\') {\\n                  \\/\\/ Get Disqus parameters via data attributes\\n                  window[\'disqus_\' + key.replace(\'disqus\', \'\').toLowerCase()] = disqus_data[key];\\n                }\\n              }\\n              var dsq = document.createElement(\'script\');\\n              dsq.type = \'text\\/javascript\';\\n              dsq.async = true;\\n              dsq.src = \'http:\\/\\/\' + window.disqus_shortname + \'.disqus.com\\/embed.js\';\\n              (document.getElementsByTagName(\'head\')[0] || document.getElementsByTagName(\'body\')[0]).appendChild(dsq);\\n            }\\n          };\\n        $(window).scroll(check);\\n        check();\\n      }\\n    });\\n    \\/* Execute later  *\\/\\n    \\/\\/ # Smooth Scrolling\\n    $(\'a[href*=#]:not([href=#])\').click(function() {\\n      if (location.pathname.replace(\\/^\\\\\\/\\/, \'\') == this.pathname.replace(\\/^\\\\\\/\\/, \'\') && location.hostname == this.hostname) {\\n        var target = $(this.hash);\\n        target = target.length ? target : $(\'[name=\' + this.hash.slice(1) + \']\');\\n        if (target.length) {\\n          $(\'html,body\').animate({\\n            scrollTop: target.offset().top\\n          }, 1000);\\n          return false;\\n        }\\n      }\\n    });\\n  })(jQuery);\\n<\\/script>\\n"}',
+              'guid' => '6d375fa73a4db13ee7a1c2fe057efff1',
+              'native_key' => NULL,
+              'signature' => '0fa212533d388d86c37a74b8f126cd74',
+            ),
+            '37270e8508b06594448da50ce388f7cd' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllScripts","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Global Scripts -->\\n<script src=\\"[[++quill_js_jquery]]\\"><\\/script>\\n<!-- Include tether.min.js before bootstrap.js in order for tooltips to work -->\\n<script src=\\"[[++quill_js_tether]]\\"><\\/script>\\n<script src=\\"[[++quill_js_bootstrap]]\\"><\\/script>\\n<script src=\\"[[++quill_js_unveil]]\\"><\\/script>\\n<script>\\n  \\/\\/ Load Web fonts\\n  WebFontConfig = {\\n    google: {\\n      families: [\'[[++quill_font_family]]\']\\n    }\\n  };\\n  (function(d) {\\n    var wf = d.createElement(\'script\'),\\n      s = d.scripts[0];\\n    wf.src = \'https:\\/\\/ajax.googleapis.com\\/ajax\\/libs\\/webfont\\/1.5.18\\/webfont.js\';\\n    s.parentNode.insertBefore(wf, s);\\n  })(document);\\n<\\/script>\\n<!-- Page-specific Scripts -->\\n[[If?\\n  &subject=`[[*pagetitle]]`\\n  &operand=`Pattern Library`\\n  &then=`[[$qllPLScripts]]`\\n  &else=`[[qllPostScripts]]`\\n]]\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Global Scripts -->\\n<script src=\\"[[++quill_js_jquery]]\\"><\\/script>\\n<!-- Include tether.min.js before bootstrap.js in order for tooltips to work -->\\n<script src=\\"[[++quill_js_tether]]\\"><\\/script>\\n<script src=\\"[[++quill_js_bootstrap]]\\"><\\/script>\\n<script src=\\"[[++quill_js_unveil]]\\"><\\/script>\\n<script>\\n  \\/\\/ Load Web fonts\\n  WebFontConfig = {\\n    google: {\\n      families: [\'[[++quill_font_family]]\']\\n    }\\n  };\\n  (function(d) {\\n    var wf = d.createElement(\'script\'),\\n      s = d.scripts[0];\\n    wf.src = \'https:\\/\\/ajax.googleapis.com\\/ajax\\/libs\\/webfont\\/1.5.18\\/webfont.js\';\\n    s.parentNode.insertBefore(wf, s);\\n  })(document);\\n<\\/script>\\n<!-- Page-specific Scripts -->\\n[[If?\\n  &subject=`[[*pagetitle]]`\\n  &operand=`Pattern Library`\\n  &then=`[[$qllPLScripts]]`\\n  &else=`[[qllPostScripts]]`\\n]]\\n"}',
+              'guid' => '6f86eba754b21062f3e2ca1ee7afe11c',
+              'native_key' => NULL,
+              'signature' => '592a6119a7390676fef6f525cad9aeac',
+            ),
+          ),
+        ),
+      ),
+      '673bc53ecf7326062192c2dc24c8d7ae' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 
+        array (
+          0 => 'parent',
+          1 => 'category',
+        ),
+        'class' => 'modCategory',
+        'object' => '{"id":null,"parent":0,"category":"QuillSearch","rank":0}',
+        'guid' => '3efd38d94f9b2968902ee87432e190f3',
+        'native_key' => NULL,
+        'signature' => '0cd134f8e9f1fe5693aecbfee1297f83',
+        'related_objects' => 
+        array (
+          'Chunks' => 
+          array (
+            '070167e38e79810eda0a6acba5217eae' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSearchCurrentPageLink","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<li class=\\"active\\">[[+text]]<\\/li>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<li class=\\"active\\">[[+text]]<\\/li>\\n"}',
+              'guid' => '05776483ca49988fd5668f783fc197cd',
+              'native_key' => NULL,
+              'signature' => '204de93c79111012e99626311f79781e',
+            ),
+            '827039566af55b00cbde528cc28a7fa2' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSearchForm","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<form id=\\"search-form\\" class=\\"form-inline navbar-form search-form-nav\\" action=\\"[[~[[+landing:default=`[[*id]]`]]]]\\" method=\\"[[+method:default=`get`]]\\">\\n  <div class=\\"input-group-search\\">\\n    <input type=\\"search\\" class=\\"form-control input-rounded search-field-nav\\" name=\\"[[+searchIndex]]\\" id=\\"[[+searchIndex]]\\" value=\\"[[+searchValue]]\\" placeholder=\\"Search\\" title=\\"Search (alt+ctrl+s)\\" accesskey=\\"s\\">\\n    <button class=\\"btn btn-chromeless search-btn\\" title=\\"Search\\" type=\\"submit\\">\\n      <svg class=\\"svg-icon\\" viewBox=\\"0 0 20 20\\">\\n        <path fill=\\"none\\" d=\\"M18.109,17.776l-3.082-3.081c-0.059-0.059-0.135-0.077-0.211-0.087c1.373-1.38,2.221-3.28,2.221-5.379c0-4.212-3.414-7.626-7.625-7.626c-4.212,0-7.626,3.414-7.626,7.626s3.414,7.627,7.626,7.627c1.918,0,3.665-0.713,5.004-1.882c0.006,0.085,0.033,0.17,0.098,0.234l3.082,3.081c0.143,0.142,0.371,0.142,0.514,0C18.25,18.148,18.25,17.918,18.109,17.776zM9.412,16.13c-3.811,0-6.9-3.089-6.9-6.9c0-3.81,3.089-6.899,6.9-6.899c3.811,0,6.901,3.09,6.901,6.899C16.312,13.041,13.223,16.13,9.412,16.13z\\"><\\/path>\\n      <\\/svg>\\n    <\\/button>\\n  <\\/div>\\n<\\/form>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<form id=\\"search-form\\" class=\\"form-inline navbar-form search-form-nav\\" action=\\"[[~[[+landing:default=`[[*id]]`]]]]\\" method=\\"[[+method:default=`get`]]\\">\\n  <div class=\\"input-group-search\\">\\n    <input type=\\"search\\" class=\\"form-control input-rounded search-field-nav\\" name=\\"[[+searchIndex]]\\" id=\\"[[+searchIndex]]\\" value=\\"[[+searchValue]]\\" placeholder=\\"Search\\" title=\\"Search (alt+ctrl+s)\\" accesskey=\\"s\\">\\n    <button class=\\"btn btn-chromeless search-btn\\" title=\\"Search\\" type=\\"submit\\">\\n      <svg class=\\"svg-icon\\" viewBox=\\"0 0 20 20\\">\\n        <path fill=\\"none\\" d=\\"M18.109,17.776l-3.082-3.081c-0.059-0.059-0.135-0.077-0.211-0.087c1.373-1.38,2.221-3.28,2.221-5.379c0-4.212-3.414-7.626-7.625-7.626c-4.212,0-7.626,3.414-7.626,7.626s3.414,7.627,7.626,7.627c1.918,0,3.665-0.713,5.004-1.882c0.006,0.085,0.033,0.17,0.098,0.234l3.082,3.081c0.143,0.142,0.371,0.142,0.514,0C18.25,18.148,18.25,17.918,18.109,17.776zM9.412,16.13c-3.811,0-6.9-3.089-6.9-6.9c0-3.81,3.089-6.899,6.9-6.899c3.811,0,6.901,3.09,6.901,6.899C16.312,13.041,13.223,16.13,9.412,16.13z\\"><\\/path>\\n      <\\/svg>\\n    <\\/button>\\n  <\\/div>\\n<\\/form>\\n"}',
+              'guid' => '5756547704c9aab23917e6f6257d31c3',
+              'native_key' => NULL,
+              'signature' => '73d95e73f4a5b675292699fb0c8b7b88',
+            ),
+            '9328415710ea62a6bfb7d2772ca8b7a0' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSearchNoResults","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<p>No results found for <mark>\\"[[+query]]\\"<\\/mark>. Please try broader terms.<\\/p>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<p>No results found for <mark>\\"[[+query]]\\"<\\/mark>. Please try broader terms.<\\/p>\\n"}',
+              'guid' => '7fd1339f74ee994896b4a977746dca3d',
+              'native_key' => NULL,
+              'signature' => '876beee7fdb7ec406597b0c5a3c557e5',
+            ),
+            'a11a7d9a419a34c1de806a91a9f5d09c' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSearchPageLink","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<li><a href=\\"[[+link]]\\">[[+text]]<\\/a><\\/li>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<li><a href=\\"[[+link]]\\">[[+text]]<\\/a><\\/li>\\n"}',
+              'guid' => '8edd1041f5e0297b2b0093d73e694687',
+              'native_key' => NULL,
+              'signature' => '4b17057f1b26993259c2af9cb8d6e5ee',
+            ),
+            'b185d0e162c5438c0a8119a2b3088f20' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSearchResult","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Result -->\\n<article itemprop=\\"articleBody\\">\\n  <h2><a href=\\"[[+link:is=``:then=`[[~[[+id]]]]`:else=`[[+link]]`]]\\" title=\\"[[+pagetitle]]\\">[[+pagetitle]]<\\/a><\\/h2>\\n  <p>\\n    [[+extract:default=`[[+description]]`]]\\n  <\\/p>\\n<\\/article>\\n<!-- \\/.Result -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Result -->\\n<article itemprop=\\"articleBody\\">\\n  <h2><a href=\\"[[+link:is=``:then=`[[~[[+id]]]]`:else=`[[+link]]`]]\\" title=\\"[[+pagetitle]]\\">[[+pagetitle]]<\\/a><\\/h2>\\n  <p>\\n    [[+extract:default=`[[+description]]`]]\\n  <\\/p>\\n<\\/article>\\n<!-- \\/.Result -->\\n"}',
+              'guid' => 'adaccf91b0737b80bac73290eefad8b8',
+              'native_key' => NULL,
+              'signature' => '86446bb2ebb5627ba59ce54d5d7a1d1b',
+            ),
+            '6ad6ab0abc3577bbfe6aeb84195b71a7' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSearchResults","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<p>\\n  <small class=\\"meta text-muted\\">[[+resultInfo]]<\\/small>\\n<\\/p>\\n[[+results]]\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<p>\\n  <small class=\\"meta text-muted\\">[[+resultInfo]]<\\/small>\\n<\\/p>\\n[[+results]]\\n"}',
+              'guid' => 'db66c999487243ea3b360a1148f3555b',
+              'native_key' => NULL,
+              'signature' => '64a47efbd990a1b35214875e6bb26d3e',
+            ),
+          ),
+        ),
+      ),
+      '7c7e19a7799232b9ac19aab0eebb6920' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 
+        array (
+          0 => 'parent',
+          1 => 'category',
+        ),
+        'class' => 'modCategory',
+        'object' => '{"id":null,"parent":0,"category":"QuillTpls","rank":0}',
+        'guid' => '21cc566078f89eef7426a1a5b636f610',
+        'native_key' => NULL,
+        'signature' => 'c6d7f7040dbdb109607f02e081390053',
+        'related_objects' => 
+        array (
+          'Chunks' => 
+          array (
+            'f760556f401079d824de1eb6142019d5' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllArchiveTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<article>\\n  <h2 class=\\"text-sm-center\\"><a href=\\"[[~[[+id]]]]\\">[[+pagetitle]]<\\/a><\\/h2>\\n  <p class=\\"text-sm-center\\">\\n    <small class=\\"meta\\">[[+publishedon:date=`%B %e, %Y`]]. by [[qllAuthorUrl? &author=`[[+createdby]]`]].<\\/small>\\n  <\\/p>\\n<\\/article>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<article>\\n  <h2 class=\\"text-sm-center\\"><a href=\\"[[~[[+id]]]]\\">[[+pagetitle]]<\\/a><\\/h2>\\n  <p class=\\"text-sm-center\\">\\n    <small class=\\"meta\\">[[+publishedon:date=`%B %e, %Y`]]. by [[qllAuthorUrl? &author=`[[+createdby]]`]].<\\/small>\\n  <\\/p>\\n<\\/article>\\n"}',
+              'guid' => 'f8769821cbc6dd9c0dfd474725220737',
+              'native_key' => NULL,
+              'signature' => '03fe13d3df974e092a8e5a492b6c68bf',
+            ),
+            '97b8ce812012a4542c3493a218953be7' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllFeaturedPostTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<a href=\\"[[~[[+id]]? &src=`featured`]]\\">\\n    <figure class=\\"figure\\">\\n      <img src=\\"[[+tv.qllFeaturedImage]]\\" width=\\"[[+width:default=`1280`]]\\" class=\\"img-fluid\\" alt=\\"[[+pagetitle]]\\">\\n      <figcaption class=\\"figure-caption post-photo-credit\\">[[+tv.qllImageCaption]]\\n        <span class=\\"pull-md-right\\">[[+tv.qllImageCredits]]<\\/span>\\n      <\\/figcaption>\\n    <\\/figure>\\n    <div class=\\"section-caption\\">\\n      <p><span class=\\"label label-primary text-uppercase meta\\">In the spotlight<\\/span><\\/p>\\n      <h1>[[+pagetitle]]<\\/h1>\\n      <p class=\\"meta\\">by [[+createdby:userinfo=`fullname`]]<\\/p>\\n    <\\/div>\\n  <\\/a>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<a href=\\"[[~[[+id]]? &src=`featured`]]\\">\\n    <figure class=\\"figure\\">\\n      <img src=\\"[[+tv.qllFeaturedImage]]\\" width=\\"[[+width:default=`1280`]]\\" class=\\"img-fluid\\" alt=\\"[[+pagetitle]]\\">\\n      <figcaption class=\\"figure-caption post-photo-credit\\">[[+tv.qllImageCaption]]\\n        <span class=\\"pull-md-right\\">[[+tv.qllImageCredits]]<\\/span>\\n      <\\/figcaption>\\n    <\\/figure>\\n    <div class=\\"section-caption\\">\\n      <p><span class=\\"label label-primary text-uppercase meta\\">In the spotlight<\\/span><\\/p>\\n      <h1>[[+pagetitle]]<\\/h1>\\n      <p class=\\"meta\\">by [[+createdby:userinfo=`fullname`]]<\\/p>\\n    <\\/div>\\n  <\\/a>\\n"}',
+              'guid' => '7349f995e2d68d8b5fc2e1017d9a1d0c',
+              'native_key' => NULL,
+              'signature' => '1347bdf35479f155a241c1147bfd0b8d',
+            ),
+            'c9fd72c1145a500cd1ff04026545d423' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPageActiveTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"[[++quill_pagination_page_active]]\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"[[++quill_pagination_page_active]]\\n"}',
+              'guid' => '42fdd077650b4953c64d87e5c82703e3',
+              'native_key' => NULL,
+              'signature' => '647bb01274c67042a7352f3f147375e4',
+            ),
+            'bc2d00a70467f6b5375a74ba57e0f309' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPageNextTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"[[++quill_pagination_page_next]]\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"[[++quill_pagination_page_next]]\\n"}',
+              'guid' => 'a5fc1d4a48a5057661237c42f777854b',
+              'native_key' => NULL,
+              'signature' => 'd2872dfc0341e542f38c3af6a660b4b9',
+            ),
+            '6656e8a88b3d24bbdf9f92b373b65718' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPagePrevTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"[[++quill_pagination_page_prev]]\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"[[++quill_pagination_page_prev]]\\n"}',
+              'guid' => 'f79a2c77f612f5b8f5106c4b01086895',
+              'native_key' => NULL,
+              'signature' => '2a1825804d92caea723c75c3e0f8f5a1',
+            ),
+            '29540f10ed6eda8978180f78c6bbfe10' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPageTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"[[++quill_pagination_page]]\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"[[++quill_pagination_page]]\\n"}',
+              'guid' => 'bc067b93214dc348500c0f042fe358cd',
+              'native_key' => NULL,
+              'signature' => '37b1f245cbaa9810d35090f4f7eaaa9e',
+            ),
+            '275809977be7db93bd8d9abbf883e3f0' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPageWrapperTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"[[++quill_pagination_wrapper]]\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"[[++quill_pagination_wrapper]]\\n"}',
+              'guid' => '95c59832db99b4787e4dac5d3dda535a',
+              'native_key' => NULL,
+              'signature' => '790eba22f3ea5f6e551718bbdc6b8f89',
+            ),
+            '2ad7e4d166a80911d2f69ceb5186c88d' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPostAuthorTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<a href=\\"[[+url]]\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Person\\" itemprop=\\"author\\">[[+author]]<\\/a>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<a href=\\"[[+url]]\\" itemscope=\\"itemscope\\" itemtype=\\"http:\\/\\/schema.org\\/Person\\" itemprop=\\"author\\">[[+author]]<\\/a>\\n"}',
+              'guid' => '14066a2f2457a759249ca9b86d67e27a',
+              'native_key' => NULL,
+              'signature' => 'dd13b296c6270da1a203b690e16da282',
+            ),
+            '5cdaa6b501c7965a51a5ffcd2145aefb' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllPostTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Post -->\\n<article class=\\"block-post\\">\\n  <h2><a href=\\"[[~[[+id]]]]\\">[[+pagetitle]]<\\/a><\\/h2>\\n  <p>\\n    <small class=\\"meta\\">[[+publishedon:date=`%B %e, %Y`]].\\n    Published in\\n    [[TaggerGetTags:default=`<a href=\\"[[~[[++quill.sections_page]]]]\\">Thoughts<\\/a>`?\\n      &resources=`[[+id]]`\\n      &groups=`[[++quill_section_group]]`\\n      &rowTpl=`qllSectionLinksTpl`\\n      &target=`[[++quill.sections_page]]`\\n    ]],\\n    by [[qllAuthorUrl? &author=`[[+createdby]]`]].<\\/small>\\n  <\\/p>\\n  [[If?\\n    &subject=`[[*parent]]`\\n    &operator=`not`\\n    &operand=`[[++quill.blog_container]]`\\n    &then=`[[qllFeaturedImage? &id=`[[+id]]`]]`\\n  ]]\\n  <p>\\n    [[+introtext]]\\n  <\\/p>\\n<\\/article>\\n<!-- \\/.Post -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Post -->\\n<article class=\\"block-post\\">\\n  <h2><a href=\\"[[~[[+id]]]]\\">[[+pagetitle]]<\\/a><\\/h2>\\n  <p>\\n    <small class=\\"meta\\">[[+publishedon:date=`%B %e, %Y`]].\\n    Published in\\n    [[TaggerGetTags:default=`<a href=\\"[[~[[++quill.sections_page]]]]\\">Thoughts<\\/a>`?\\n      &resources=`[[+id]]`\\n      &groups=`[[++quill_section_group]]`\\n      &rowTpl=`qllSectionLinksTpl`\\n      &target=`[[++quill.sections_page]]`\\n    ]],\\n    by [[qllAuthorUrl? &author=`[[+createdby]]`]].<\\/small>\\n  <\\/p>\\n  [[If?\\n    &subject=`[[*parent]]`\\n    &operator=`not`\\n    &operand=`[[++quill.blog_container]]`\\n    &then=`[[qllFeaturedImage? &id=`[[+id]]`]]`\\n  ]]\\n  <p>\\n    [[+introtext]]\\n  <\\/p>\\n<\\/article>\\n<!-- \\/.Post -->\\n"}',
+              'guid' => '955119aa01a4599e68262d74268e7191',
+              'native_key' => NULL,
+              'signature' => '9e6f597be48357346dc8780a7e210333',
+            ),
+            '542f7ad6c7d6d2f5aa7fb543b45cc794' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllReadNextTplBig","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<\\/div>\\n<\\/aside>\\n<!-- Post -->\\n<div class=\\"col-md-8 block-content\\">\\n<article class=\\"inner-spacer-col\\">\\n  <header class=\\"article-header\\">\\n    [[qllFeaturedImage? &id=`[[+id]]`]]\\n    <h2><a href=\\"[[~[[+id]]]]\\">[[+pagetitle]]<\\/a><\\/h2>\\n    <p>\\n      <small class=\\"meta\\">[[+publishedon:date=`%B %e, %Y`]]. Published in\\n      [[TaggerGetTags:default=`<a href=\\"[[~[[++quill.sections_page]]]]\\">Thoughts<\\/a>`?\\n        &resources=`[[+id]]`\\n        &groups=`[[++quill_section_group]]`\\n        &rowTpl=`qllSectionLinksTpl`\\n        &target=`[[++quill.sections_page]]`\\n      ]],\\n      by [[qllAuthorUrl? &author=`[[+createdby]]`]].<\\/small>\\n    <\\/p>\\n  <\\/header>\\n  <p class=\\"lead\\">\\n    [[+introtext]]. <a href=\\"[[~[[+id]]]]\\" class=\\"read-more\\">Read more<\\/a>\\n  <\\/p>\\n<\\/article>\\n<\\/div>\\n<!-- \\/.Post -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<\\/div>\\n<\\/aside>\\n<!-- Post -->\\n<div class=\\"col-md-8 block-content\\">\\n<article class=\\"inner-spacer-col\\">\\n  <header class=\\"article-header\\">\\n    [[qllFeaturedImage? &id=`[[+id]]`]]\\n    <h2><a href=\\"[[~[[+id]]]]\\">[[+pagetitle]]<\\/a><\\/h2>\\n    <p>\\n      <small class=\\"meta\\">[[+publishedon:date=`%B %e, %Y`]]. Published in\\n      [[TaggerGetTags:default=`<a href=\\"[[~[[++quill.sections_page]]]]\\">Thoughts<\\/a>`?\\n        &resources=`[[+id]]`\\n        &groups=`[[++quill_section_group]]`\\n        &rowTpl=`qllSectionLinksTpl`\\n        &target=`[[++quill.sections_page]]`\\n      ]],\\n      by [[qllAuthorUrl? &author=`[[+createdby]]`]].<\\/small>\\n    <\\/p>\\n  <\\/header>\\n  <p class=\\"lead\\">\\n    [[+introtext]]. <a href=\\"[[~[[+id]]]]\\" class=\\"read-more\\">Read more<\\/a>\\n  <\\/p>\\n<\\/article>\\n<\\/div>\\n<!-- \\/.Post -->\\n"}',
+              'guid' => '2fb0efb8a8fce480fc3759abf3b307c4',
+              'native_key' => NULL,
+              'signature' => '0d79e8c63c2e0bb60243dcce4e9d656e',
+            ),
+            '9ea75c441c948b34960554f480af4369' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllRSSTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<item>\\n  <title>[[+pagetitle:cdata]]<\\/title>\\n  <link>[[~[[+id]]]]<\\/link>\\n  <description>\\n    [[+introtext:default=`[[+content:ellipsis=`600`]]`:cdata]]\\n  <\\/description>\\n  <pubDate>[[+publishedon:date=`%a, %d %b %Y %T %z`]]<\\/pubDate>\\n  <guid isPermaLink=\\"false\\">[[~[[+id]]]]<\\/guid>\\n  <dc:creator>\\n      [[+createdby:userinfo=`fullname`]]\\n  <\\/dc:creator>\\n<\\/item>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<item>\\n  <title>[[+pagetitle:cdata]]<\\/title>\\n  <link>[[~[[+id]]]]<\\/link>\\n  <description>\\n    [[+introtext:default=`[[+content:ellipsis=`600`]]`:cdata]]\\n  <\\/description>\\n  <pubDate>[[+publishedon:date=`%a, %d %b %Y %T %z`]]<\\/pubDate>\\n  <guid isPermaLink=\\"false\\">[[~[[+id]]]]<\\/guid>\\n  <dc:creator>\\n      [[+createdby:userinfo=`fullname`]]\\n  <\\/dc:creator>\\n<\\/item>\\n"}',
+              'guid' => '8176a6915c4af1cc27962bdf970bd9a9',
+              'native_key' => NULL,
+              'signature' => '4256a5539c042c2ca16663ec98a6a311',
+            ),
+            '5dd6fbc88384ac24f9f61b62f920ad01' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSectionLinksTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<a href=\\"[[~[[+target]]]][[+alias]]\\">[[+tag]]<\\/a>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<a href=\\"[[~[[+target]]]][[+alias]]\\">[[+tag]]<\\/a>\\n"}',
+              'guid' => '9e4be112064e9c0818e591c5bee3f993',
+              'native_key' => NULL,
+              'signature' => '3dcfd7ee7c9a59244efb8aab7518c26c',
+            ),
+            '11fdeab573f4256d17dec2841fe6905e' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllTagLinksOutTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<!-- Tags -->\\n<p class=\\"section-title top-spacer\\">Related Topics<\\/p>\\n<section>\\n  <nav>\\n    <ul class=\\"list-inline tag-list\\">\\n      [[+tags]]\\n    <\\/ul>\\n  <\\/nav>\\n<\\/section>\\n<!-- \\/.Tags -->\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<!-- Tags -->\\n<p class=\\"section-title top-spacer\\">Related Topics<\\/p>\\n<section>\\n  <nav>\\n    <ul class=\\"list-inline tag-list\\">\\n      [[+tags]]\\n    <\\/ul>\\n  <\\/nav>\\n<\\/section>\\n<!-- \\/.Tags -->\\n"}',
+              'guid' => '9311e19ea6bbe501818112c3ff8d5237',
+              'native_key' => NULL,
+              'signature' => '507280381d3b549f240a24243f40be21',
+            ),
+            '112f4f4561ed274898a4260ee2318cb5' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllTagLinksTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<li class=\\"list-inline-item\\"><a href=\\"[[~[[+target]]]]?[[+group_alias]]=[[+alias]]\\" class=\\"tag-badge\\">[[+tag]]<\\/a><\\/li>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<li class=\\"list-inline-item\\"><a href=\\"[[~[[+target]]]]?[[+group_alias]]=[[+alias]]\\" class=\\"tag-badge\\">[[+tag]]<\\/a><\\/li>\\n"}',
+              'guid' => '5edee75419546807d98e1319e63d99a7',
+              'native_key' => NULL,
+              'signature' => 'f3e234c2a6646179125bde789a3f9ecb',
+            ),
+            '7d37cf341ea72d0fcbe1fb9c30e18fdb' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllUserOptionTpl","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"[[+username]]==[[+id]]\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"[[+username]]==[[+id]]\\n"}',
+              'guid' => 'c536bcf41594c6d2e446d3c903eae1d6',
+              'native_key' => NULL,
+              'signature' => '2dd90b0fd46d96558f74963d852d4aaf',
+            ),
+          ),
+        ),
+      ),
+      'bbf0b31db1c299983c4d3de6cf568b38' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 
+        array (
+          0 => 'parent',
+          1 => 'category',
+        ),
+        'class' => 'modCategory',
+        'object' => '{"id":null,"parent":0,"category":"QuillWidgets","rank":0}',
+        'guid' => '5df869e754592541a12daa9290f4057e',
+        'native_key' => NULL,
+        'signature' => 'bb3ca538bdce51f86573208530a20ff2',
+        'related_objects' => 
+        array (
+          'Chunks' => 
+          array (
+            'f14b727bb8724450b6955cddedb733a2' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllArchives","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<div class=\\"card card-block\\">\\n  <h5 class=\\"card-title meta meta-title\\">Archives<\\/h5>\\n  <ul class=\\"list-inline card-text meta\\">\\n    [[!Archivist? &target=`[[++quill.archives_page]]` &parents=`[[++quill.blog_container]]`]]\\n  <\\/ul>\\n<\\/div>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<div class=\\"card card-block\\">\\n  <h5 class=\\"card-title meta meta-title\\">Archives<\\/h5>\\n  <ul class=\\"list-inline card-text meta\\">\\n    [[!Archivist? &target=`[[++quill.archives_page]]` &parents=`[[++quill.blog_container]]`]]\\n  <\\/ul>\\n<\\/div>\\n"}',
+              'guid' => '18ee2fb37a97cae92c7a0cbdedc3c845',
+              'native_key' => NULL,
+              'signature' => '9fdc7260a85174ce1c9c0d13691aa709',
+            ),
+            '19c96c742ab4616854c5a5e229f9f285' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllFloatbarCard","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<div class=\\"card card-block\\">\\n  <h5 class=\\"card-title meta meta-title\\">[[+title]]<\\/h5>\\n  <p class=\\"card-text meta\\">[[+content]]<\\/p>\\n  [[+link:notempty=`<a href=\\"[[+link]]\\" class=\\"card-link meta\\">[[+linkTitle]]<\\/a>`]]\\n<\\/div>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<div class=\\"card card-block\\">\\n  <h5 class=\\"card-title meta meta-title\\">[[+title]]<\\/h5>\\n  <p class=\\"card-text meta\\">[[+content]]<\\/p>\\n  [[+link:notempty=`<a href=\\"[[+link]]\\" class=\\"card-link meta\\">[[+linkTitle]]<\\/a>`]]\\n<\\/div>\\n"}',
+              'guid' => 'dff4e10bf3ce341e135bcf526f0dca01',
+              'native_key' => NULL,
+              'signature' => '34a703afe68d4406653d847822ff192c',
+            ),
+            '293dd3626d1404d48f03e7d1ad6dcc68' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllLeftFloatbar","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<aside class=\\"side-info\\">\\n  <div class=\\"card card-block\\">\\n    <h5 class=\\"card-title meta meta-title\\">Side note title<\\/h5>\\n    <p class=\\"card-text meta\\">Some quick example text to build on the card title and make up the bulk of the card\'s content.<\\/p>\\n    <a href=\\"#\\" class=\\"card-link meta\\">Side note link<\\/a>\\n  <\\/div>\\n<\\/aside>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<aside class=\\"side-info\\">\\n  <div class=\\"card card-block\\">\\n    <h5 class=\\"card-title meta meta-title\\">Side note title<\\/h5>\\n    <p class=\\"card-text meta\\">Some quick example text to build on the card title and make up the bulk of the card\'s content.<\\/p>\\n    <a href=\\"#\\" class=\\"card-link meta\\">Side note link<\\/a>\\n  <\\/div>\\n<\\/aside>\\n"}',
+              'guid' => 'd206da0140e96304f09ff94da40c2046',
+              'native_key' => NULL,
+              'signature' => '89c1219f5239cc8de21d716749ed83d2',
+            ),
+            '79dc799c0c226ab51692356346da1d38' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllQuickNotePatternLibrary","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<div class=\\"card card-block\\">\\n  <h5 class=\\"card-title meta meta-title\\">Quick note<\\/h5>\\n  <p class=\\"card-text meta\\">This very page is themed by Quill. It serves as its pattern library. What you see is what you get. <\\/p>\\n  <a href=\\"[[~[[*id]]]]#toc\\" class=\\"card-link meta\\">Explore the guide.<\\/a>\\n<\\/div>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<div class=\\"card card-block\\">\\n  <h5 class=\\"card-title meta meta-title\\">Quick note<\\/h5>\\n  <p class=\\"card-text meta\\">This very page is themed by Quill. It serves as its pattern library. What you see is what you get. <\\/p>\\n  <a href=\\"[[~[[*id]]]]#toc\\" class=\\"card-link meta\\">Explore the guide.<\\/a>\\n<\\/div>\\n"}',
+              'guid' => '3fc0dd10eaff69e28e2ebd045133bda8',
+              'native_key' => NULL,
+              'signature' => '8f08dea68a6128e6f5f0b4cd66be3009',
+            ),
+            '14b4635ea587f71b78f5cf14c86e170d' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSidePopularTopics","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"<p class=\\"section-title\\">Popular Topics<\\/p>\\n  <nav>\\n    <ul class=\\"list-inline\\">\\n      [[TaggerGetTags?\\n        &groups=`[[++quill_topic_group]]`\\n        &rowTpl=`qllTagLinksTpl`\\n        &target=`[[++quill.topics_page]]`\\n      ]]\\n    <\\/ul>\\n  <\\/nav>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"<p class=\\"section-title\\">Popular Topics<\\/p>\\n  <nav>\\n    <ul class=\\"list-inline\\">\\n      [[TaggerGetTags?\\n        &groups=`[[++quill_topic_group]]`\\n        &rowTpl=`qllTagLinksTpl`\\n        &target=`[[++quill.topics_page]]`\\n      ]]\\n    <\\/ul>\\n  <\\/nav>\\n"}',
+              'guid' => '28f04753dbebeea4b212aa96e35ff87d',
+              'native_key' => NULL,
+              'signature' => '7e1e669269769c364d282a4a3938ef21',
+            ),
+            '25b12c77c918a2a0e423a162827b599c' => 
+            array (
+              'preserve_keys' => false,
+              'update_object' => true,
+              'unique_key' => 'name',
+              'class' => 'modChunk',
+              'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"qllSocialButtons","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"      <h5 class=\\"meta text-sm-center text-muted share-link-title\\">Share this page<\\/h5>\\n      <ul class=\\"list-inline\\">\\n        <li class=\\"list-inline-item\\">\\n          <a href=\\"http:\\/\\/www.facebook.com\\/sharer\\/sharer.php?u=[[~[[*id]]? &scheme=`full`]]\\" class=\\"share-link\\" title=\\"Share this on Facebook\\">\\n            <svg class=\\"svg-icon-white\\" viewBox=\\"0 0 20 20\\">\\n              <path fill=\\"none\\" d=\\"M11.344,5.71c0-0.73,0.074-1.122,1.199-1.122h1.502V1.871h-2.404c-2.886,0-3.903,1.36-3.903,3.646v1.765h-1.8V10h1.8v8.128h3.601V10h2.403l0.32-2.718h-2.724L11.344,5.71z\\"><\\/path>\\n            <\\/svg>\\n          <\\/a>\\n        <\\/li>\\n        <li class=\\"list-inline-item\\">\\n          <a href=\\"http:\\/\\/twitter.com\\/share?text=[[*pagetitle]]&url=[[~[[*id]]? &scheme=`full`]]\\" class=\\"share-link\\" title=\\"Share this on Twitter\\">\\n            <svg class=\\"svg-icon-white\\" viewBox=\\"0 0 20 20\\">\\n              <path fill=\\"none\\" d=\\"M18.258,3.266c-0.693,0.405-1.46,0.698-2.277,0.857c-0.653-0.686-1.586-1.115-2.618-1.115c-1.98,0-3.586,1.581-3.586,3.53c0,0.276,0.031,0.545,0.092,0.805C6.888,7.195,4.245,5.79,2.476,3.654C2.167,4.176,1.99,4.781,1.99,5.429c0,1.224,0.633,2.305,1.596,2.938C2.999,8.349,2.445,8.19,1.961,7.925C1.96,7.94,1.96,7.954,1.96,7.97c0,1.71,1.237,3.138,2.877,3.462c-0.301,0.08-0.617,0.123-0.945,0.123c-0.23,0-0.456-0.021-0.674-0.062c0.456,1.402,1.781,2.422,3.35,2.451c-1.228,0.947-2.773,1.512-4.454,1.512c-0.291,0-0.575-0.016-0.855-0.049c1.588,1,3.473,1.586,5.498,1.586c6.598,0,10.205-5.379,10.205-10.045c0-0.153-0.003-0.305-0.01-0.456c0.7-0.499,1.308-1.12,1.789-1.827c-0.644,0.28-1.334,0.469-2.06,0.555C17.422,4.782,17.99,4.091,18.258,3.266\\"><\\/path>\\n            <\\/svg>\\n          <\\/a>\\n        <\\/li>\\n        <li class=\\"list-inline-item\\">\\n          <a href=\\"https:\\/\\/plus.google.com\\/share?url=[[~[[*id]]? &scheme=`full`]]\\" class=\\"share-link\\" title=\\"Share this on Google+\\">\\n            <svg class=\\"svg-icon-white\\" viewBox=\\"0 0 20 20\\">\\n              <path fill=\\"none\\" d=\\"M8.937,10.603c-0.383-0.284-0.741-0.706-0.754-0.837c0-0.223,0-0.326,0.526-0.758c0.684-0.56,1.062-1.297,1.062-2.076c0-0.672-0.188-1.273-0.512-1.71h0.286l1.58-1.196h-4.28c-1.717,0-3.222,1.348-3.222,2.885c0,1.587,1.162,2.794,2.726,2.858c-0.024,0.113-0.037,0.225-0.037,0.334c0,0.229,0.052,0.448,0.157,0.659c-1.938,0.013-3.569,1.309-3.569,2.84c0,1.375,1.571,2.373,3.735,2.373c2.338,0,3.599-1.463,3.599-2.84C10.233,11.99,9.882,11.303,8.937,10.603 M5.443,6.864C5.371,6.291,5.491,5.761,5.766,5.444c0.167-0.192,0.383-0.293,0.623-0.293l0,0h0.028c0.717,0.022,1.405,0.871,1.532,1.89c0.073,0.583-0.052,1.127-0.333,1.451c-0.167,0.192-0.378,0.293-0.64,0.292h0C6.273,8.765,5.571,7.883,5.443,6.864 M6.628,14.786c-1.066,0-1.902-0.687-1.902-1.562c0-0.803,0.978-1.508,2.093-1.508l0,0l0,0h0.029c0.241,0.003,0.474,0.04,0.695,0.109l0.221,0.158c0.567,0.405,0.866,0.634,0.956,1.003c0.022,0.097,0.033,0.194,0.033,0.291C8.752,14.278,8.038,14.786,6.628,14.786 M14.85,4.765h-1.493v2.242h-2.249v1.495h2.249v2.233h1.493V8.502h2.252V7.007H14.85V4.765z\\"><\\/path>\\n            <\\/svg>\\n          <\\/a>\\n        <\\/li>\\n      <\\/ul>\\n","locked":0,"properties":"a:0:{}","static":0,"static_file":"","content":"      <h5 class=\\"meta text-sm-center text-muted share-link-title\\">Share this page<\\/h5>\\n      <ul class=\\"list-inline\\">\\n        <li class=\\"list-inline-item\\">\\n          <a href=\\"http:\\/\\/www.facebook.com\\/sharer\\/sharer.php?u=[[~[[*id]]? &scheme=`full`]]\\" class=\\"share-link\\" title=\\"Share this on Facebook\\">\\n            <svg class=\\"svg-icon-white\\" viewBox=\\"0 0 20 20\\">\\n              <path fill=\\"none\\" d=\\"M11.344,5.71c0-0.73,0.074-1.122,1.199-1.122h1.502V1.871h-2.404c-2.886,0-3.903,1.36-3.903,3.646v1.765h-1.8V10h1.8v8.128h3.601V10h2.403l0.32-2.718h-2.724L11.344,5.71z\\"><\\/path>\\n            <\\/svg>\\n          <\\/a>\\n        <\\/li>\\n        <li class=\\"list-inline-item\\">\\n          <a href=\\"http:\\/\\/twitter.com\\/share?text=[[*pagetitle]]&url=[[~[[*id]]? &scheme=`full`]]\\" class=\\"share-link\\" title=\\"Share this on Twitter\\">\\n            <svg class=\\"svg-icon-white\\" viewBox=\\"0 0 20 20\\">\\n              <path fill=\\"none\\" d=\\"M18.258,3.266c-0.693,0.405-1.46,0.698-2.277,0.857c-0.653-0.686-1.586-1.115-2.618-1.115c-1.98,0-3.586,1.581-3.586,3.53c0,0.276,0.031,0.545,0.092,0.805C6.888,7.195,4.245,5.79,2.476,3.654C2.167,4.176,1.99,4.781,1.99,5.429c0,1.224,0.633,2.305,1.596,2.938C2.999,8.349,2.445,8.19,1.961,7.925C1.96,7.94,1.96,7.954,1.96,7.97c0,1.71,1.237,3.138,2.877,3.462c-0.301,0.08-0.617,0.123-0.945,0.123c-0.23,0-0.456-0.021-0.674-0.062c0.456,1.402,1.781,2.422,3.35,2.451c-1.228,0.947-2.773,1.512-4.454,1.512c-0.291,0-0.575-0.016-0.855-0.049c1.588,1,3.473,1.586,5.498,1.586c6.598,0,10.205-5.379,10.205-10.045c0-0.153-0.003-0.305-0.01-0.456c0.7-0.499,1.308-1.12,1.789-1.827c-0.644,0.28-1.334,0.469-2.06,0.555C17.422,4.782,17.99,4.091,18.258,3.266\\"><\\/path>\\n            <\\/svg>\\n          <\\/a>\\n        <\\/li>\\n        <li class=\\"list-inline-item\\">\\n          <a href=\\"https:\\/\\/plus.google.com\\/share?url=[[~[[*id]]? &scheme=`full`]]\\" class=\\"share-link\\" title=\\"Share this on Google+\\">\\n            <svg class=\\"svg-icon-white\\" viewBox=\\"0 0 20 20\\">\\n              <path fill=\\"none\\" d=\\"M8.937,10.603c-0.383-0.284-0.741-0.706-0.754-0.837c0-0.223,0-0.326,0.526-0.758c0.684-0.56,1.062-1.297,1.062-2.076c0-0.672-0.188-1.273-0.512-1.71h0.286l1.58-1.196h-4.28c-1.717,0-3.222,1.348-3.222,2.885c0,1.587,1.162,2.794,2.726,2.858c-0.024,0.113-0.037,0.225-0.037,0.334c0,0.229,0.052,0.448,0.157,0.659c-1.938,0.013-3.569,1.309-3.569,2.84c0,1.375,1.571,2.373,3.735,2.373c2.338,0,3.599-1.463,3.599-2.84C10.233,11.99,9.882,11.303,8.937,10.603 M5.443,6.864C5.371,6.291,5.491,5.761,5.766,5.444c0.167-0.192,0.383-0.293,0.623-0.293l0,0h0.028c0.717,0.022,1.405,0.871,1.532,1.89c0.073,0.583-0.052,1.127-0.333,1.451c-0.167,0.192-0.378,0.293-0.64,0.292h0C6.273,8.765,5.571,7.883,5.443,6.864 M6.628,14.786c-1.066,0-1.902-0.687-1.902-1.562c0-0.803,0.978-1.508,2.093-1.508l0,0l0,0h0.029c0.241,0.003,0.474,0.04,0.695,0.109l0.221,0.158c0.567,0.405,0.866,0.634,0.956,1.003c0.022,0.097,0.033,0.194,0.033,0.291C8.752,14.278,8.038,14.786,6.628,14.786 M14.85,4.765h-1.493v2.242h-2.249v1.495h2.249v2.233h1.493V8.502h2.252V7.007H14.85V4.765z\\"><\\/path>\\n            <\\/svg>\\n          <\\/a>\\n        <\\/li>\\n      <\\/ul>\\n"}',
+              'guid' => '45a65f7672418f9931611fdbad768089',
+              'native_key' => NULL,
+              'signature' => 'aefe9afbc7b41026de7b679a37c36f91',
+            ),
+          ),
+        ),
+      ),
+    ),
+  ),
+  'related_object_attributes' => 
+  array (
+    'Children' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 
+      array (
+        0 => 'parent',
+        1 => 'category',
+      ),
+    ),
+    'Snippets' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'name',
+    ),
+    'Chunks' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'name',
+    ),
+    'Templates' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'templatename',
+    ),
+    'TemplateVars' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'name',
+    ),
+    'Plugins' => 
+    array (
+      'unique_key' => 'name',
+      'preserve_keys' => false,
+      'update_object' => true,
+      'related_objects' => true,
+      'related_object_attributes' => 
+      array (
+        'PluginEvents' => 
+        array (
+          'preserve_keys' => true,
+          'update_object' => false,
+          'unique_key' => 
+          array (
+            0 => 'pluginid',
+            1 => 'event',
+          ),
+        ),
+      ),
+    ),
+  ),
+  'namespace' => 'quill',
+  'resolve' => 
+  array (
+    0 => 
+    array (
+      'type' => 'php',
+      'body' => '{"source":"quill-1.0.0-beta\\/modCategory\\/ad2881b2863b4fc59ad8713f0f66229a.tagging.resolver.resolver","type":"php","name":"tagging.resolver"}',
+    ),
+    1 => 
+    array (
+      'type' => 'file',
+      'body' => '{"source":"quill-1.0.0-beta\\/modCategory\\/ad2881b2863b4fc59ad8713f0f66229a\\/1\\/","target":"return MODX_ASSETS_PATH . \'components\\/\';","name":"quill"}',
+    ),
+    2 => 
+    array (
+      'type' => 'file',
+      'body' => '{"source":"quill-1.0.0-beta\\/modCategory\\/ad2881b2863b4fc59ad8713f0f66229a\\/2\\/","target":"return MODX_CORE_PATH . \'components\\/\';","name":"quill"}',
+    ),
+    3 => 
+    array (
+      'type' => 'php',
+      'body' => '{"source":"quill-1.0.0-beta\\/modCategory\\/ad2881b2863b4fc59ad8713f0f66229a.gpm.resolve.tv_templates.resolver","type":"php","name":"gpm.resolve.tv_templates"}',
+    ),
+    4 => 
+    array (
+      'type' => 'php',
+      'body' => '{"source":"quill-1.0.0-beta\\/modCategory\\/ad2881b2863b4fc59ad8713f0f66229a.gpm.resolve.resources.resolver","type":"php","name":"gpm.resolve.resources"}',
+    ),
+    5 => 
+    array (
+      'type' => 'php',
+      'body' => '{"source":"quill-1.0.0-beta\\/modCategory\\/ad2881b2863b4fc59ad8713f0f66229a.settings.resolver.resolver","type":"php","name":"settings.resolver"}',
+    ),
+    6 => 
+    array (
+      'type' => 'php',
+      'body' => '{"source":"quill-1.0.0-beta\\/modCategory\\/ad2881b2863b4fc59ad8713f0f66229a.config.resolver.resolver","type":"php","name":"config.resolver"}',
+    ),
+  ),
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => 'a8352d41f7ca31698ddddd0717f41752',
+  'package' => 'modx',
+  'class' => 'modCategory',
+  'signature' => 'ad2881b2863b4fc59ad8713f0f66229a',
+  'native_key' => NULL,
+  'object' => '{"id":null,"parent":0,"category":"Quill","rank":0}',
+);

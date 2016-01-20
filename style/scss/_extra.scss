@@ -1,0 +1,189 @@
+// # Extra
+// General Bootstrap component style override
+// + Addional styles that further "uniquify" Quill
+//
+
+// Content blocks
+// --------------
+
+// Hide the floatbar on phones
+// and reveal it on larger screen sizes
+.side-info,
+.floatbar-left {
+  // Hide
+  display: none;
+  // Reveal
+  @include media-breakpoint-up(md) {
+    position: absolute;
+    left: $spacer-y;
+    top: 21.875rem;
+    width: 16.666666666667%;
+    padding-right: $spacer-y;
+    height: auto;
+    display: block;
+    background-color: rgba(255, 255, 255, .90);
+    z-index: 999; // Bring it above the content stack
+  }
+}
+
+// Used for editor's notes, etc.
+.block-note {
+  background-color: $code-bg;
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+
+}
+
+// SVG Icons
+// Credits: svgicons.sparkk.fr
+// ---------------------------
+
+.svg-icon {
+  @include svg-icon(); // $width: 1.25rem, $height: 1.25rem, $fill: $gray-light, $stroke: $gray-light
+}
+
+.svg-icon-white {
+  @include svg-icon($fill: #fff, $stroke: #fff);
+}
+
+// Hover state for icon links
+.svg-icon-link:hover {
+  path,
+  polygon,
+  rect { fill: $link-hover-color; }
+
+  circle { stroke: $link-hover-color; }
+}
+
+// Embeds
+// ------
+
+.embed-right{
+  float: right;
+  margin-left: 2rem;
+  width: 50%;
+
+  &.chromeless {
+    border: none;
+  }
+}
+
+// Social stuff
+// ------------
+
+.share-block,
+.floatbar-right {
+  position: absolute;
+  top: 21.875rem;
+  right: 2.5rem;
+  // Hide on portrait phones
+  display: none;
+  // Show on landcape phones and up
+  @include media-breakpoint-up(sm) {
+    display: block;
+    max-width: 10rem;
+  }
+
+  &.section-nav {
+    top: 3rem;
+  }
+}
+
+.share-link {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-top: .75rem;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $brand-primary;
+  color: #fff;
+  font-family: $font-family-monospace;
+  font-size: .875rem;
+  @include transition($transition);
+
+  // Hover state -- Remove underline
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: darken($brand-primary, 5%);
+  }
+  .svg-icon {
+    @include svg-icon(1.25rem, 1.25rem, $gray-light, $gray-light); // $width, $height, $fill, $stroke
+  }
+}
+
+// Horizontally align title with inline-list items
+.share-link-title {
+  margin-left: -5px;
+}
+
+// Alerts
+// ------
+
+.alert {
+  border: none;
+  font-family: $font-family-sans-serif;
+  font-size: 100%;
+}
+
+// Contextual backgrounds
+// ----------------------
+
+// background colors
+.block-bg {
+  padding: .5rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  font-family: $font-family-sans-serif;
+}
+
+.bg-light {
+  background-color: $code-bg;
+}
+
+.bg-error {
+  @extend .bg-danger;
+}
+
+// Images
+// ------
+
+// Centered image
+.img-inline {
+  @extend .center-block;
+}
+
+// Misc.
+// -----
+
+.top-spacer {
+  margin-top: $section-spacer;
+}
+
+.v-spacer {
+  margin-top: $section-spacer;
+  margin-bottom: $section-spacer;
+}
+
+.block-spacer {
+  margin-top: 3.5rem;
+}
+
+.inner-spacer {
+  padding-top: $section-spacer;
+  padding-bottom: $section-spacer;
+}
+// Add extra horizontal space around content for better readability
+.inner-spacer-x {
+  padding-left: $section-spacer;
+  padding-right: $section-spacer;
+}
+// Apply horizontal space around column content only on landscape phones and up
+.inner-spacer-col {
+  @include media-breakpoint-up(sm) {
+    padding-left: $section-spacer;
+    padding-right: $section-spacer;
+  }
+}

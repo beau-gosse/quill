@@ -1,0 +1,148 @@
+// # Navs
+// Styles for navbars and other navigational elements
+//
+
+// Navbar
+// ------
+
+.navbar {
+  // Use sans-serif fonts for navbar items for friendlier tone
+  font-family: $font-family-sans-serif;
+  font-size: .875rem;
+  // Ensures the navbar remains above the featured image on the home page
+  z-index: 1040;
+}
+
+// Dark text against white, semi-transparent background
+.navbar-light {
+  box-shadow: $navbar-light-box-shadow;
+  background-color: #fff;
+  background-color: rgba(255,255,255, 0.98);
+}
+
+// Navbar items
+// ------------
+
+// Items within this container will be centered
+// + Floats removed. Useful for centering the logo
+.navbar-centered {
+  display: block;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding-top: .40625rem;
+  padding-bottom: .40625rem;
+  box-sizing: border-box;
+
+  // Float .navbar-brand to the right on phones
+  .navbar-brand {
+    float: none;
+    @include media-breakpoint-down(md) {
+      float: right;
+      margin-right: 1rem;
+    }
+  }
+
+}
+
+.navbar-brand {
+  width: 2rem; // Same width as Quill's logo. You may need to adjust accordjingly.
+  display: block;
+  margin: 0 auto;
+  // Ensure the logo fits within the navbar
+  .navbar-logo {
+    max-width: 2rem;
+    margin: 0 auto;
+    vertical-align: middle;
+    margin-top: -.375rem;// Vertically center image within navbar
+  }
+
+  // Adjust padding when using an icon inside navbar-brand
+  &.has-icon {
+    padding-top: .5625rem;
+    padding-bottom: .5625rem;
+  }
+}
+
+// Navbar items
+// ------------
+
+.navbar-nav .nav-link {
+  padding-top: .5314375rem;
+  padding-bottom: .5314375rem;
+}
+
+// Breadcrumb
+// ----------
+
+.breadcrumb {
+  font-family: $breadcrumb-font-family;
+  font-size: $breadcrumb-font-size;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Pagination
+// ----------
+
+.pagination {
+  font-family: $font-family-meta;
+
+  .page-item {
+    // Offset left padding of the first list item by a negative margin
+    // to properly align it with elements above and below
+    &:first-of-type .page-link {
+      margin-left: -.75rem;
+    }
+  }
+}
+
+// Pager
+// -----
+
+.pager {
+  font-family: $font-family-meta;
+  font-size: .8125rem;
+  color: $text-muted;
+
+  > li a {
+    color: $text-muted;
+    @include transition($transition);
+
+    &:hover {
+      border-color: $gray-light;
+    }
+  }
+}
+
+// Tags
+// ------
+
+.tag-list {
+  padding-top: $spacer-y;
+  border-top: $hr-border-width solid $hr-border-color;
+  border-bottom: $hr-border-width solid $hr-border-color;
+}
+
+.tag-badge {
+  display: inline-block;
+  padding: .3125rem .625rem;
+  margin-right: .625rem;
+  vertical-align: middle;
+  font-size: .75rem;
+  color: $body-color;
+  background-color: $code-bg;
+  font-family:$font-family-meta;
+
+  &:hover {
+    background-color: darken($code-bg, 3%);
+    text-decoration: none;
+  }
+}
+
+// Remove right margin when inside an inline list
+.list-inline li .tag-badge {
+  margin-right: 0;
+}

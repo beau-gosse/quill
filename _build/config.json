@@ -1,0 +1,561 @@
+{
+  "name": "Quill",
+  "lowCaseName": "quill",
+  "description": "A modern and clutter-free blogging theme for MODX.",
+  "author": "Treigh PM",
+  "version": "1.0.0-beta",
+  "package": {
+    "elements": {
+      "chunks": [{
+        "name": "qllFigure",
+        "category": "QuillBasics"
+      }, {
+        "name": "qllFooter",
+        "category": "QuillBasics"
+      }, {
+        "name": "qllHead",
+        "category": "QuillBasics"
+      }, {
+        "name": "qllNavbar",
+        "category": "QuillBasics"
+      }, {
+        "name": "qllAuthorLayout",
+        "category": "QuillLayouts"
+      }, {
+        "name": "qllFullLayout",
+        "category": "QuillLayouts"
+      }, {
+        "name": "qllHomeLayout",
+        "category": "QuillLayouts"
+      }, {
+        "name": "qllMinimalLayout",
+        "category": "QuillLayouts"
+      }, {
+        "name": "qllPostLayout",
+        "category": "QuillLayouts"
+      }, {
+        "name": "qllSearchLayout",
+        "category": "QuillLayouts"
+      }, {
+        "name": "qllSectionLayout",
+        "category": "QuillLayouts"
+      }, {
+        "name": "qllContainerScripts",
+        "category": "QuillScripts"
+      }, {
+        "name": "qllPLScripts",
+        "category": "QuillScripts"
+      }, {
+        "name": "qllPostScripts",
+        "category": "QuillScripts"
+      }, {
+        "name": "qllScripts",
+        "category": "QuillScripts"
+      }, {
+        "name": "qllSearchCurrentPageLink",
+        "category": "QuillSearch"
+      }, {
+        "name": "qllSearchForm",
+        "category": "QuillSearch"
+      }, {
+        "name": "qllSearchNoResults",
+        "category": "QuillSearch"
+      }, {
+        "name": "qllSearchNoResults",
+        "category": "QuillSearch"
+      }, {
+        "name": "qllSearchPageLink",
+        "category": "QuillSearch"
+      }, {
+        "name": "qllSearchResult",
+        "category": "QuillSearch"
+      }, {
+        "name": "qllSearchResults",
+        "category": "QuillSearch"
+      }, {
+        "name": "qllArchiveTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllFeaturedPostTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllPageActiveTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllPageNextTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllPagePrevTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllPageTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllPageWrapperTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllPostAuthorTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllPostTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllReadNextTplBig",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllRSSTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllSectionLinksTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllTagLinksOutTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllTagLinksTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllUserOptionTpl",
+        "category": "QuillTpls"
+      }, {
+        "name": "qllArchives",
+        "category": "QuillWidgets"
+      }, {
+        "name": "qllFloatbarCard",
+        "category": "QuillWidgets"
+      }, {
+        "name": "qllLeftFloatbar",
+        "category": "QuillWidgets"
+      }, {
+        "name": "qllQuickNotePatternLibrary",
+        "category": "QuillWidgets"
+      }, {
+        "name": "qllSidePopularTopics",
+        "category": "QuillWidgets"
+      }, {
+        "name": "qllSocialButtons",
+        "category": "QuillWidgets"
+      }],
+      "snippets": [{
+        "name": "qllAuthorUrl",
+        "description": "This snippet generates a URL to the author's bio page."
+      }, {
+        "name": "qllFeaturedImage",
+        "description": "When used inside a resource tpl, this helper snippet displays the post's featured image if it exists."
+      }, {
+        "name": "qllGetDefaultAuthor",
+        "description": "This snippet returns the Default Author's user id."
+      }, {
+        "name": "qllGetTime",
+        "description": "This utility snippet returns the current UTC time according to the given format."
+      }, {
+        "name": "qllPostScripts",
+        "description": "This snippet loads appropriate page scripts for Quill-themed blogs."
+      }, {
+        "name": "qllRelatedUser",
+        "description": "This snippet returns a list of the site's active users."
+      }],
+      "templates": [{
+        "name": "Quill"
+      }],
+      "plugins": [{
+        "name": "qllSkipParser",
+        "events": [
+          "OnBeforeSaveWebPageCache",
+          "OnLoadWebDocument",
+          "OnWebPagePrerender"
+        ]
+      }],
+      "tvs": [{
+        "name": "qllAuthor",
+        "caption": "Related User Id",
+        "description": "(Required => Author resources) - Select the related user id for this author:",
+        "sortOrder": 5,
+        "defaultValue": "",
+        "inputOptionValues": "@EVAL return '-- choose a user --||' . $modx->runSnippet('qllRelatedUser');",
+        "type": "listbox",
+        "templates": ["Quill"]
+      }, {
+        "name": "qllFeaturedImage",
+        "caption": "Featured Image",
+        "description": "(Optional) - Add/Edit the featured image (minimum size: 1200x480):",
+        "type": "image",
+        "sortOrder": 1,
+        "templates": ["Quill"]
+      }, {
+        "name": "qllImageCaption",
+        "caption": "Image Caption",
+        "description": "Type a caption for the featured image here:",
+        "sortOrder": 3,
+        "templates": ["Quill"]
+
+      }, {
+        "name": "qllImageCredits",
+        "caption": "Image Credits",
+        "description": "Add credits for the featured image here:",
+        "sortOrder": 4,
+        "templates": ["Quill"]
+      }, {
+        "name": "qllLeftFloatbar",
+        "caption": "Left Floatbar",
+        "description": "(Optional) - Add widgets to the left float bar.",
+        "type": "textarea",
+        "sortOrder": 7,
+        "templates": ["Quill"]
+      }, {
+        "name": "qllPageLayout",
+        "caption": "Page Layout",
+        "description": "Select the layout to use for this resource:",
+        "type": "listbox",
+        "inputOptionValues": "Blog Listing==[[$qllHomeLayout]]||Blog Post==[[$qllPostLayout]]||Blog Section==[[$qllSectionLayout]]||Author Profile==[[$qllAuthorLayout]]||Blog Search==[[$qllSearchLayout]]||Minimal==[[$qllMinimalLayout]]||Full==[[$qllFullLayout]]",
+        "defaultValue": "[[$qllPostLayout]]",
+        "sortOrder": 0,
+        "templates": ["Quill"]
+      }, {
+        "name": "qllRightFloatbar",
+        "caption": "Right Floatbar",
+        "description": "(Optional) - Add widgets to the right float bar.",
+        "type": "textarea",
+        "defaultValue": "[[$qllSocialButtons]]",
+        "sortOrder": 8,
+        "templates": ["Quill"]
+      }, {
+        "name": "qllShowFeaturedImage",
+        "caption": "Show Featured Image",
+        "description": "Show the featured image on this page?",
+        "type": "checkbox",
+        "sortOrder": 2,
+        "inputOptionValues": "Yes==1",
+        "templates": ["Quill"]
+      }, {
+        "name": "qllTwitterAccount",
+        "caption": "Twitter Handle",
+        "description": "(Optional => Author resources) - Enter the author's related twitter handle:",
+        "sortOrder": 6,
+        "templates": ["Quill"]
+      }],
+      "categories": [{
+        "name": "QuillBasics"
+      }, {
+        "name": "QuillLayouts"
+      }, {
+        "name": "QuillScripts"
+      }, {
+        "name": "QuillSearch"
+      }, {
+        "name": "QuillTpls"
+      }, {
+        "name": "QuillWidgets"
+      }]
+    },
+    "resources": [{
+      "pagetitle": "Quill",
+      "alias": "quill",
+      "template": "Quill",
+      "class_key": "SelectionContainer",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Quill",
+      "file": "quill.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllFullLayout]]"
+      }]
+    },{
+      "pagetitle": "Blog",
+      "alias": "blog",
+      "parent": "Quill",
+      "template": "Quill",
+      "class_key": "CollectionContainer",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Quill Blog",
+      "hide_children_in_tree": 1,
+      "file": "home.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllHomeLayout]]"
+      }]
+    }, {
+      "pagetitle": "Sections",
+      "alias": "sections",
+      "parent": "Quill",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Sections",
+      "file": "sections.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllSectionLayout]]"
+      }, {
+        "name": "qllLeftFloatbar",
+        "value": "[[$qllSidePopularTopics]]"
+      }]
+    }, {
+      "pagetitle": "Toughts",
+      "description": "General thoughts and opinions.",
+      "alias": "thoughts",
+      "parent": "Sections",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Sections",
+      "file": "thoughts.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllSectionLayout]]"
+      }]
+    }, {
+      "pagetitle": "Experiments",
+      "description": "Tips, tricks and other toxic stuff.",
+      "alias": "experiments",
+      "parent": "Sections",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Experiments",
+      "file": "experiments.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllSectionLayout]]"
+      }]
+    }, {
+      "pagetitle": "Topics",
+      "description": "Showing posts filed under: <strong>[[!getUrlParam? &name=`key` &default=`All topics`]]</strong> ([[+page.total]])",
+      "alias": "topics",
+      "parent": "Quill",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Topics",
+      "file": "topics.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllSectionLayout]]"
+      }]
+    }, {
+      "pagetitle": "Authors",
+      "alias": "authors",
+      "parent": "Quill",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Authors",
+      "file": "authors.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllAuthorLayout]]"
+      }, {
+        "name": "qllLeftFloatbar",
+        "value": "[[$qllFloatbarCard? &title=`Write for us.` &content=`We think you have what it takes to write a captivating novel. Be one of us.` &link=`[[++site_url]]` &linkTitle=`Let's talk` ]]"
+      }]
+    }, {
+      "pagetitle": "Default Author",
+      "alias": "default-author",
+      "parent": "Authors",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllAuthorLayout]]"
+      }, {
+        "name": "qllAuthor",
+        "value": ""
+      }]
+    }, {
+      "pagetitle": "Archives",
+      "description": "[[+arc_month_name]] [[+arc_year]]",
+      "alias": "archives",
+      "parent": "Quill",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Archives",
+      "file": "archives.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllSectionLayout]]"
+      }, {
+        "name": "qllLeftFloatbar",
+        "value": "[[$qllArchives]]"
+      }]
+    }, {
+      "pagetitle": "Pattern Library",
+      "description": "Quill is a sleek, modern and clutter-free theme that offers a more immersive reading experience.",
+      "alias": "pattern-library",
+      "parent": "Quill",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "menutitle": "Pattern Library",
+      "file": "patternlibrary.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllFullLayout]]"
+      }, {
+        "name": "qllLeftFloatbar",
+        "value": "[[$qllQuickNotePatternLibrary]]"
+      }]
+    }, {
+      "pagetitle": "Search",
+      "description": "Search articles from the Blog.",
+      "alias": "search",
+      "parent": "Quill",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "richtext": 0,
+      "searchable": 0,
+      "hidemenu": 1,
+      "menutitle": "Search",
+      "file": "search.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllSearchLayout]]"
+      }]
+    }, {
+      "pagetitle": "Sitemap",
+      "alias": "sitemap",
+      "parent": "Quill",
+      "template": 0,
+      "content_type": "xml",
+      "isfolder": 1,
+      "published": 1,
+      "searchable": 0,
+      "richtext": 0,
+      "cacheable": 0,
+      "hidemenu": 1,
+      "menutitle": "Sitemap",
+      "file": "sitemap.content.xml.tpl"
+    }, {
+      "pagetitle": "RSS",
+      "alias": "rss",
+      "parent": "Quill",
+      "template": 0,
+      "content_type": "rss",
+      "isfolder": 1,
+      "published": 1,
+      "searchable": 0,
+      "richtext": 0,
+      "cacheable": 0,
+      "hidemenu": 1,
+      "menutitle": "RSS",
+      "file": "rss.content.rss.tpl"
+    }, {
+      "pagetitle": "Page not found",
+      "alias": "page-not-found",
+      "parent": "Quill",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "searchable": 0,
+      "richtext": 1,
+      "hidemenu": 1,
+      "menutitle": "Page not found",
+      "file": "404.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllFullLayout]]"
+      }]
+    }, {
+      "pagetitle": "Site unavailable",
+      "alias": "site-unavailable",
+      "parent": "Quill",
+      "template": "Quill",
+      "isfolder": 1,
+      "published": 1,
+      "searchable": 0,
+      "richtext": 1,
+      "hidemenu": 1,
+      "menutitle": "Site unavailable",
+      "file": "unavailable.content.html.tpl",
+      "tvs": [{
+        "name": "qllPageLayout",
+        "value": "[[$qllFullLayout]]"
+      }]
+    }],
+    "systemSettings": [{
+      "key": "doc_container",
+      "value": ""
+    }, {
+      "key": "blog_container",
+      "value": ""
+    }, {
+      "key": "sections_page",
+      "value": ""
+    }, {
+      "key": "topics_page",
+      "value": ""
+    }, {
+      "key": "authors_page",
+      "value": ""
+    }, {
+      "key": "archives_page",
+      "value": ""
+    }, {
+      "key": "default_author_page",
+      "value": ""
+    }, {
+      "key": "search_page",
+      "value": ""
+    }, {
+      "key": "rss_page",
+      "value": ""
+    }]
+  },
+  "dependencies": [{
+    "name": "collections",
+    "version": ">=3.2.0"
+  }, {
+    "name": "tagger",
+    "version": ">=1.7.0"
+  }, {
+    "name": "pdotools",
+    "version": ">=2.2.0"
+  }, {
+    "name": "archivist",
+    "version": ">=1.2.0"
+  }, {
+    "name": "simplesearch",
+    "version": ">=1.9.0"
+  }, {
+    "name": "if",
+    "version": ">=1.1.0"
+  }, {
+    "name": "geturlparam",
+    "version": ">=1.0"
+  }, {
+    "name": "clientconfig",
+    "version": ">=1.3.0"
+  }, {
+    "name": "rowboat",
+    "version": ">=1.1.0"
+  }, {
+    "name": "gravatar",
+    "version": ">=2.0"
+  }],
+  "build": {
+    "readme": "docs/index.md",
+    "license": "docs/license.md",
+    "changelog": "docs/changelog.md",
+    "setupOptions": {
+      "source": "setup.options.php"
+    },
+    "resolver": {
+      "before": ["tagging.resolver.php"],
+      "after": ["settings.resolver.php", "config.resolver.php"]
+    }
+  }
+}

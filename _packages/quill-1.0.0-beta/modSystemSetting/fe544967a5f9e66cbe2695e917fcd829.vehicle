@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'quill',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '4a63ef2dd2cd7f4a4b631d8440fd8cdd',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => 'fe544967a5f9e66cbe2695e917fcd829',
+  'native_key' => 'quill.archives_page',
+  'object' => '{"key":"quill.archives_page","value":"","xtype":"textfield","namespace":"quill","area":"default","editedon":null}',
+);
