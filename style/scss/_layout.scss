@@ -95,7 +95,7 @@
       font-size: 150%;
     }
   }
-  // Force center alignment of hero header on larger screens
+  // Apply bg colour to hero header on larger screens
   @include media-breakpoint-up(lg) {
     background-color: $midnight-blue;
   }
