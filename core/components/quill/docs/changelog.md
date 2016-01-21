@@ -1,6 +1,6 @@
 Changelog file for Quill extra.
 
-# Quill 1.0.1-beta (January 20, 2016)
+# Quill 1.0.1-beta (January 21, 2016)
 ===================================
 
 - Fix Download URL
