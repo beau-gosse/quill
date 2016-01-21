@@ -4,8 +4,7 @@
     <section class="row">
       <header class="content-col-half">
         <h1 class="text-xs-center article-header" itemprop="headline" itemprop="headline">[[*pagetitle]]</h1>
-        <figure class="figure center-block" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="img-circle center-block profile-img" data-src="[[Gravatar? &email=`[[*qllAuthor:userinfo=`email`]]` &size=`128` &rating=`r` &default=`wavatar`]]" width="128" alt="[[*pagetitle]]" itemprop="image">
+        <figure class="figure center-block" itemprop="author" itemscope itemtype="http://schema.org/Person">          
           [[If?
             &subject=`[[*id]]`
             &operand=`[[++quill.authors_page]]`
