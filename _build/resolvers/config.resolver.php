@@ -467,7 +467,7 @@ if (!function_exists('createQuillCgSettings')) {
                 'description' => 'Quill Download URL.',
                 'is_required' => '1',
                 'sortorder' => '37',
-                'value' => 'http://modx.com/extras/package/quill',
+                'value' => 'http://modx.com/extras/package/quill2',
                 'default' => '',
                 'group' => $groups['quill'],
                 'options' => ''
