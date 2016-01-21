@@ -10,7 +10,7 @@
       &rowTpl=`qllSectionLinksTpl`
       &target=`[[++quill.sections_page]]`
     ]],
-    by [[qllAuthorUrl? &author=`[[+createdby]]`]].</small>
+    by [[qllAuthorUrl? &author=`[[+createdby]]`]]</small>
   </p>
   [[If?
     &subject=`[[*parent]]`
