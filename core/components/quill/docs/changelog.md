@@ -3,6 +3,7 @@ Changelog file for Quill extra.
 # Quill 1.0.1-beta (January 20, 2016)
 ===================================
 
+- Fix Download URL
 - Switch to pdoResources for archives and fix missing archives
 - Add custom Collections view template to assets
 - Center hero header on all screen sizes
