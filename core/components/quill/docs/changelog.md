@@ -1,5 +1,13 @@
 Changelog file for Quill extra.
 
+# Quill 1.0.2-beta (January 25, 2016)
+===================================
+
+- Align pagination + newsletter form with content
+- Fix hero image center alignment
+- Remove hero image caption
+- Further style tweaks
+
 # Quill 1.0.1-beta (January 21, 2016)
 ===================================
 
