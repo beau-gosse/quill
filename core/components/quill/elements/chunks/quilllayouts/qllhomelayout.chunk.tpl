@@ -50,7 +50,11 @@
       <p class="section-title top-spacer">What we're reading</p>
       <div class="card card-block">
         <h5 class="card-title meta meta-title">MODX: The Official Guide</h5>
-        <p class="card-text meta"><a href="http://modx.com/learn/modx-books/modx-the-official-guide/" target="_blank"><img src="http://cdn.kleverr.com/pjx/quill/img/blog/modx-the-official-guide.jpg" width="350" class="img-fluid" title="MODX: The Official Guide"></a></p>
+        <p class="card-text meta"><a href="http://modx.com/learn/modx-books/modx-the-official-guide/" target="_blank" rel="nofollow"><img src="http://cdn.kleverr.com/pjx/quill/img/blog/modx-the-official-guide.jpg" width="350" class="img-fluid" alt="MODX: The Official Guide"></a></p>
+      </div>
+      <div class="card card-block">
+        <h5 class="card-title meta meta-title">Atomic Design</h5>
+        <p class="card-text meta"><a href="http://atomicdesign.bradfrost.com/" target="_blank" rel="nofollow"><img data-src="http://atomicdesign.bradfrost.com/images/book-cover.svg" width="350" class="img-fluid" alt="Brad Frost - Atomic Design"></a></p>
       </div>
     </aside>
   </section>
