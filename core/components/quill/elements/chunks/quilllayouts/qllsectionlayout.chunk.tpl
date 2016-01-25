@@ -46,7 +46,7 @@
   <div class="container-fluid">
     <!-- Pagination -->
     <article class="row">
-      <nav class="content-col-big">
+      <nav class="content-col">
         [[!+page.nav]]
       </nav>
     </article>
