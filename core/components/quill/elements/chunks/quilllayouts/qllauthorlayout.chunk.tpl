@@ -4,7 +4,7 @@
     <section class="row">
       <header class="content-col-half">
         <h1 class="text-xs-center article-header" itemprop="headline" itemprop="headline">[[*pagetitle]]</h1>
-        <figure class="figure center-block" itemprop="author" itemscope itemtype="http://schema.org/Person">          
+        <figure class="figure center-block" itemprop="author" itemscope itemtype="http://schema.org/Person">
           [[If?
             &subject=`[[*id]]`
             &operand=`[[++quill.authors_page]]`
@@ -80,17 +80,17 @@
 <!-- /.Content -->
 <!-- Newsletter signup -->
 <section class="container-wrapper v-spacer">
-  <div class="container">
+  <div class="container-fluid">
     <!-- Pagination -->
     <article class="row">
-      <nav class="content-col-big">
+      <nav class="content-col">
         [[!+page.nav]]
       </nav>
     </article>
     <!-- /.Pagination -->
     <!-- Newsletter signup -->
     <article class="row">
-      <div class="content-col-big v-spacer">
+      <div class="content-col v-spacer">
         <div class="block-bg bg-primary nletter-signup">
           <form id="newsletter-signup" class="row" action="//formspree.io/[[++emailsender]]" method="POST">
             <input type="hidden" name="_subject" value="Your List has a new Subscriber">
