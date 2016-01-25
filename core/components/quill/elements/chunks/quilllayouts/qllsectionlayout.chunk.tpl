@@ -43,7 +43,7 @@
 <!-- /.Content -->
 <!-- Newsletter signup -->
 <section class="container-wrapper v-spacer">
-  <div class="container">
+  <div class="container-fluid">
     <!-- Pagination -->
     <article class="row">
       <nav class="content-col-big">
@@ -53,7 +53,7 @@
     <!-- /.Pagination -->
     <!-- Newsletter signup -->
     <article class="row">
-      <div class="content-col-big v-spacer">
+      <div class="content-col v-spacer">
         <div class="block-bg bg-primary nletter-signup">
           <form id="newsletter-signup" class="row" action="//formspree.io/[[++emailsender]]" method="POST">
             <input type="hidden" name="_subject" value="Your List has a new Subscriber">
