@@ -296,7 +296,7 @@
         "value": "[[$qllSidePopularTopics]]"
       }]
     }, {
-      "pagetitle": "Toughts",
+      "pagetitle": "Thoughts",
       "description": "General thoughts and opinions.",
       "alias": "thoughts",
       "parent": "Sections",
