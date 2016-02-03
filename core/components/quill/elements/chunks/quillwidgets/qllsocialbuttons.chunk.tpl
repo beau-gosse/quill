@@ -1,4 +1,4 @@
-      <h5 class="meta text-sm-center text-muted share-link-title">Share this page</h5>
+      <h5 class="meta[[*id:isnot=`[[++quill.blog_container]]`:then=` text-sm-center`]] text-muted share-link-title">Share this page</h5>
       <ul class="list-inline">
         <li class="list-inline-item">
           <a href="http://www.facebook.com/sharer/sharer.php?u=[[~[[*id]]? &scheme=`full`]]" class="share-link" title="Share this on Facebook">
