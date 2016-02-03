@@ -78,6 +78,8 @@
   right: 2.5rem;
   // Hide on portrait phones
   display: none;
+  // Place it above content so it's not stricken through by any adjacent <hr>
+  z-index: $zindex-navbar-fixed;
   // Show on landcape phones and up
   @include media-breakpoint-up(sm) {
     display: block;
