@@ -1,5 +1,5 @@
 # Quill
-Version: 1.0.3 Beta
+Version: 1.0.4 Beta
 ![Introducing Quill](http://cdn.kleverr.com/pjx/quill/img/demo/quill-screenshot-10.jpg)
 
 Quill is a sleek, modern and _clutter-free_ blog theme for [MODX](http://modx.com) that offers a more immersive reading experience. In just a few clicks, you'll have a fully functioning blog—thanks to MODX package dependencies.
