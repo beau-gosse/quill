@@ -9,7 +9,7 @@
 if (!function_exists('getResourceMap')) {
     function getResourceMap() {
         global $modx;
-        $assetsPath = rtrim($modx->getOption('quill.assets_path',null,$modx->getOption('assets_path').'components/quill/'), '/') . '/';
+        $assetsPath = rtrim($modx->getOption('quill2.assets_path',null,$modx->getOption('assets_path').'components/quill2/'), '/') . '/';
         $rmf = $assetsPath . 'resourcemap.php';
         if (is_readable($rmf)) {
             $map = include $rmf;
@@ -311,7 +311,7 @@ if (!function_exists('createQuillCgSettings')) {
                 'description' => 'Path to Quill\'s CSS file.',
                 'is_required' => '0',
                 'sortorder' => '25',
-                'value' => 'assets/components/quill/css/all.min.css',
+                'value' => 'assets/components/quill2/css/all.min.css',
                 'default' => '',
                 'group' => $groups['css'],
                 'options' => ''
@@ -323,7 +323,7 @@ if (!function_exists('createQuillCgSettings')) {
                 'description' => 'Path to the CSS file used with RTEs.',
                 'is_required' => '0',
                 'sortorder' => '26',
-                'value' => 'assets/components/quill/css/mgr.min.css',
+                'value' => 'assets/components/quill2/css/mgr.min.css',
                 'default' => '',
                 'group' => $groups['css'],
                 'options' => ''
@@ -335,7 +335,7 @@ if (!function_exists('createQuillCgSettings')) {
                 'description' => 'Path to Quill\'s JS file.',
                 'is_required' => '1',
                 'sortorder' => '27',
-                'value' => 'assets/components/quill/js/quill.app.js',
+                'value' => 'assets/components/quill2/js/quill.app.js',
                 'default' => '',
                 'group' => $groups['js'],
                 'options' => ''

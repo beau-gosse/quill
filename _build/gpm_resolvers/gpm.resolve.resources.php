@@ -5,7 +5,7 @@
  *
  * THIS RESOLVER IS AUTOMATICALLY GENERATED, NO CHANGES WILL APPLY
  *
- * @package quill
+ * @package quill2
  * @subpackage build
  */
 
@@ -17,7 +17,7 @@ if (!function_exists('getResourceMap')) {
     function getResourceMap() {
         global $modx;
 
-        $assetsPath = rtrim($modx->getOption('quill.assets_path',null,$modx->getOption('assets_path').'components/quill/'), '/') . '/';
+        $assetsPath = rtrim($modx->getOption('quill2.assets_path',null,$modx->getOption('assets_path').'components/quill2/'), '/') . '/';
         $rmf = $assetsPath . 'resourcemap.php';
 
         if (is_readable($rmf)) {
@@ -34,7 +34,7 @@ if (!function_exists('setResourceMap')) {
     function setResourceMap($resourceMap) {
         global $modx;
 
-        $assetsPath = rtrim($modx->getOption('quill.assets_path',null,$modx->getOption('assets_path').'components/quill/'), '/') . '/';
+        $assetsPath = rtrim($modx->getOption('quill2.assets_path',null,$modx->getOption('assets_path').'components/quill2/'), '/') . '/';
         $rmf = $assetsPath . 'resourcemap.php';
         file_put_contents($rmf, '<?php return ' . var_export($resourceMap, true) . ';');
 

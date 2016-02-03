@@ -11,7 +11,7 @@ $modx =& $object->xpdo;
 if (!function_exists('getResourceMap')) {
     function getResourceMap() {
         global $modx;
-        $assetsPath = rtrim($modx->getOption('quill.assets_path',null,$modx->getOption('assets_path').'components/quill/'), '/') . '/';
+        $assetsPath = rtrim($modx->getOption('quill2.assets_path',null,$modx->getOption('assets_path').'components/quill2/'), '/') . '/';
         $rmf = $assetsPath . 'resourcemap.php';
         if (is_readable($rmf)) {
             $map = include $rmf;
@@ -42,43 +42,43 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             $authorPage->save();
         }
 
-        $quill = $modx->getObject('modSystemSetting', array('key' => 'quill.doc_container'));
+        $quill = $modx->getObject('modSystemSetting', array('key' => 'quill2.doc_container'));
         if ($quill && !empty($resourceMap['Quill'])) {
             $quill->set('value', $resourceMap['Quill']);
             $quill->save();
         }
 
-        $blog = $modx->getObject('modSystemSetting', array('key' => 'quill.blog_container'));
+        $blog = $modx->getObject('modSystemSetting', array('key' => 'quill2.blog_container'));
         if ($blog && !empty($resourceMap['Blog'])) {
             $blog->set('value', $resourceMap['Blog']);
             $blog->save();
         }
 
-        $sections = $modx->getObject('modSystemSetting', array('key' => 'quill.sections_page'));
+        $sections = $modx->getObject('modSystemSetting', array('key' => 'quill2.sections_page'));
         if ($sections && !empty($resourceMap['Sections'])) {
             $sections->set('value', $resourceMap['Sections']);
             $sections->save();
         }
 
-        $topics = $modx->getObject('modSystemSetting', array('key' => 'quill.topics_page'));
+        $topics = $modx->getObject('modSystemSetting', array('key' => 'quill2.topics_page'));
         if ($topics && !empty($resourceMap['Topics'])) {
             $topics->set('value', $resourceMap['Topics']);
             $topics->save();
         }
 
-        $authors = $modx->getObject('modSystemSetting', array('key' => 'quill.authors_page'));
+        $authors = $modx->getObject('modSystemSetting', array('key' => 'quill2.authors_page'));
         if ($authors && !empty($resourceMap['Authors'])) {
             $authors->set('value', $resourceMap['Authors']);
             $authors->save();
         }
 
-        $archive = $modx->getObject('modSystemSetting', array('key' => 'quill.archives_page'));
+        $archive = $modx->getObject('modSystemSetting', array('key' => 'quill2.archives_page'));
         if ($archive && !empty($resourceMap['Archives'])) {
             $archive->set('value', $resourceMap['Archives']);
             $archive->save();
         }
 
-        $defaultAuthor = $modx->getObject('modSystemSetting', array('key' => 'quill.default_author_page'));
+        $defaultAuthor = $modx->getObject('modSystemSetting', array('key' => 'quill2.default_author_page'));
         if ($defaultAuthor && !empty($resourceMap['Default Author'])) {
             $defaultAuthor->set('value', $resourceMap['Default Author']);
             $defaultAuthor->save();
@@ -105,13 +105,13 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             $unavailable->save();
         }
 
-        $search = $modx->getObject('modSystemSetting', array('key' => 'quill.search_page'));
+        $search = $modx->getObject('modSystemSetting', array('key' => 'quill2.search_page'));
         if ($search && !empty($resourceMap['Search'])) {
             $search->set('value', $resourceMap['Search']);
             $search->save();
         }
 
-        $rss = $modx->getObject('modSystemSetting', array('key' => 'quill.rss_page'));
+        $rss = $modx->getObject('modSystemSetting', array('key' => 'quill2.rss_page'));
         if ($rss && !empty($resourceMap['RSS'])) {
             $rss->set('value', $resourceMap['RSS']);
             $rss->save();

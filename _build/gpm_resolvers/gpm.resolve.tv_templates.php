@@ -4,7 +4,7 @@
  *
  * THIS RESOLVER IS AUTOMATICALLY GENERATED, NO CHANGES WILL APPLY
  *
- * @package quill
+ * @package quill2
  * @subpackage build
  */
 
