@@ -245,7 +245,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
   ),
   3 => 
   array (
-    'pagetitle' => 'Toughts',
+    'pagetitle' => 'Thoughts',
     'alias' => 'thoughts',
     'parent' => 'Sections',
     'content' => '[[- The default listing limit is 10]]
