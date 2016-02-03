@@ -1,5 +1,12 @@
 Changelog file for Quill extra.
 
+# Quill 1.0.3-beta (February 3, 2016)
+===================================
+
+- Improve mobile responsiveness
+- Fix typo in Thoughts pagetitle [#1]
+- UI improvements
+
 # Quill 1.0.2-beta (January 25, 2016)
 ===================================
 
