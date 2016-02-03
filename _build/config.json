@@ -1,9 +1,9 @@
 {
   "name": "Quill",
-  "lowCaseName": "quill",
+  "lowCaseName": "quill2",
   "description": "A modern and clutter-free blogging theme for MODX.",
   "author": "Treigh PM",
-  "version": "1.0.3-beta",
+  "version": "1.0.4-beta",
   "package": {
     "elements": {
       "chunks": [{
