@@ -20,7 +20,7 @@
               &groups=`[[++quill_section_group]]`
               &rowTpl=`qllSectionLinksTpl`
               &target=`[[++quill.sections_page]]`
-            ]], by [[qllAuthorUrl]].
+            ]], by [[qllAuthorUrl]]
           </small>
         </p>
         [[If?
