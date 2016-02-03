@@ -6,3 +6,14 @@
 .profile-img {
   margin-bottom: $section-spacer;
 }
+
+// This fix ensures .img-fluid works in FF.
+// Known bug. See: https://github.com/twbs/bootstrap/issues/10690
+.article-body {
+  .img-fluid,
+  .img-responsive {
+    @include media-breakpoint-up(md) {
+      width: 100%;
+    }
+  }
+}
