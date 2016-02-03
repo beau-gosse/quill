@@ -32,10 +32,12 @@
   .post-photo-credit {
     padding: $spacer-y ($spacer-x * 3) 0;
   }
-
   .section-caption {
     @extend .carousel-caption;
-    bottom: $section-spacer;
+    bottom: 0;
+    @include media-breakpoint-up(md) {
+      bottom: $section-spacer;
+    }
   }
 }
 
@@ -55,7 +57,9 @@
   // Known bug. See: https://github.com/twbs/bootstrap/issues/10690
   .img-fluid,
   .img-responsive {
-    width: 100%;
+    @include media-breakpoint-up(md) {
+      width: 100%;
+    }
   }
 }
 
@@ -83,10 +87,10 @@
 }
 
 // Adjust margins and font sizes of the .featured-post
-// for proper display on phones
+// for proper display on smaller screens
 .featured-post {
   @include media-breakpoint-down(md) {
-    margin-top: 2rem;
+    margin-top: 3.75rem;
     // Bring out captions and credits with a dark background
     background-color: $midnight-blue;
     // Adapt title font-size for smaller screen sizes
@@ -95,7 +99,6 @@
       font-size: 150%;
     }
   }
-  // Apply bg colour to hero header on larger screens
   @include media-breakpoint-up(lg) {
     background-color: $midnight-blue;
   }
