@@ -1,5 +1,10 @@
 Changelog file for Quill extra.
 
+# Quill 1.0.4-beta (February 3, 2016)
+===================================
+
+- Update transport package name to avoid conflict with other unrelated extra. This should also take care of issue preventing Quill from showing up in the installer.
+
 # Quill 1.0.3-beta (February 3, 2016)
 ===================================
 
