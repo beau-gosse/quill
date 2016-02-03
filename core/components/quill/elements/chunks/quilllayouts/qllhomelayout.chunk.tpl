@@ -33,8 +33,12 @@
       <!-- /.Content body -->
     </article>
     <aside class="side-col">
+        [[*qllRightFloatbar]]
+        <p class="text-sm-center v-spacer hidden-sm-down">
+          <a href="[[++quill_download_url]]" class="btn btn-primary btn-lg">Download Quill Blog Theme<br><span class="small text-info">Requires MODX 2.4+</span></a>
+        </p>
       <div class="card card-block">
-        <h5 class="card-title meta meta-title">About this blog</h5>
+        <h5 class="card-title meta meta-title">About this demo blog</h5>
         <p class="card-text meta">[[++quill_blog_description:default=`[[*description]]`]]</p>
       </div>
       <p class="section-title top-spacer">Popular Topics</p>
@@ -59,11 +63,6 @@
     </aside>
   </section>
   <!-- /.Content area -->
-  <!-- Right floatbar widgets -->
-  <aside class="share-block">
-    [[*qllRightFloatbar]]
-  </aside>
-  <!-- /.Right floatbar widgets -->
 </main>
 <!-- /.Content -->
 <!-- Newsletter signup -->
