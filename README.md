@@ -24,6 +24,9 @@ Quill is a One-Stop blogging solution for MODX that's designed to quickly get yo
 3. Clear Cache.
 4. Turn on Friendly URLs. (+ Rename the `ht.access` file to `.htaccess`)
 
+## Upgrading
+As of version **1.0.4 Beta**, Quill's transport package name has changed from `quill-x.x.x-release.transport.zip` to `quill2-x.x.x-release.transport.zip`. This helps avoid conflict with another unrelated extra. This should also take care of an issue preventing Quill from showing up in the installer. Before upgrading, you should back up your blog if upgrading from versions prior to **1.0.4 Beta**, as the upgrade  may duplicate data.
+
 ## Getting Started
 
 - Visit Quill's official [documentation](http://quill.kleverr.modxcloud.com/flight-manual) to get started.
