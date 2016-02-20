@@ -44,11 +44,6 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             $collectionsTemplate->set('button_label', 'New Post');
             $collectionsTemplate->set('back_to_collection_label', 'All Posts');
 
-            if ($template) {
-                $collectionsTemplate->set('view_for', $template->id);
-                $collectionsTemplate->set('child_template', $template->id);
-            }
-
             $columns = array();
             $columns[0] = $modx->newObject('CollectionTemplateColumn');
             $columns[0]->fromArray(array(
@@ -97,7 +92,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'renderer' => '',
                 'position' => 3,
             ));
-             
+
             $columns[4] = $modx->newObject('CollectionTemplateColumn');
             $columns[4]->fromArray(array(
                 'label' => 'resource_menuindex',
@@ -111,6 +106,18 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             ));
 
             $collectionsTemplate->addMany($columns, 'Columns');
+
+            if ($template) {
+                $collectionsTemplate->set('child_template', $template->id);
+
+                $resourceTemplates = array();
+                $resourceTemplates[0] = $modx->newObject('CollectionResourceTemplate');
+                $resourceTemplates[0]->fromArray(array(
+                   'resource_template' => $template->id
+                ));
+
+                $collectionsTemplate->addMany($resourceTemplates, 'ResourceTemplates');
+            }
 
             $collectionsTemplate->save();
         }
