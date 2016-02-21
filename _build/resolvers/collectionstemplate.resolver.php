@@ -44,6 +44,10 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             $collectionsTemplate->set('button_label', 'New Post');
             $collectionsTemplate->set('back_to_collection_label', 'All Posts');
 
+            if ($template) {
+                $collectionsTemplate->set('child_template', $template->id);
+            }
+            /* Add Collections Columns */
             $columns = array();
             $columns[0] = $modx->newObject('CollectionTemplateColumn');
             $columns[0]->fromArray(array(
@@ -107,16 +111,11 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
             $collectionsTemplate->addMany($columns, 'Columns');
 
-            if ($template) {
-                $collectionsTemplate->set('child_template', $template->id);
+            /* Assign Collections template to the blog container */
+            $collectionsSettings = $modx->getObject('CollectionSetting', array('collection' => $modx->getOption('quill2.blog_container')));
 
-                $resourceTemplates = array();
-                $resourceTemplates[0] = $modx->newObject('CollectionResourceTemplate');
-                $resourceTemplates[0]->fromArray(array(
-                   'resource_template' => $template->id
-                ));
-
-                $collectionsTemplate->addMany($resourceTemplates, 'ResourceTemplates');
+            if ($collectionsSettings) {
+                $collectionsTemplate->addMany($collectionsSettings, 'CollectionSetting');
             }
 
             $collectionsTemplate->save();
