@@ -1,6 +1,6 @@
 Changelog file for Quill extra.
 
-# Quill 1.1.0-beta (February 19, 2016)
+# Quill 1.1.0-beta (February 22, 2016)
 ===================================
 
 - Add custom Collections template
