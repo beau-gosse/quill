@@ -110,16 +110,16 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             ));
 
             $collectionsTemplate->addMany($columns, 'Columns');
-
-            /* Assign Collections template to the blog container */
-            $collectionsSettings = $modx->getObject('CollectionSetting', array('collection' => $modx->getOption('quill2.blog_container')));
-
-            if ($collectionsSettings) {
-                $collectionsTemplate->addMany($collectionsSettings, 'CollectionSetting');
-            }
-
             $collectionsTemplate->save();
         }
+
+        /* Assign Collections template to the blog container */
+        $ctObj = $modx->getObject('CollectionTemplate', array('name' => 'Quill'));
+        $csTemplate = $ctObj->get('id');
+        $collectionsSettings = $modx->newObject('CollectionSetting');
+        $collectionsSettings->set('collection', $modx->getOption('quill2.blog_container'));
+        $collectionsSettings->set('template', $csTemplate);
+        $collectionsSettings->save();
 
         break;
     case xPDOTransport::ACTION_UNINSTALL:
