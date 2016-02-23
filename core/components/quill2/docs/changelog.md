@@ -3,7 +3,7 @@ Changelog file for Quill extra.
 # Quill 1.1.0-beta (February 23, 2016)
 ===================================
 
-- Add custom Collections template
+- Add custom Collections view
 - Add French Lexicon strings
 - Update blog container id system setting key
 - Update search page id system setting key
