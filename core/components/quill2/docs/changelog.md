@@ -4,6 +4,7 @@ Changelog file for Quill extra.
 ===================================
 
 - Add custom Collections template
+- Add French Lexicon strings
 - Update blog container id system setting key
 - Update search page id system setting key
 
