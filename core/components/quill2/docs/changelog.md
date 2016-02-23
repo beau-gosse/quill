@@ -4,6 +4,8 @@ Changelog file for Quill extra.
 ===================================
 
 - Add custom Collections template
+- Update blog container id system setting
+- Update search page id system setting
 
 # Quill 1.0.4-beta (February 3, 2016)
 ===================================
