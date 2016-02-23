@@ -33,7 +33,7 @@
             <!-- /.Site nav -->
         </li>
       </ul>
-      [[SimpleSearchForm? &tpl=`qllSearchForm` &landing=`[[++quill.search_page]]` &searchIndex=`term`]]
+      [[SimpleSearchForm? &tpl=`qllSearchForm` &landing=`[[++quill2.search_page]]` &searchIndex=`term`]]
     </nav>
   </header>
   <!-- /.Masthead -->
