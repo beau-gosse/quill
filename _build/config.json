@@ -555,7 +555,7 @@
     },
     "resolver": {
       "before": ["tagging.resolver.php"],
-      "after": ["settings.resolver.php", "config.resolver.php", "collectionstemplate.resolver.php"]
+      "after": ["settings.resolver.php", "config.resolver.php", "collections.resolver.php"]
     }
   }
 }
