@@ -4,7 +4,7 @@
  *
  * This snippet loads relevant page scripts.
  * @author Treigh P. M. <treigh(at)kleverr.com>
- * @version 1.0.0 - December 7, 2015
+ * @version 1.0.1 - February 22, 2015
  *
  * USAGE:
  *
@@ -16,7 +16,7 @@ $output  = '';
 $snippet = 'qllPostScripts';
 
 /* Default properties */
-$blogStart = $modx->getOption('start', $scriptProperties, $modx->getOption('quill.blog_container'));
+$blogStart = $modx->getOption('start', $scriptProperties, $modx->getOption('quill2.blog_container'));
 $startScpt = $modx->getOption('startScripts', $scriptProperties, 'qllContainerScripts');
 $postScpt  = $modx->getOption('postScripts', $scriptProperties, 'qllPostScripts');
 
