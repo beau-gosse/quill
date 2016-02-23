@@ -1,7 +1,6 @@
 <?php
 /**
 * Resolves custom Collections template for Quill extra.
-* Loosely based on Collections' defaulttemplate resolver
 */
 if (!$object->xpdo) return false;
 /** @var modX $modx */
@@ -24,10 +23,11 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         );
 
         $resTemplate = $modx->getObject('modTemplate', array('templatename' => 'Quill'));
+        $container = $modx->getObject('modSystemSetting', array('key' => 'quill2.blog_container'));
 
-        /* Create Collections template */
         $ct = $modx->getObject('CollectionTemplate', array('name' => 'Quill'));
 
+        /* Create Collections template object if it doesn't exitst */
         if (!$ct) {
             $ct = $modx->newObject('CollectionTemplate');
             $ct->set('name', 'Quill');
@@ -49,7 +49,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 $ct->set('child_template', $resTemplate->id);
             }
 
-            /* Add Collections Columns */
+            /* Add Columns */
             $columns = array();
             $columns[0] = $modx->newObject('CollectionTemplateColumn');
             $columns[0]->fromArray(array(
@@ -115,11 +115,9 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             $ct->save();
         }
 
-        /* Assign Collections template to the blog container */
-        $ctObj = $modx->getObject('CollectionTemplate', array('name' => 'Quill'));
-        $csTemplate = $ctObj->get('id');
-        $cs = $modx->newObject('CollectionSetting');
-        $cs->set('collection', $modx->getOption('quill2.blog_container'));
+        /* Assign the template to the blog container */
+        $csTemplate = $ct->get('id');
+        $cs = $modx->getObject('CollectionSetting', array('collection' => $container));
         $cs->set('template', $csTemplate);
         $cs->save();
 
