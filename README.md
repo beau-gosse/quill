@@ -30,7 +30,7 @@ As of version **1.0.4 Beta**, Quill's transport package name has changed from `q
 ## Getting Started
 
 - Visit Quill's official [documentation](http://quill.kleverr.modxcloud.com/flight-manual) to get started.
-- Check out Quill's [Pattern Library](http://c0028.paas2.tx.modxcloud.com/introducing-quill/) for a complete style guide
+- Check out Quill's [Pattern Library](http://quill.kleverr.modxcloud.com/pattern-library/) for a complete style guide
 
 ## Included Extras
 
